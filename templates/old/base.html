@@ -1,0 +1,210 @@
+
+
+{% load static %}
+
+{% load static %}
+{% load %}
+  <link rel="icon" href="{% static 'main/images/favicon.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'main/css/fontawesome.css' %}">
+
+
+  <script src="{% static 'main/js/htmx.min.js' %}"></script>
+
+
+
+  <!--material datepicker css-->
+  <link rel="stylesheet" href="{% static 'admin_assets/plugins/material-datepicker/css/bootstrap-material-datetimepicker.min.css' %}">
+  {% comment %} <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> {% endcomment %}
+
+  <!--Select Plugins-->
+  <link href="{% static 'admin_assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+  <!--inputtags-->
+  <link href="{% static 'admin_assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+  <!--multi select-->
+  <link href="{% static 'admin_assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+  <!--Bootstrap Datepicker-->
+  <link href="{% static 'admin_assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+  <!--Touchspin-->
+  <link href="{% static 'admin_assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+  <!--Data Tables -->
+  <link href="{% static 'admin_assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <!--summernote  -->
+  <link rel="stylesheet" href="{% static 'admin_assets/plugins/summernote/dist/summernote-bs4.css' %}"/>
+  <!-- notifications css -->
+  <link rel="stylesheet" href="{% static 'admin_assets/plugins/notifications/css/lobibox.min.css' %}"/>
+
+
+  <link href="{% static 'users_assets/libs/bootstrap-icons/font/bootstrap-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'users_assets/fonts/feather/feather.css' %}" rel="stylesheet">
+  
+  <link href="{% static 'users_assets/libs/dragula/dist/dragula.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'users_assets/libs/@mdi/font/css/materialdesignicons.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'users_assets/libs/magnific-popup/dist/magnific-popup.css' %}" rel="stylesheet" />
+  <link href="{% static 'users_assets/libs/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/@yaireo/tagify/dist/tagify.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/tiny-slider/dist/tiny-slider.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/tippy.js/dist/tippy.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/prismjs/themes/prism-okaidia.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/simplebar/dist/simplebar.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/nouislider/dist/nouislider.min.css' %}" rel="stylesheet">
+  <link href="{% static 'users_assets/libs/glightbox/dist/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'admin_assets/css/icons.css' %}" rel="stylesheet" type="text/css"/>
+
+
+
+  {% load static %}
+  <!-- Scripts -->
+  <!-- Libs JS -->
+  <script src="{% static 'users_assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'users_assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="users_assets/libs/odometer/odometer.min.js"></script>
+  <script src="users_assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+  <script src="{% static 'users_assets/libs/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+  <script src="users_assets/libs/flatpickr/dist/flatpickr.min.js"></script>
+  <script src="users_assets/libs/inputmask/dist/jquery.inputmask.min.js"></script>
+  <script src="users_assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="users_assets/libs/quill/dist/quill.min.js"></script>
+  <script src="users_assets/libs/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
+  <script src="users_assets/libs/dragula/dist/dragula.min.js"></script>
+  <script src="users_assets/libs/bs-stepper/dist/js/bs-stepper.min.js"></script>
+  <script src="users_assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+  <script src="users_assets/libs/jQuery.print/jQuery.print.js"></script>
+  <script src="users_assets/libs/prismjs/prism.js"></script>
+  <script src="users_assets/libs/prismjs/components/prism-scss.min.js"></script>
+  <script src="users_assets/libs/@yaireo/tagify/dist/tagify.min.js"></script>
+  <script src="users_assets/libs/tiny-slider/dist/min/tiny-slider.js"></script>
+  <script src="users_assets/libs/@popperjs/core/dist/umd/popper.min.js"></script>
+  <script src="users_assets/libs/tippy.js/dist/tippy-bundle.umd.min.js"></script>
+  <script src="users_assets/libs/typed.js/lib/typed.min.js"></script>
+  <script src="users_assets/libs/jsvectormap/dist/js/jsvectormap.min.js"></script>
+  <script src="users_assets/libs/jsvectormap/dist/maps/world.js"></script>
+  <script src="users_assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="users_assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+  <script src="users_assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="users_assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+  <script src="users_assets/libs/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
+  <script src="users_assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+  <script src="users_assets/libs/fullcalendar/main.min.js"></script>
+  <script src="users_assets/libs/@lottiefiles/lottie-player/dist/lottie-player.js"></script>
+  <script src="users_assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="users_assets/libs/nouislider/dist/nouislider.min.js"></script>
+  <script src="users_assets/libs/wnumb/wNumb.min.js"></script>
+  <script src="users_assets/libs/glightbox/dist/js/glightbox.min.js"></script>
+  
+  
+  
+  <!-- CDN File for moment -->
+  <script src='https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js'></script>
+  
+  
+  
+  
+  <!-- Theme JS -->
+  <script src="{% static 'assets/js/theme.min.js' %}"></script>
+
+
+<!-- Plugins and scripts required by all views -->
+
+<script src="{% static 'admin_assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'admin_assets/js/popper.min.js' %}"></script>
+<script src="{% static 'admin_assets/js/bootstrap.min.js' %}"></script>
+
+<!-- simplebar js -->
+<script src="{% static 'admin_assets/plugins/simplebar/js/simplebar.js' %}"></script>
+<!-- waves effect js -->
+<script src="{% static 'admin_assets/js/waves.js' %}"></script>
+<!-- sidebar-menu js -->
+<script src="{% static 'admin_assets/js/sidebar-menu.js' %}"></script>
+
+<!-- Chart js -->
+<script src="{% static 'admin_assets/plugins/Chart.js/Chart.min.js' %}"></script>
+<!--Peity Chart -->
+<script src="{% static 'admin_assets/plugins/peity/jquery.peity.min.js' %}"></script>
+<!-- Index js -->
+<script src="{% static 'admin_assets/js/index3.js' %}"></script>
+
+<!--Form Wizard-->
+<script src="{% static 'admin_assets/plugins/jquery.steps/js/jquery.steps.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/jquery-validation/js/jquery.validate.min.js' %}"></script>
+<!--wizard initialization-->
+<script src="{% static 'admin_assets/plugins/jquery.steps/js/jquery.wizard-init.js' %}"></script>
+
+<!--Bootstrap Touchspin Js-->
+<script src="{% static 'admin_assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-touchspin/js/bootstrap-touchspin-script.js' %}"></script>
+
+<!--Select Plugins Js-->
+<script src="{% static 'admin_assets/plugins/select2/js/select2.min.js' %}"></script>
+<!--Inputtags Js-->
+<script src="{% static 'admin_assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+
+<!--Bootstrap Datepicker Js-->
+<script src="{% static 'admin_assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+<!--Multi Select Js-->
+<script src="{% static 'admin_assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+<!--material date picker js-->
+<script src="{% static 'admin_assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/material-datepicker/js/ja.js' %}"></script>
+<!-- Sparkline JS -->
+<script src="{% static 'admin_assets/plugins/sparkline-charts/jquery.sparkline.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/sparkline-charts/sparkline-chart-script.js' %}"></script>
+<!-- c3 Charts -->
+<script src="{% static 'admin_assets/plugins/d3/d3.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/c3/js/c3.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/c3/js/c3.js' %}"></script>
+
+<!-- Chart JS -->
+<script src="{% static 'admin_assets/plugins/Chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/Chart.js/chartjs-script.js' %}"></script>
+
+<!--Data Tables js-->
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+
+<!--Sweet Alerts -->
+<script src="{% static 'admin_assets/plugins/alerts-boxes/js/sweetalert.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/alerts-boxes/js/sweet-alert-script.js' %}"></script>
+
+<!--notification js -->
+<script src="{% static 'admin_assets/plugins/notifications/js/lobibox.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/notifications/js/notifications.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/notifications/js/notification-custom-script.js' %}"></script>
+
+<!-- Custom scripts -->
+<script src="{% static 'admin_assets/js/app-script.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+
+<!--may-js-->
+<script src="{% static 'main/js/custom.js' %}"></script>
+<script src="{% static 'main/js/dropzone-custom.js' %}"></script>
+
+
+<script>
+  $(document).ready(function() {
+   //Default data table
+    $('.default-datatable').DataTable();
+
+
+    var table = $('#example').DataTable( {
+     lengthChange: false,
+     buttons: [ 'copy', 'excel', 'pdf', 'print', 'colvis' ]
+   } );
+
+  table.buttons().container()
+     .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+   
+   } );
+
+ </script>

@@ -1,0 +1,113 @@
+{% load static %}
+{% load myflatpage %}
+{% general_setting as generalSetting %}
+  <!--Start sidebar-wrapper-->
+  <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true" class="border-right admin-sidebar bg-dark shadow-none">
+    <div class="brand-logo bg-dark">
+      <a href="{% url 'home' %}">
+        <img src="{{generalSetting.logo.url}}" class="dashboard-logo-icon" alt="logo icon">
+
+      </a>
+    </div>
+    <ul class="sidebar-menu do-nicescrol bg-dark">
+      <li class="sidebar-header text-light"><h6>MAIN NAVIGATION</h6></li>
+
+      <li>
+        <a href="{% url 'academy_dashboard' %}" class="waves-effect">
+          <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'academy_dashboard' %}"><i class="zmdi zmdi-star-outline"></i>Academy dashboard</a></li>
+          <li><a href="{% url 'users_dashboard' %}"><i class="zmdi zmdi-star-outline"></i>Users dashboard</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="index.html" class="waves-effect">
+          <i class="zmdi zmdi-star-outline"></i> <span>Academy</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'academy_creation_tree' %}"><i class="zmdi zmdi-star-outline"></i>quick Academy Creation</a></li>
+          <li>
+            <a href="{% url 'create_branch' %}" class="waves-effect">
+              <i class="zmdi zmdi-star-outline"></i><span>Branch</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="{% url 'branch_list' %}"><i class="zmdi zmdi-star-outline"></i>Branch List</a></li>
+              <li><a href="{% url 'create_branch' %}"><i class="zmdi zmdi-star-outline"></i>Create Branch</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="{% url 'create_department' %}" class="waves-effect">
+              <i class="zmdi zmdi-star-outline"></i><span>Department</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="{% url 'department_list' %}"><i class="zmdi zmdi-star-outline"></i>Department List</a></li>
+              <li><a href="{% url 'create_department' %}"><i class="zmdi zmdi-star-outline"></i>Create Department</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="{% url 'create_subject' %}" class="waves-effect">
+              <i class="zmdi zmdi-star-outline"></i><span>Subjects</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="{% url 'subject_list' %}"><i class="zmdi zmdi-star-outline"></i>Subjects List</a></li>
+              <li><a href="{% url 'create_subject' %}"><i class="zmdi zmdi-star-outline"></i>Create Subjects</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="{% url 'create_section' %}" class="waves-effect">
+              <i class="zmdi zmdi-star-outline"></i><span>Section</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+              <li><a href="{% url 'section_list' %}"><i class="zmdi zmdi-star-outline"></i>Section List</a></li>
+              <li><a href="{% url 'create_section' %}"><i class="zmdi zmdi-star-outline"></i>Create Section</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="index.html" class="waves-effect">
+          <i class="zmdi zmdi-star-outline"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'users_list' %}"><i class="zmdi zmdi-star-outline"></i>Users List</a></li>
+          <li><a href="{% url 'create_user' %}"><i class="zmdi zmdi-star-outline"></i>Create User</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="index.html" class="waves-effect">
+          <i class="zmdi zmdi-star-outline"></i> <span>Teachers</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'teachers_list' %}"><i class="zmdi zmdi-star-outline"></i>Teachers List</a></li>
+          <li><a href="{% url 'create_teacher' %}"><i class="zmdi zmdi-star-outline"></i>Create Teacher</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="index.html" class="waves-effect">
+          <i class="zmdi zmdi-star-outline"></i> <span>Students</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'students_list' %}"><i class="zmdi zmdi-star-outline"></i>Student List</a></li>
+          <li><a href="{% url 'student_creation_tree' %}"><i class="zmdi zmdi-star-outline"></i>Registration Students</a></li>
+          <li><a href="{% url 'create_student' %}"><i class="zmdi zmdi-star-outline"></i>Create Student</a></li> 
+        </ul>
+      </li>
+      <li>
+        <li><a href="{% url 'contact_list' %}"><i class="zmdi zmdi-star-outline"></i>Contact List</a></li>
+      </li>
+      <li>
+        <a href="index.html" class="waves-effect">
+          <i class="zmdi zmdi-star-outline"></i> <span>Blog</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'admin_blog_overview' %}"><i class="zmdi zmdi-star-outline"></i>Blog Overview</a></li>
+          <li><a href="{% url 'admin_create_blog' %}"><i class="zmdi zmdi-star-outline"></i>Create Bolg</a></li> 
+          <li><a href="{% url 'admin_blog_category' %}"><i class="zmdi zmdi-star-outline"></i>Blog Category</a></li> 
+          <li><a href="{% url 'admin_blog_list' %}"><i class="zmdi zmdi-star-outline"></i>Bolg Pot List</a></li> 
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!--End sidebar-wrapper-->

@@ -1,0 +1,323 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+ <!--=========================================================================================-->
+ <!--Data Tables -->
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+ <link href="{% static 'assets/css/table.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+{% endblock admin_style %}
+{% block admin_content %}
+<!--Start Dashboard Content-->
+<div class="row pt-2 pb-2">
+<div class="col-sm-9">
+    <h5 class="page-title  pt-3 pb-3">Department deteils</h5>
+    <ol class="breadcrumb shadow bg-light p-2">
+        <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'department_list' %}">Departments list</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Department Deteils</li>
+    </ol>
+</div>
+<div class="col-sm-3">
+    <div class="btn-group shadow float-sm-right">
+        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+        <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'create_department' %}" class="dropdown-item">Create Department</a>
+            <a href="{% url 'update_department' department.id %}" class="dropdown-item">Update Department</a>
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'delete_department' department.id %}" class="dropdown-item">Delete Department</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Breadcrumb-->
+
+<!-- Page header -->
+<div class="pt-lg-8 pb-lg-16 pt-8 pb-12 bg-success">
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-xl-7 col-lg-7 col-md-12">
+            <div>
+                <h2 class="text-white display-4 fw-semi-bold">{{department.name}}</h2>
+                <p class="text-white mb-6 lead">
+                    {{department.bio}}
+                </p>
+                <div class="d-flex align-items-center">
+                    <a href="#" class="bookmark text-white text-decoration-none">
+                        <i class="fa fa-bookmark text-white-50 me-2"></i>Bookmark
+                    </a>
+
+                    <span class="text-white ms-3"><i class="fa fa-user text-white-50"></i> {{department_students.count}} Students </span>
+                    <span class="ms-4">
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                        <span class="text-white">(140)</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Page content -->
+<div class="pb-10">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-12 col-12 mt-n8 mb-4 mb-lg-0">
+            <!-- Card shadow -->
+            <div class="card  rounded-3">
+                <!-- Card shadow header -->
+                <div class="card-header border-bottom-0 p-0">
+                    <div>
+                        <!-- Nav -->
+                        <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="description_tab-tab" data-bs-toggle="pill" href="#description_tab_id" role="tab" aria-controls="description_tab" aria-selected="teue">Description</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" id="subject_tab-tab" data-bs-toggle="pill" href="#subject_tab_id" role="tab" aria-controls="subject_tab" aria-selected="false">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="section_tab-tab" data-bs-toggle="pill" href="#section_tab_id" role="tab" aria-controls="section_tab" aria-selected="false">Section</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="teacher_tab-tab" data-bs-toggle="pill" href="#teacher_tab_id" role="tab" aria-controls="teacher_tab" aria-selected="false">Teacher</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="student_tab-tab" data-bs-toggle="pill" href="#student_tab_id" role="tab" aria-controls="student_tab" aria-selected="false">student</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="review_tab-tab" data-bs-toggle="pill" href="#review_tab_id" role="tab" aria-controls="review_tab" aria-selected="false">Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Card shadow Body -->
+                <div class="card-body">
+                    <div class="tab-content" id="tabContent">
+                        <div class="tab-pane fade active show" id="description_tab_id" role="tabpanel" aria-labelledby="description_tab-tab">
+                            <!-- Description -->
+                            <div class="mb-4">
+                                    <h4 class="mb-2">Branch Descriptions</h4>
+                                    <div>{{branch.descriptions|safe}}</div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="subject_tab_id" role="tabpanel" aria-labelledby="subject_tab-tab">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <label class="p-auto"><i class="fa fa-table"></i>Section List</label>
+                                </div>
+                                <div class="card-body p-2">
+                                    {% include 'academy/components/subject_table.html' with subjects=department_subjects %}
+                                    <div class="mt-4 p-2">
+                                        <button
+                                            hx-get="{% url 'htmx_department_subject_create' department.id %}"
+                                            hx-target="#hx_add_subject_form"
+                                            hx-swap="innerHTML"
+                                            type="button" class="btn btn-outline-primary waves-effect waves-light">
+                                            <i class="fa fa-plus-square" aria-hidden="true"></i> Add New Subject
+                                        </button>
+                                    </div>
+                                    <div id="hx_add_subject_form" class="d-grid"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="section_tab_id" role="tabpanel" aria-labelledby="section_tab-tab">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <label class="p-auto"><i class="fa fa-table"></i>Section List</label>
+                                </div>
+                                <div class="card-body p-2">
+                                    {% include 'academy/components/section_table.html' with sections=department_sections %}
+                                    <div class="mt-4 p-2">
+                                        <button
+                                            hx-get="{% url 'htmx_department_section_creation' department.id %}"
+                                            hx-target="#hx_add_section_form"
+                                            hx-swap="innerHTML"
+                                            type="button" class="btn btn-outline-primary waves-effect waves-light">
+                                            <i class="fa fa-plus-square" aria-hidden="true"></i> Add New Section
+                                        </button>
+                                    </div>
+                                    <div id="hx_add_section_form" class="d-grid"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="teacher_tab_id" role="tabpanel" aria-labelledby="teacher_tab-tab">
+                            <div class="card">
+                                <div class="card-header ">
+                                    <label class="p-auto"><i class="fa fa-table"></i>Teacher List</label>
+                                </div>
+                                <div class="card-body p-2">
+                                    {% include 'teachers/components/teacher_table.html' with teachers=department_teachers %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="student_tab_id" role="tabpanel" aria-labelledby="student_tab-tab">
+                            {% include "students/components/student_table.html" with students=department_students %} 
+                        </div>
+                        <div class="tab-pane fade" id="review_tab_id" role="tabpanel" aria-labelledby="review_tab-tab">
+                            <!-- Reviews -->
+                            {% include 'components/reviews.html' with reviews=branch.branchreview_set.all review_form=review_form  %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12 col-12 mt-lg-n22">
+            <!-- Card shadow -->
+            <div class="card  mb-3 mb-4">
+                <div class="p-1">
+                    <div class="d-flex justify-content-center position-relative rounded border-white border rounded-3 bg-cover" style="background-image: url(/static/users_assets/images/course/course-javascript.jpg);">
+                        <img src="{{department.cover_image.url}}" alt="" class="card-img-top rounded-top-md" />
+                    </div>
+                </div>
+                <!-- Card shadow body -->
+                <div class="card-body">
+                    <!-- Price single page -->
+                    {% if request.user.is_superuser %}
+                    <div class="mb-3">
+                        <span class="text-dark fw-bold h3">{{department.name}}</span>
+                    </div>
+                    <div class="d-grid">
+                            <a href="{% url 'update_department' department.id  %}" class="btn btn-outline-primary">Edit Department</a>
+                        
+                    </div>
+                    {% else %}
+                    <div class="mb-3">
+                        <span class="text-dark fw-bold h3">$600</span>
+                        <del class="fs-4 text-muted">$750</del>
+                    </div>
+                    <div class="d-grid">
+                            <a href="pricing.html" class="btn btn-outline-primary">Get Full Access</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+                <!-- Card shadow -->
+                <div class="card  mb-4">
+                <div class="bg-transparent">
+                    <!-- Card shadow header -->
+                    <div class="card-header">
+                        <h5 class="mb-0">Department Info</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="my-2 p-2 bg-transparent">
+                            <div class="card border-0 mb-4 mb-lg-0">
+                                <div class="card-header  fw-bold  border-light-3">
+                                    Branches
+                                </div>
+                                <!-- Card body -->
+                                <div class="card-body">
+                                    <div class="d-lg-flex">
+                                        <div>
+                                            <a href="{% url 'branch_details' department.branch.id %}">
+                                                <img src="{{department.branch.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                            </a>
+                                        </div>
+                                        <div class="ms-lg-3 mt-2 mt-lg-0 py-auto">
+                                            <h4 class="mt-auto h6">
+                                                <a href="{% url 'branch_details'  department.branch.id %}" class="text-inherit">
+                                                    {{department.branch.name|title}}
+                                                </a>
+                                            </h4>
+                                            <span class="">
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                                <span class="text-inherit">(140)</span>
+                                            </span>
+                                            <h6 class="my-1">Location: {{department.branch.name|title}} </h6>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                        </li>
+                        <li class="my-2 p-2 bg-transparent"> 
+                            <div class="card border-0 mb-4 mb-lg-0">
+                                <div class="card-header  fw-bold  border-light-3">
+                                    Address
+                                </div>
+                                <!-- Card body -->
+                                <div class="card-body">
+                                    <ul class="nav flex-column nav-pills list-unstyled ms-n2 mb-4">
+                                        <li class="nav-item mb-2 p-2 bg-light">
+                                            state: <span class="fw-bold">{{teacher.user.address.street}}</span>
+                                        </li>
+                                        <li class="nav-item mb-2 p-2 bg-light">
+                                            City: <span class="fw-bold">{{teacher.user.address.city}}</span>
+                                        </li>
+                                        <li class="nav-item mb-2 p-2 bg-light">
+                                            Street: <span class="fw-bold">{{teacher.user.address.state}}</span>
+                                        </li>
+                
+                                    </ul>
+                                    
+                                </div>
+                            </div>
+
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card shadow -->
+    <div class="pt-12 pb-3">
+        <div class="row d-md-flex align-items-center mb-4">
+            <div class="col-12">
+                <h3 class="mb-0">Related Department</h3>
+            </div>
+        </div>
+        <div class="row">
+            {% for related_department in related_departments %}
+            <div class="col-lg-6 col-12">
+                {% include 'components/department_card.html' with department=related_department %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+<!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+  <!--=========================================================================================-->
+  <!--Data Tables js-->
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+  
+  <!--Inline script-->
+  <!--=========================================================================================-->
+  <script>
+    $(function() {
+      //Default data table
+        $('.default-datatable').DataTable();
+        $("form-select .form-select-sm")
+    });
+   </script>
+  <!--=========================================================================================-->
+{% endblock admin_script %}

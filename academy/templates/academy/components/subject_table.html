@@ -1,0 +1,85 @@
+<div class="table-responsive">
+    <table id="data-table-example" class="table align-items-center table-flush     default-datatable">
+        <thead class="table-light">
+            <tr>
+                <th>Subject</th>
+                <th>Rating</th>
+                <th>Teacher</th>
+                <th>Department</th>
+                <th>Branch</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            <tr id="delete_subject_column_id_{{subject.id}}">
+                <td class="border-top-0">
+                    <h4 class="mb-1 h5">
+                        <a href="{% url 'subject_details' subject.id %}" class="text-inherit">
+                            {{subject.name|title}}
+                        </a>
+                    </h4>
+                </td>
+                <td>
+                    <div class="">
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                        <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                        <span class="text-inherit">(140)</span>
+                    </div>
+                </td>
+                <td class="align-middle border-top-0">
+                    {% if subject.teacher %}
+                        <a href="{% url 'user_details' subject.teacher.user.id %}" class="text-inherit">
+                            <div class="d-flex align-items-center">
+                                <img src="{{subject.teacher.user.get_profile_image.url}}"
+                                alt="" class="rounded-circle avatar avater-md me-2" />
+                                <h6 class="mb-0">{{subject.teacher.user|title}}</h6>
+                            </div>
+                        </a>
+                    {% endif %}
+                </td>
+                
+                <td>
+                    {% if subject.department %}
+                        <a href="{% url 'department_details'  subject.department.id %}" class="text-inherit">
+                            {{subject.department.name|title}}
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if subject.department.branch %}
+                    <h4 class="mb-1 h5">
+                        <a href="{% url 'branch_details'  subject.department.branch.id %}" class="text-inherit">
+                            {{subject.department.branch.name|title}}
+                        </a>
+                    </h4>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'subject_details' subject.id %}">
+                        <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                    </a>
+                    <a href="{% url 'update_subject' subject.id %}">
+                        <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                    </a>
+                    <a 
+                        id="delete_subject_id_{{subject.id}}" 
+                        class="hx-delete-alert-confirm" 
+                        hx-get="{% url 'htmx_subject_delete' subject.id %}"
+                        hx-target="#delete_subject_column_id_{{subject.id}}"
+                        hx-trigger='confirmed'
+                        hx-swap="outerHTML"
+                    >
+                        <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                    </a>
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

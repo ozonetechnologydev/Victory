@@ -1,0 +1,147 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+<!-- Plugins and style required by this views -->
+<!--=========================================================================================-->
+<!--dropzone  -->
+<link href="{% static 'assets/libs/dropzone/dist/dropzone.css' %}" rel="stylesheet" /> 
+<!--summernote  -->
+<link href="{% static 'assets/plugins/summernote/dist/summernote-bs4.css' %}" rel="stylesheet" />
+
+<!--Select Plugins-->
+<link href="{% static 'assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+<!--inputtags-->
+<link href="{% static 'assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+<!--multi select-->
+<link href="{% static 'assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+<!--Bootstrap Datepicker-->
+<link href="{% static 'assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+<!--Touchspin-->
+<link href="{% static 'assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+{% endblock admin_style %}
+
+{% block admin_content %}
+    <!--Start Dashboard Content-->
+
+
+<!-- End Breadcrumb-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow">
+            <div class="card-header text-uppercase">
+                {% if teacher %}Update Teacher {% else %}Create Teacher{% endif %}
+            </div>
+                <div class="card-body">
+                    <form class="w-100 my-4 border m-1 p-2" action="{% url 'create_teacher' %}" method="POST" enctype="multipart/form-data">
+                        {% include 'components/messages.html' %} 
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="row">
+                                <div class="col-12">
+                                    {% for error in form.errors %}
+                                        <!-- Warning alert -->
+                                        <div class="alert alert-warning d-flex align-items-center p-4" role="alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                            </svg>
+                                            <div>
+                                                <span><strong>Warning! </strong>{{ error|safe }}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            {% for field in form %}
+                                <div class="col-lg-12 col-sm-12 my-4">
+                                    <div class="form-group">
+                                        {% for error in field.errors %}
+                                            <!-- Warning alert -->
+                                            <div class="alert alert-warning d-flex align-items-center p-4" role="alert">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                </svg>
+                                                <div>
+                                                    <span><strong>Warning! </strong>{{ error|safe }}!</span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {{ field.label_tag }}
+                                        <div class="position-relative has-icon-right">
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                                <p class="help">{{ field.help_text|safe }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <a href="{{request.META.get.HTTP_REFERER}}" class="btn btn-primary btn-round waves-effect btn-sm  waves-light m-1">Cancle</a>
+                        <button type="submit" class="btn btn-success btn-round waves-effect btn-sm waves-light m-1">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--End Dashboard Content-->
+ {% endblock admin_content %}
+
+ {% block admin_script %}  
+ 
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<!--Sweet Alerts -->
+<script src="{% static 'assets/plugins/alerts-boxes/js/sweetalert.min.js' %}"></script>
+<script src="{% static 'assets/plugins/alerts-boxes/js/sweet-alert-script.js' %}"></script>
+
+
+<!-- Plugins and scripts required by This views -->
+<!--=========================================================================================-->
+<!--summernote Js-->
+<script src="{% static 'assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+<!--dropzone Js-->
+<script src="{% static 'assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+<script src="{% static 'assets/libs/dropzone/dist/dropzone-script.js' %}"></script>
+<!--=========================================================================================-->
+<!--Bootstrap Touchspin Js-->
+<script src="{% static 'assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="{% static 'assets/plugins/bootstrap-touchspin/js/bootstrap-touchspin-script.js' %}"></script>
+
+<!--Select Plugins Js-->
+<script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+<!--Inputtags Js-->
+<script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+<!--Multi Select Js-->
+<script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+<script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+<script src="{% static 'main/js/select-custom.js' %}"></script>
+
+<!--Inline script-->
+<script>
+  $(function(){
+    $('.single-select')?.select2();
+
+
+    if ($('.summernoteEditor')?.length){
+      $('.summernoteEditor')?.summernote({
+        height: 400,
+        tabsize: 2
+      });
+    }
+    
+    $("input[type='password']")?.addClass("form-control");
+   });
+</script>
+
+   <!--=========================================================================================-->
+
+ {% endblock admin_script %}
+
+

@@ -1,0 +1,296 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+{% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+<!-- Page header -->
+<div class="bg-success py-4 py-lg-6">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+        <div>
+          <h1 class="mb-0 text-white display-4">Filter Courses</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content -->
+<div class="py-6">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+        <div class="row d-lg-flex justify-content-between align-items-center">
+          <div class="col-md-6 col-lg-8 col-xl-9">
+            <h4 class="mb-3 mb-lg-0">Displaying 9 out of 68 courses</h4>
+          </div>
+          <div class="d-inline-flex col-md-6 col-lg-4 col-xl-3">
+            <div class="me-2">
+              <!-- Nav -->
+              <div class="nav btn-group flex-nowrap" role="tablist">
+                <button class="btn btn-outline-white active" data-bs-toggle="tab" data-bs-target="#tabPaneGrid"
+                  role="tab" aria-controls="tabPaneGrid" aria-selected="true">
+                  <span class="fa fa-th-large"></span>
+                </button>
+                <button class="btn btn-outline-white" data-bs-toggle="tab" data-bs-target="#tabPaneList" role="tab"
+                  aria-controls="tabPaneList" aria-selected="false">
+                  <span class="fa fa-list"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-4 col-12 mb-4 mb-lg-0">
+        <!-- Card -->
+        <div class="card">
+          <!-- Card header -->
+          <div class="card-header">
+            <h4 class="mb-0">Filter</h4>
+          </div>
+          <!-- Card body -->
+          <div class="card-body">
+            <span class="dropdown-header px-0 mb-2">Branch</span>
+
+            <!-- Checkbox -->
+            {% for branch in branchs %}
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="branchId_{{branch.id}}" />
+              <label class="form-check-label" for="branchId_{{branch.id}}">{{branch.name}}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <!-- Card body -->
+          <div class="card-body">
+            <span class="dropdown-header px-0 mb-2">Department</span>
+
+            <!-- Checkbox -->
+            {% for department in departments %}
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="departmentId_{{department.id}}" />
+              <label class="form-check-label" for="departmentId_{{department.id}}">{{department}}</label>
+            </div>
+            {% endfor %}
+          </div>
+          <!-- Card body -->
+          <div class="card-body border-top">
+            <span class="dropdown-header px-0 mb-2"> Ratings</span>
+            <!-- Custom control -->
+            <div class="custom-control custom-radio mb-1">
+              <input type="radio" class="form-check-input" id="starRadio1" name="customRadio" />
+              <label class="form-check-label" for="starRadio1">
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star text-warning"></i>
+                <span class="fs-6">4.5 & UP</span>
+              </label>
+            </div>
+            <!-- Custom control -->
+            <div class="custom-control custom-radio mb-1">
+              <input type="radio" class="form-check-input" id="starRadio2" name="customRadio" checked />
+              <label class="form-check-label" for="starRadio2">
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star text-warning"></i>
+                <span class="fs-6">4.0 & UP</span></label>
+            </div>
+            <!-- Custom control -->
+            <div class="custom-control custom-radio mb-1">
+              <input type="radio" class="form-check-input" id="starRadio3" name="customRadio" />
+              <label class="form-check-label" for="starRadio3">
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star text-warning"></i>
+                <span class="fs-6">3.5 & UP</span></label>
+            </div>
+            <!-- Custom control -->
+            <div class="custom-control custom-radio mb-1">
+              <input type="radio" class="form-check-input" id="starRadio4" name="customRadio" />
+              <label class="form-check-label" for="starRadio4">
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                <i class="zmdi zmdi-star text-warning"></i>
+                <span class="fs-6">3.0 & UP</span></label>
+            </div>
+          </div>
+          <!-- Card body -->
+          <div class="card-body border-top">
+            <span class="dropdown-header px-0 mb-2"> Skill Level</span>
+            <!-- Checkbox -->
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="allTwoCheck" />
+              <label class="form-check-label" for="allTwoCheck">All Level</label>
+            </div>
+            <!-- Checkbox -->
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="beginnerTwoCheck" checked />
+              <label class="form-check-label" for="beginnerTwoCheck">Beginner</label>
+            </div>
+            <!-- Checkbox -->
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="intermediateCheck" />
+              <label class="form-check-label" for="intermediateCheck">Intermediate</label>
+            </div>
+            <!-- Checkbox -->
+            <div class="form-check mb-1">
+              <input type="checkbox" class="form-check-input" id="AdvancedTwoCheck" />
+              <label class="form-check-label" for="AdvancedTwoCheck">Advance</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab content -->
+      <div class="col-xl-9 col-lg-9 col-md-8 col-12">
+        <div class="tab-content">
+          <!-- Tab pane -->
+          <div class="tab-pane fade show active pb-4" id="tabPaneGrid" role="tabpanel" aria-labelledby="tabPaneGrid">
+            <div class="row">
+              {% for subject in subjects %}
+              <div class="col-lg-4 col-md-6 col-12">
+                <!-- Card -->
+                <div class="card mb-4 card-hover">
+                  <a href="{% url 'subject_details' subject.id %}" class="card-img-top">
+                    <img src="{{subject.cover_image.url}}" alt="" class="card-img-top rounded-top-md" />
+                  </a>
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <h4 class="mb-2 text-truncate-line-2">
+                      <a href="{% url 'subject_details' subject.id %}" class="text-inherit">
+                        {{subject.name}}
+                      </a>
+                    </h4>
+                    <!-- List inline -->
+                    <ul class="mb-3 list-inline">
+                      <li class="list-inline-item">
+                        <i class="zmdi zmdi-clock-time-four-outline text-muted me-1"></i>3h 56m
+                      </li>
+                      <li class="list-inline-item">
+                        <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                          <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                          <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                        </svg>{{subject.level}}
+                      </li>
+                    </ul>
+                    <div class="lh-1">
+                      <span>
+                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                        <i class="zmdi zmdi-star text-warning"></i>
+                      </span>
+                      <span class="text-warning">4.5</span>
+                      <span class="fs-6 text-muted">(7,700)</span>
+                    </div>
+                  </div>
+                  <!-- Card footer -->
+                  <div class="card-footer">
+                    <!-- Row -->
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">
+                        <img src="{{subject.teacher.user.profile_image.url}}" class="rounded-circle avatar-xs" alt="" />
+                      </div>
+                      <div class="col ms-2">
+                        <span>{{subject.teacher.user}}</span>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-muted bookmark">
+                          <i class="fa fa-bookmark"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- Tab pane -->
+          <div class="tab-pane fade pb-4" id="tabPaneList" role="tabpanel" aria-labelledby="tabPaneList">
+            <!-- Card -->
+            {% for subject in subjects %}
+            <div class="card mb-4 card-hover">
+              <div class="row g-0">
+                <a class="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover img-left-rounded"
+                  style="background-image: url({{subject.cover_image.url}});"
+                  href="{% url 'subject_details' subject.id %}">
+                  <img src="{{subject.cover_image.url}}" alt="..." class="img-fluid d-lg-none invisible" />
+                </a>
+                <div class="col-lg-9 col-md-12 col-12">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <h3 class="mb-2 text-truncate-line-2">
+                      <a href="{% url 'subject_details' subject.id %}" class="text-inherit">{{subject.name}}</a>
+                    </h3>
+                    <!-- List inline -->
+                    <ul class="mb-5 list-inline">
+                      <li class="list-inline-item">
+                        <i class="zmdi zmdi-clock-time-four-outline text-muted me-1"></i>3h 56m
+                      </li>
+                      <li class="list-inline-item">
+                        <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                          <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                          <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                        </svg>{{subject.level}}
+                      </li>
+                      <li class="list-inline-item">
+                        <span>
+                          <i class="zmdi zmdi-star text-warning me-n1"></i>
+                          <i class="zmdi zmdi-star text-warning me-n1"></i>
+                          <i class="zmdi zmdi-star text-warning me-n1"></i>
+                          <i class="zmdi zmdi-star text-warning me-n1"></i>
+                          <i class="zmdi zmdi-star text-warning"></i>
+                        </span>
+                        <span class="text-warning">4.5</span>
+                        <span class="fs-6 text-muted">(9,300)</span>
+                      </li>
+                    </ul>
+                    <!-- Row -->
+                    <div class="row align-items-center g-0">
+                      <div class="col-auto">
+                        <img src="{{subject.teacher.user.profile_image.url}}" class="rounded-circle avatar-xs" alt="" />
+                      </div>
+                      <div class="col ms-2">
+                        <span>{{subject.teacher.user}}</span>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-muted bookmark">
+                          <i class="fa fa-bookmark"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+{% include 'components/vfooter.html' %}
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

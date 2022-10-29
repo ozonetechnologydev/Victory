@@ -1,0 +1,456 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+<!-- Page header -->
+<div class="bg-success py-4 py-lg-6">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+          <div class="d-flex justify-content-between">
+            <h1 class="mb-0 text-white display-4">Filter Quzzes</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Content -->
+  <div class="py-6">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+          
+          <div class="row d-lg-flex justify-content-between align-items-center">
+            <div class="col-md-6 col-lg-8 col-xl-9">
+              <h4 class="mb-3 mb-lg-0">Displaying 9 out of 68 courses</h4>
+            </div>
+            <div class="d-inline-flex col-md-6 col-lg-4 col-xl-3">
+              <div class="">
+                <!-- Nav -->
+                <div class="nav btn-group flex-nowrap" role="tablist">
+                  <button
+                    class="btn btn-outline-white active"
+                    data-bs-toggle="tab"
+                    data-bs-target="#tabPaneGrid"
+                    role="tab"
+                    aria-controls="tabPaneGrid"
+                    aria-selected="true"
+                  >
+                    <span class="fa fa-th-large"></span>
+                  </button>
+                  <button
+                    class="btn btn-outline-white"
+                    data-bs-toggle="tab"
+                    data-bs-target="#tabPaneList"
+                    role="tab"
+                    aria-controls="tabPaneList"
+                    aria-selected="false"
+                  >
+                    <span class="fa fa-list"></span>
+                  </button>
+                  <a href="{% url 'quiz_creation_tree' %}" class="btn btn-primary text-white ">
+                    <i class="fa fa-plus" aria-hidden="true"> New Quiz</i>
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-12 mb-4 mb-lg-0">
+          <!-- Card -->
+          <div class="card border mb-6 mb-md-0 shadow-none">
+            <div class="card-header">
+              <h4 class="mb-0 fs-5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-filter text-muted me-2" viewBox="0 0 16 16">
+                  <path
+                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </svg>All Filters</h4>
+            </div>
+            <div class="card-body py-3">
+              <a class="fs-5 text-dark fw-semi-bold" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                Locations <span class="float-end"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                    fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                  </svg></span>
+              </a>
+              <div class="collapse show" id="collapseExample">
+                <div class="mt-3">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckLocationOne">
+                    <label class="form-check-label" for="flexCheckLocationOne">
+                      Gujarat <span class="text-muted">(4)</span>
+                    </label>
+                  </div>
+                  <div class="form-check mb-2 ">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckLocationTwo " checked>
+                    <label class="form-check-label" for="flexCheckLocationTwo ">
+                      Rajasthan <span class="text-muted">(8)</span>
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckLocationThree ">
+                    <label class="form-check-label" for="flexCheckLocationThree ">
+                      Delhi <span class="text-muted">(12)</span>
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckLocationFour ">
+                    <label class="form-check-label" for="flexCheckLocationFour ">
+                      Pune <span class="text-muted">(412)</span>
+                    </label>
+                  </div>
+                  <a href="#" class="fw-semi-bold">12+ More</a>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body border-top py-3">
+              <a class="fs-5 text-dark fw-semi-bold" data-bs-toggle="collapse" href="#collapseExampleSecond"
+                role="button" aria-expanded="false" aria-controls="collapseExampleSecond">
+                Salary <span class="float-end"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                    fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                  </svg></span>
+              </a>
+              <div class="collapse show" id="collapseExampleSecond">
+                <div class="mt-3">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckSalaryOne">
+                    <label class="form-check-label" for="flexCheckSalaryOne">
+                      0-3 Lakhs
+                    </label>
+                  </div>
+                  <div class="form-check mb-2 ">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckSalaryTwo " checked>
+                    <label class="form-check-label" for="flexCheckSalaryTwo ">
+                      3-6 Lakhs
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckSalaryThree ">
+                    <label class="form-check-label" for="flexCheckSalaryThree ">
+                      6-10 Lakhs
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckSalaryFour ">
+                    <label class="form-check-label" for="flexCheckSalaryFour ">
+                      10-15 Lakhs
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body border-top py-3">
+              <h4 class="mb-4 fs-5">Experience</h4>
+              <div id="slider"></div>
+              <div class="d-flex justify-content-between mt-2 fs-6 text-dark">
+                <span>4 yrs</span>
+                <span>30 yrs</span>
+              </div>
+
+
+            </div>
+            <div class="card-body border-top py-3">
+              <a class="fs-5 text-dark fw-semi-bold" data-bs-toggle="collapse" href="#collapseExampleThird"
+                role="button" aria-expanded="false" aria-controls="collapseExampleThird">
+                Last updated <span class="float-end"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                    fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                  </svg></span>
+              </a>
+              <div class="collapse show" id="collapseExampleThird">
+                <div class="mt-3">
+                  <select class="selectpicker form-control" data-width="100%">
+                    <option value="">Last Day</option>
+                    <option value="Newest">Newest</option>
+                    <option value="Oldest">Oldest</option>
+                  </select>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body border-top py-3">
+              <a class="fs-5 text-dark fw-semi-bold" data-bs-toggle="collapse" href="#collapseExampleFourth"
+                role="button" aria-expanded="false" aria-controls="collapseExampleFourth">
+                Education <span class="float-end"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                    fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                  </svg></span>
+              </a>
+              <div class="collapse show" id="collapseExampleFourth">
+                <div class="mt-3">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckEduFive">
+                    <label class="form-check-label" for="flexCheckEduFive">
+                      M.Tech
+                    </label>
+                  </div>
+                  <div class="form-check mb-2 ">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckEduSix " checked>
+                    <label class="form-check-label" for="flexCheckEduSix ">
+                      MBA / MTech
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckEduSeven ">
+                    <label class="form-check-label" for="flexCheckEduSeven ">
+                      Any Graduate
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckEduEight ">
+                    <label class="form-check-label" for="flexCheckEduEight ">
+                      Post Graduate
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="card-body py-3 d-grid">
+              <a href="#" class="btn btn-outline-light text-muted">
+                Clear Data
+              </a>
+            </div>
+          </div>
+
+        </div>
+  
+        <!-- Tab content -->
+        <div class="col-xl-9 col-lg-9 col-md-8 col-12">
+          <div class="tab-content">
+            <!-- Tab pane -->
+            <div
+              class="tab-pane fade show active pb-4"
+              id="tabPaneGrid"
+              role="tabpanel"
+              aria-labelledby="tabPaneGrid"
+            >
+
+
+            <div class="row">
+                {% for quiz in quizzes %}
+
+                    <div class="col-lg-6 col-12 mb-4">
+                        <!-- Job Grid Start -->
+                        <div class="card card-bordered card-hover cursor-pointer h-100">
+                            <!-- card body -->
+                            <div class="card-body">
+                            <!-- text -->
+                            <div class="w-100 mt-3">
+                                <div class="d-flex justify-content-between mb-4">
+                                <div>
+                                    <a href="{% url 'take_quizzes' quiz.id %}" class="text-inherit">
+                                        <h3 class="mb-1 fs-3">
+                                        {{quiz.name|title}}
+                                        </h3>
+                                        <h5 class="mb-1 fs-5">
+                                            {{quiz.topic|title}}
+                                        </h5>
+                                    </a>
+                                </div>
+                                <!-- Job Bookmark Start -->
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                    </svg>
+                                </div>
+                                <!-- Job Bookmark End -->
+                                
+                                </div>
+                
+                            </div>
+                            <!--Job Listing Meta Start-->
+                            <div>
+                                <div class="mb-4">
+                                    <div class="mb-2 mb-md-0">
+                                        <div class="mt-1">
+                                            <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                            </svg>
+                                            <span class="ms-1">difficulty</span>
+                                            <span class="ms-1">: {{quiz.difficulty|title}}</span>
+        
+                                        </div>
+                                        <div class="mt-1"> 
+                                            <i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+                                        </div>
+                                        <div class="mt-4">
+                                            <i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+                                        </div>
+                                        <div class="mt-1">
+                                            <i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+                                        </div>
+                                        <div class="mt-1">
+                                            <i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                                <div>
+                                    <i class="fa fa-clock text-muted"></i> <span>{{quiz.created|timesince}} ago</span>
+                                </div>
+                            </div>
+                            <!--Job Listing Meta End-->
+                
+                            </div>
+                        </div>
+                        <!-- Job Grid End -->
+            
+                    </div>
+
+                {% endfor %}
+                <nav>
+                  <!-- pagination start -->
+                  <ul class="pagination mt-4 mb-2">
+                    <li class="page-item disabled">
+                      <a class="page-link mx-1 rounded" href="#" tabindex="-1" aria-disabled="true"><i
+                          class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link mx-1 rounded" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link mx-1 rounded" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link mx-1 rounded" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link mx-1 rounded" href="#"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                  </ul>
+                  <!-- pagination end -->
+                </nav>
+              </div>
+
+            </div>
+            <!-- Tab pane -->
+            <div
+              class="tab-pane fade pb-4"
+              id="tabPaneList"
+              role="tabpanel"
+              aria-labelledby="tabPaneList"
+            >
+                {% for quiz in quizzes %}
+                
+                    <div class="card card-bordered mb-3 card-hover cursor-pointer">
+                        <!-- card body -->
+                        <div class="card-body">
+                            <!-- text -->
+                            <div class="d-flex justify-content-between my-auto">
+                                <div class="ms-0">
+                                    <a href="{% url 'take_quizzes' quiz.id %}" class="text-inherit">
+                                        <h3 class="mb-1 fs-4">
+                                        {{quiz.name|title}}
+                                        </h3>
+                                        <h5 class="mb-1 fs-5">
+                                            {{quiz.topic|title}}
+                                        </h5>
+                                    </a>
+                                    <div class="mt-4">
+                                        <div class="mt-1">
+                                            <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                            </svg>
+                                            <span class="ms-1">difficulty</span>
+                                            <span class="ms-1">: {{quiz.difficulty|title}}</span>
+        
+                                        </div>
+                                        <div class="mt-1"> 
+                                            <i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mx-auto mb-md-0">
+                                    
+                                    <div class="mt-1">
+                                        <i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        <i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        <i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <i class="fa fa-clock text-muted"></i> <span>{{quiz.created|timesince}} ago</span>
+                                    </div>
+                                </div>
+                                <div class="me-0 ps-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
+                                        <path  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+        
+                <!-- pagination start -->
+                <ul class="pagination mt-4 mb-2">
+                    <li class="page-item disabled">
+                    <a class="page-link mx-1 rounded" href="#" tabindex="-1" aria-disabled="true"><i
+                        class="mdi mdi-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active">
+                    <a class="page-link mx-1 rounded" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                    <a class="page-link mx-1 rounded" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                    <a class="page-link mx-1 rounded" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                    <a class="page-link mx-1 rounded" href="#"><i class="mdi mdi-chevron-right"></i></a>
+                    </li>
+                </ul>
+                <!-- pagination end -->
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% include "components/vfooter.html" %}
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

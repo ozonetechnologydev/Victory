@@ -1,0 +1,48 @@
+  <!-- Card -->
+  <div class="card card-hover border-top border-muted border-4 card-hover-with-icon">
+      <a href="{% url 'section_details' section.id %}" class="card-img-top">
+        <img
+          src="{{section.cover_image.url}}" alt=""
+          class="rounded-top-md card-img-top">
+      </a>
+    <!-- Card Body -->
+    <div class="card-body m-2 p-2 pb-0 mb-0">
+          <h4 class="mb-2 text-truncate-line-2 d-flex justify-content-between">
+              <a href="{% url 'section_details' section.id %}" class="text-inherit">
+                  {{section.name}}
+              </a>
+              <a href="#" class="text-muted fs-5"><i class="fe fe-heart align-middle"></i></a>
+          </h4>
+          <div class="mb-1 border-top p-1">
+            branch: <span class="badge bg-light-info text-info">{{section.department.branch.name}}</span>
+          </div>
+          <div class="mb-1 border-top p-1">
+              department: <span class="badge bg-light-info text-info">{{section.department.name}}</span>
+          </div>
+          <div class="mb-1 border-top p-1">
+            Students: &nbsp; 
+            <span class="progress w-100">
+                  <span class="progress-bar" 
+                     role="progressbar" 
+                     style="width: 25%;" 
+                     aria-valuenow="{{section.student_set.count}}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="{{section.maximum_number_of_students}}"
+                 >{{section.student_set.count}}
+                 </span>
+             </span>
+          </div>
+          <div class="mb-1 border-top p-1">
+              <spane>
+                  <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                  <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                  <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                  <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                  <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                  <i aria-hidden="true" class="fe fe-star-half-empty text-warning"></i>
+              </spane
+              <span class="text-warning">4.5</span>
+              <span class="fs-6 text-muted">(9,300)</span>
+          </div>
+    </div>
+  </div>

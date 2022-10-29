@@ -1,0 +1,88 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+ 
+{% endblock admin_style %}
+
+{% block admin_content %}
+  <!--Start Dashboard Content-->
+	  
+
+<div class="row">
+  <div class="col-12 col-lg-12">
+    <div class="card    border border-light-3">
+      <div class="card-header    text-uppercase">Polar Chart</div>
+      <div class="card-body   ">
+        <canvas id="polarChart" class="polarChart" height="150">
+          <input name="student" value={{total_num_students}} type="hidden">
+          <input name="teacher" value={{total_num_teachers}} type="hidden">
+          <input name="admin" value={{total_num_admins}} type="hidden">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card border border-light-3">
+      <div class="card-header border-0">
+      New Users List
+    <div class="table-responsive">
+      <table class="table align-items-center table-flush">
+        <thead class="table-light">
+        <tr>
+          <th>Profile</th>
+          <th>Full Name</th>
+          <th>Rol</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Gender</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for new_user in new_users_list %}
+          <tr>
+            <td>
+              <a href="{% url 'user_details' new_user.id %}">
+                  <img src="
+                  {% if new_user.get_profile_image.url %}
+                  {{new_user.get_profile_image.url}}
+                  {% else %}{% static 'assets/images/avater.png' %}
+                  {% endif %}
+                  " 
+                  class="avatar rounded-circle" alt="user avatar">
+              </a>
+            </td>
+            <td>{{new_user.get_full_name}}</td>
+            <td>
+              {% if new_user.student %}<span class="btn btn-sm btn-outline-success btn-round btn-block">Student</span>
+              {% elif new_user.teacher %}<span class="btn btn-sm btn-outline-info btn-round btn-block">Teacher</span>
+              {% else %} <span class="btn btn-sm btn-outline-primary btn-round btn-block">User</span>
+              {% endif %}
+            </td>
+            <td>{{new_user.username}}</td>
+            <td>{{new_user.email}}</td>
+            <td>{{new_user.gender}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</div>
+<!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+
+  <!-- Chart js -->
+  <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
+  <!-- Chart JS -->
+  <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/Chart.js/chartjs-script.js' %}"></script>
+
+{% endblock admin_script %}

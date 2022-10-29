@@ -1,0 +1,100 @@
+<div class="table-responsive">
+    <table id="data-table-example" class="table align-items-center table-flush     default-datatable">
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Level</th>
+                <th>Shift</th>
+                <th>Rating</th>
+                <th>Mx.No Student</th>
+                <th>Students</th>
+                <th>Department</th>
+                <th>Branch</th>
+                <th>Courses</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for section in sections %}
+                <tr id="delete_section_column_id_{{section.id}}">
+                    <td>
+                        <h4 class="mb-1 h5">
+                            <a href="{% url 'section_details' section.id %}" class="text-inherit">
+                                {{section.name|title}}
+                            </a>
+                        </h4>
+                    </td>
+                    <td>
+                        {{section.level|title}}
+                    </td>
+                    <td>
+                        {{section.shift_time}}
+                    </td>
+                    <td>
+                        <div class="">
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                            <span class="text-inherit">(140)</span>
+                        </div>
+                    </td>
+                    <td>
+                        {{section.maximum_number_of_students}}
+                    </td>
+                    <td>
+                        <span class="progress w-100">
+                                <span class="progress-bar" 
+                                role="progressbar" 
+                                style="width: 25%;" 
+                                aria-valuenow="{{section.student_set.count}}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="{{section.maximum_number_of_students}}"
+                            >{{section.student_set.count}}
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        {% if section.department %}
+                            <a href="{% url 'department_details'  section.department.id %}" class="text-inherit">
+                                {{section.department.name|title}}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if section.department.branch %}
+                        <h4 class="mb-1 h5">
+                            <a href="{% url 'branch_details'  section.department.branch.id %}" class="text-inherit">
+                                {{section.department.branch.name|title}}
+                            </a>
+                        </h4>
+                        {% endif %}
+                    </td>
+                    <td>{{section.subjects.count}}</td>
+                    <td>
+                        <a href="{% url 'section_details' section.id %}">
+                            <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                        </a>
+
+                        <a href="{% url 'update_section' section.id %}">
+                            <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                        </a>
+                        <a 
+                            id="delete_section_id_{{section.id}}" 
+                            class="hx-delete-alert-confirm" 
+                            hx-delete="{% url 'htmx_section_delete' section.id %}"
+                            hx-target="#delete_section_column_id_{{section.id}}"
+                            hx-trigger='confirmed'
+                            hx-swap="outerHTML"
+                        >
+                            <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

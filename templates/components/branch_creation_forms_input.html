@@ -1,0 +1,95 @@
+<div id="branch_form_id_{{form_id}}"  class="card border">
+    <div class="card-header text-uppercase">
+        Branch Creation form
+        <div class="card-action">
+            <button 
+            class="btn btn-primary btn-round waves-effect btn-sm my-auto waves-light "
+            hx-get="{% url 'htmx_department_creation_form' %}"
+            hx-target="#department_form_id_{{form_id}}_{{forloop.counter}}"
+            hx-swap="beforeend"
+            >
+            <i class="fa fa-plus text-light"></i> Add Department
+        </button>
+        <button 
+            type="submit" 
+            class="btn btn-danger btn-round bloack waves-effect btn-sm waves-light m-1"
+            hx-post="{% url 'htmx_clear' %}"
+            hx-target="#branch_form_id_{{form_id}}"
+            hx-swap="outerHTML"
+            >
+            Remove form
+        </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div  class="border p-2 my-1">
+            <form class="w-100"  method="POST"  action="{{action}}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if errors %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for error in errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                    <span><strong>Wronge!</strong> {{error}}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    {% for field in form %}
+                        <div class="col-lg-12 col-sm-12 ">
+                            <div class="form-group">
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <div class="alert-icon">
+                                            <i class="fa fa-times"></i>
+                                        </div>
+                                        <div class="alert-message">
+                                        <span>{{error}}!</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {{ field.label_tag }}
+                                <div class="position-relative has-icon-right">
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+          
+                <div 
+                    id="department_form_id_{{form_id}}_{{forloop.counter}}" 
+                    hx-get="{% url 'htmx_department_creation_form' %}"
+                    hx-trigger="load"
+                    hx-target="this"
+                    hx-swap="beforeend"
+                ></div>
+                <button 
+                    type="submit" 
+                    class="btn btn-success btn-round bloack waves-effect btn-sm waves-light m-1"
+                    hx-post="{% url 'htmx_department_creation' %}"
+                    hx-target="#department_form_id_{{form_id}}_{{forloop.counter}}"
+                    hx-swap="innerHTML"
+                >
+                    Save Departments
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    multi_select_formater()
+</script>

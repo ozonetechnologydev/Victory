@@ -1,0 +1,24 @@
+{% for blog in  page_obj %}
+    <div class=" col-lg-6 col-md-12 col-12">
+        {% include 'components/blog_card.html' with blog=blog %}
+    </div>
+{% endfor %}
+<!-- Buttom -->
+{% if page_obj.has_next %}
+    <div id="hx_blog_list_target_id" 
+        class="col-xl-12 col-lg-12 col-md-12 col-12 mt-4">
+        <div class="btn btn-primary"
+            hx-get="?page={{ page_obj.next_page_number }}"
+            hx-target="#hx_blog_list_target_id"
+            hx-trigger="revealed"
+            hx-swap="outerHTML"
+            >
+            <div class="spinner-border spinner-border-sm me-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+            
+            </div>Load More
+        </div>
+    </div>
+{% endif %}
+
+

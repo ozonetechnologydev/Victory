@@ -1,0 +1,7 @@
+{% if alert %}
+<script>
+    $(function(){
+        swal("{{alert.title}}","{{alert.body}}","{{alert.type}}");
+    });
+</script>
+{% endif %}

@@ -1,0 +1,99 @@
+<div id="hx_single_form_id" class="border rounded-3 my-2">
+    {% load static %}
+    {% block style %}
+
+    {% endblock style %}
+
+
+    <div class="card card-hover border-top border-muted border-4 card-hover-with-icon mb-4">
+        <div class="card-body p-2">
+            <div class="my-4 text-center">
+                <h1 class="mb-1 fw-bold">{{form_title|truncatechars:50}}</h1>
+            </div>
+            <form class="w-100 p-2"
+            hx-post="{{action}}"
+            hx-trigger="submit"
+            hx-swap="outerHTML"
+            hx-target="#hx_single_form_id"
+            enctype="multipart/form-data">
+            {% include 'components/messages.html' %}
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for error in form.errors %}
+                                <!-- Warning alert -->
+                                <div class="alert alert-warning d-flex align-items-center p-4" role="alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </svg>
+                                    <div>
+                                        <span><strong>Warning! </strong>{{ error|safe }}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    {% for field in form %}
+                        <div class="col-lg-12 col-sm-12 my-2">
+                            <div class="form-group">
+                                {% for error in field.errors %}
+                                    <!-- Warning alert -->
+                                    <div class="alert alert-warning d-flex align-items-center p-4" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </svg>
+                                        <div>
+                                            <span><strong>Warning! </strong>{{ error|safe }}!</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {{ field.label_tag }}
+                                <div class="position-relative has-icon-right">
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-round waves-effect btn-sm  waves-light m-1">Cancle</a>
+                <button type="submit" class="btn btn-success btn-round waves-effect btn-sm waves-light m-1">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+    {% block script %}
+        <!--Select Plugins Js-->
+        <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+        <!--Inputtags Js-->
+        <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+        <!--Bootstrap Datepicker Js-->
+        <script src="{% static 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+        <!--Multi Select Js-->
+        <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+        <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+        <!--Inputtags Js-->
+        <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+        <!--material date picker js-->
+        <script src="{% static 'assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/material-datepicker/js/ja.js' %}"></script>
+        <!--Cutom Js-->
+        <script src="{% static 'assets/js/form-script.js' %}"></script>
+        {% if alert %}
+        <script>
+            $(function(){
+                swal("{{alert.title}}","{{alert.body}}","{{alert.type}}");
+            });
+        </script>
+        {% endif %}
+    {% endblock script %}
+</div>
+

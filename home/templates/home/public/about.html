@@ -1,0 +1,168 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+{% load myflatpage %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+  <!-- Page Content -->
+  <div class="py-10 bg-success">
+    <div class="container">
+      <div class="row ">
+        <div class="offset-lg-2 col-lg-8 col-md-12 col-12 mb-12">
+          <!-- caption-->
+          <h1 class="display-2 fw-bold mb-3">Hi there, we’re <span class="text-primary">Victory wisdom</span></h1>
+          <!-- para -->
+          {% for about in about_us %}
+            <div class="my-5">
+                <h2 class="h2 mb-3 ">
+                  {{about.title}}
+                </h2>
+                <p class="mb-0 h4 text-body lh-lg">
+                  {{about.descriptions}}
+                </p>  
+            </div>
+          {% endfor %}
+            
+        </div>
+      </div>
+     
+	</div>
+</div>
+
+  <!-- Page Content -->
+  <div class="pt-10 bg-white">
+    <div class="container">
+		
+      <div class="row">
+         <!-- row -->
+        <div class="col-md-6 offset-right-md-6">
+           <!-- heading -->
+          <h1 class="display-4 fw-bold mb-3">Our global reach</h1>
+           <!-- para -->
+          <p class="lead">Victory wisdom is the leading global marketplace for teaching and learning, connecting millions of
+            students to the skills they need to succeed.</p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6">
+          <!-- counter -->
+          <div class="border-top pt-4 mt-6 mb-5 text-center">
+            <h1 class="display-3 fw-bold mb-0">{{num_branches}}</h1>
+            <p class="text-uppercase text-muted">Branchs</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6">
+           <!-- counter -->
+          <div class="border-top pt-4 mt-6 mb-5 text-center">
+            <h1 class="display-3 fw-bold mb-0">{{num_students}}</h1>
+            <p class="text-uppercase text-muted">Learners</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6">
+          <!-- counter -->
+          <div class="border-top pt-4 mt-6 mb-5 text-center">
+            <h1 class="display-3 fw-bold mb-0">{{num_teachers}}</h1>
+            <p class="text-uppercase text-muted">Instructors</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-6">
+          <!-- counter -->
+          <div class="border-top pt-4 mt-6 mb-5 text-center">
+            <h1 class="display-3 fw-bold mb-0">{{num_subjects}}</h1>
+            <p class="text-uppercase text-muted">Courses</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  <!-- features -->
+  <div class="py-lg-16 py-10">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-right-md-6 col-12 mb-6">
+          <!-- caption -->
+          <h2 class="display-4 mb-3 fw-bold">Our core values</h2>
+          <p class="lead">Our core values are the fundamental beliefs of a person or organization Victory wisdom academy. We help
+            people understand the difference between right and wrong.</p>
+        </div>
+      </div>
+      <div class="row">
+        {% for core_value in core_values %}
+          <div class="col-md-4 col-12">
+            <!-- card -->
+            <div class="card mb-4 mb-lg-0  card-hover border-top border-muted border-4 card-hover-with-icon p-4">
+              <!-- card body -->
+              <div class="card-body p-5">
+                <!-- icon -->
+                <div class="mb-3"><i class="mdi mdi-school-outline mdi-48px text-primary lh-1 "></i></div>
+                <h3 class="mb-2">{{core_value.title}}</h3>
+                <p class="mb-0">
+                  {{core_value.descriptions}}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}  
+
+      </div>
+    </div>
+  </div>
+   <!-- Team -->
+  <div class="py-lg-16 ">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-right-md-6 col-12 mb-10">
+           <!-- heading -->
+          <h2 class="display-4 mb-3 fw-bold">Our Team</h2>
+           <!-- lead -->
+          <p class="lead mb-5">Want to work with some of the best global talent and build a tool used by all the
+            companies you know and love? Join the Victory wisdom team and help shape the future of design.</p>
+             <!-- btn -->
+        </div>
+      </div>
+      <div class="row">
+        {% for team in teams %}
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="card card-hover border-top border-muted border-4 card-hover-with-icon p-4">
+              <div class="card-body m-0 p-0">
+                <!-- form section -->
+                <div class="row">
+
+                  <h2 class="display-4 mb-2 fw-bold">{{team.team_name}}</h2>
+                  <p class="lead">
+                    {{team.descriptions}}
+                  </p>
+                  <hr>
+                </div>
+              </div>
+              <div class="row">
+                {% for team_user in team.users.all %}
+                <div class="col-3 my-4">
+                  <div class="imgtooltip" data-template="imgtooltip_id_{{team_user.id}}">
+                      <img src="{{team_user.get_profile_image.url}}" alt="" class="  avatar avatar-lg rounded-circle" >
+                      <div id="imgtooltip_id_{{team_user.id}}" class="d-none">
+                        <h4 class="mb-0 fw-bold">{{team_user.get_full_name}}</h4>
+                        <span>{{team_user.email}}</span>
+                      </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+              <div class="card-footer"></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  {% include 'components/vfooter.html' %}
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

@@ -1,0 +1,95 @@
+
+<div id="hx_comment_target" class="text-center mt-6">
+  <!-- chat list -->
+  {% if comments %}
+    <div data-spy="scroll"  class="scrollspy-example w-100">
+        <div class=" chat-body w-100 " data-simplebar="">
+        <div class="px-2 w-100 overflow-hidden">
+            <!-- media -->
+            {% for comment in comments  %}
+
+                    <div class="d-flex  mb-4">
+                        <!-- img -->
+                        <img src="{{comment.author.get_profile_image.url}}" alt="" style="min-width:40px;" class="rounded-circle avater avatar-md"/>
+                        <!-- media body -->
+                        <div class=" ms-3">
+                            <small>{{comment.author.get_full_name}} , 
+                                {% if comment.updated %}{{comment.updated}}
+                                {% else %}{{comment.created}}
+                                {% endif %}
+                            </small>
+                            <div class="d-flex">
+                                <!-- card -->
+                                <div class="card mt-2 rounded-top-md-left-0">
+                                    <div class="card-body p-3">
+                                        <p class="mb-0 text-dark">
+                                        {{comment.body_text}}
+                                        distinctio optio hic excepturi corrupti rem minima iste, explicabo culpa ratione repudiandae esse, dolore rerum nisi magnam? Ea consequatur ipsum voluptatum iure eaque quas iusto ut fugit. Perferendis cum hic excepturi assumenda modi. Ab maxime cupiditate optio dolorem, eum voluptatem architecto quisquam vitae molestias sequi consequatur. Laudantium hic modi minima pariatur aspernatur vitae voluptate, enim aliquam quisquam et quam ea rerum nisi minus autem eaque. Vitae, praesentium? Dolorum ratione architecto repellendus quasi, temporibus tenetur dignissimos veritatis libero in nulla nam autem voluptatum a voluptas consequuntur quibusdam, aliquid suscipit velit obcaecati itaque atque quos officia perspiciatis sunt! Quis libero nam at pariatur fugit debitis laboriosam fuga.
+                                        </p>
+                                    </div>
+                                </div>
+                                {% if comment.author == request.user %}
+                                    <div class="me-2 mt-2">
+                                        <!-- dropdown -->
+                                        <div class="dropdown dropend">
+                                            <a
+                                                class="text-link"
+                                                href="#"
+                                                role="button"
+                                                id="dropdownMenuLinkSix"
+                                                data-bs-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            >
+                                            <i class="fa fa-ellipsis-v text-dark pb-2 ps-2"></i>
+                                            </a>
+                                            <div class="dropdown-menu" 
+                                                aria-labelledby="dropdownMenuLinkSix">
+                                                <a
+                                                role="button"
+                                                class="dropdown-item" 
+                                                hx-post="{% url 'htmx_update_blog_comment' blog.id comment.id %}"
+                                                hx-target="#hx_comment_target"
+                                                hx-target="outerHTML"
+                                                >
+                                                    <i class="fe fe-edit dropdown-item-icon"></i> Edit
+                                                </a>
+                                                <a class="dropdown-item" href="#">
+                                                    <i class="fe fe-trash dropdown-item-icon"></i>Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+
+        </div>
+        </div>
+    </div>
+  {% endif %}
+  <!-- chart footer -->
+  <div class="bg-light py-4 bottom-0 chat-footer mt-auto w-100">
+    <div class="bg-white p-2 rounded-3 shadow-sm">
+        <form 
+            mathod="POST"
+            hx-post="{{comment_form_action}}"
+            hx-target="#hx_comment_target"
+            hx-trigger="submit"
+            hx-target="outerHTML"
+            >
+            <div class="">
+                {{comment_form.body_text}}
+            </div>
+            <div class="position-absolute end-0 mt-n8 me-4 -100">
+                <button  type="submit" class="fs-3 btn text-primary my-auto btn-focus-none" >
+                    <i class="fa fa-send"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>

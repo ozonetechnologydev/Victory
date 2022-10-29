@@ -1,0 +1,58 @@
+<div class="col-sm-6 col-md-4 col-lg-3">
+    <!-- Card -->
+    <div class="card card-hover border-top border-muted border-4 card-hover-with-icon">
+        <a href="{% url 'subject_details' subject.id %}" class="card-img-top"><img
+            src="{{subject.cover_image.url}}" alt=""
+            class="rounded-top-md card-img-top">
+        </a>
+      <!-- Card Body -->
+      <div class="card-body m-2 p-2 pb-0 mb-0">
+            <h4 class="mb-2 text-truncate-line-2 d-flex justify-content-between">
+                <a href="{% url 'subject_details' subject.id %}" class="text-inherit">
+                    {{subject.name}}
+                </a>
+                <a href="#" class="text-muted fs-5"><i class="fe fe-heart align-middle"></i></a>
+            </h4>
+            <div class="mb-1 border-top p-1">
+              branch: <span class="badge bg-light-info text-info">{{subject.department.branch.name}}</span>
+            </div>
+            <div class="mb-1 border-top p-1">
+                department: <span class="badge bg-light-info text-info">{{subject.department.name}}</span>
+            </div>
+            <div class="mb-1 border-top p-1">
+                <spane>
+                    <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                    <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                    <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                    <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                    <i aria-hidden="true" class="fe fe-star text-warning"></i>
+                    <i aria-hidden="true" class="fe fe-star-half-empty text-warning"></i>
+                </spane
+                <span class="text-warning">4.5</span>
+                <span class="fs-6 text-muted">(9,300)</span>
+            </div>
+      </div>
+        <div class="card-footer d-flex">
+            <div class="row align-items-center g-0">
+                <div class="col-auto">
+                    {% if subject.teacher %}
+                        <a href="{% url 'user_details' subject.teacher.user.id %}">
+                            <img
+                                src="{{subject.teacher.user.get_profile_image.url}}"
+                                class="rounded-circle avatar-xs"
+                                alt=""
+                            />
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="ms-2">
+                {% if subject.teacher %}
+                    <a href="{% url 'user_details' subject.teacher.user.id %}">
+                        <span>{{subject.teacher.user}}</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+  </div>

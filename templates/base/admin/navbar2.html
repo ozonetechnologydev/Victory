@@ -1,0 +1,72 @@
+{% load static %}
+{% load myflatpage %}
+{% general_setting as generalSetting %}
+
+<div class="header">
+    <!-- navbar -->
+    <nav class="navbar-default navbar navbar-expand-lg bg-success">
+        <a id="nav-toggle" role="button">
+            <i class="fe fe-menu text-light"></i>
+        </a>
+        <div class="ms-lg-3 d-none d-md-none d-lg-block">
+            <!-- Form -->
+            <form class="d-flex align-items-center">
+                <span class="position-absolute ps-3 search-icon">
+                    <i class="fe fe-search"></i>
+                </span>
+                <input type="search" class="form-control form-control-sm ps-6"
+                    placeholder="Search Entire Dashboard" />
+            </form>
+        </div>
+        <!--Navbar nav -->
+        <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
+            {% if request.user.is_authenticated  %}
+
+            <li class="dropdown ms-2">
+              <a class="rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="avatar avatar-md avatar-indicators avatar-online">
+                  <img alt="avatar" src="{{request.user.get_profile_image.url}}" class="rounded-circle">
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end shadow">
+                <div class="dropdown-item">
+                  <a href="{% url 'user_profile' %}">
+                    <div class="d-flex">
+                      <div class="avatar avatar-md avatar-indicators avatar-online">
+                        <img alt="avatar" src="{{request.user.get_profile_image.url}}" class="rounded-circle">
+                      </div>
+                      <div class="ms-3 lh-1">
+                        <h5 class="mb-1">{{request.user.get_full_name}}</h5>
+                        <p class="mb-0 text-muted">{% if request.user.email %}{{request.user.email}}{% else %}{{request.user.username}}{% endif %}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-divider"></div>
+                <ul class="list-unstyled">
+                  
+                  <li>
+                    <a class="dropdown-item" href="{% url 'user_profile' %}">
+                      <i class="fa fa-user me-2  text-success"></i>Profile
+                    </a>
+                  </li>
+                </ul>
+                <div class="dropdown-divider"></div>
+                <ul class="list-unstyled">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                      <i class="fa fa-sign-out me-2 text-danger"></i>Sign Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          {% else %}
+          <div class="ms-auto mt-lg-0">
+            <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark btn-sm ms-3">Sign in</a>
+            <a href="{% url 'register' %}" class="btn btn-sm btn-dark btn-sm ms-1">Sign up</a>
+          </div>
+          {% endif %}
+        </ul>
+    </nav>
+</div>

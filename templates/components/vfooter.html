@@ -1,0 +1,75 @@
+{% load static %}
+{% load myflatpage %}
+{% general_setting as generalSetting %}
+{% phone_numbers as phoneNumbers %}
+{% email_address as emailAddress %}
+{% office_address as officeAddress %}
+
+
+<!-- footer -->
+<section class="pt-lg-10 pt-5 footer bg-success">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-12">
+            <!-- about company -->
+            <div class="mb-4">
+            <img
+                class="dashboard-logo-icon"
+                src="{{generalSetting.logo.url}}"
+                alt=""
+            />
+            <div class="mt-4">
+                <p>
+                {{generalSetting.site_description}}
+                </p>
+                <!-- social media -->
+                <div class="fs-4 mt-4">
+                <a href="#" class="zmdi zmdi-facebook fs-4 text-muted me-2"></a>
+                <a href="#" class="zmdi zmdi-twitter text-muted me-2"></a>
+                <a href="#" class="zmdi zmdi-instagram text-muted"></a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-2 ocol-md-3 col-6 ffset-lg-1  ">
+            <div class="mb-4">
+            <!-- list -->
+            <h3 class="fw-bold mb-3">Company</h3>
+            <ul class="list-unstyled nav nav-footer flex-column nav-x-0">
+                <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                <li><a href="{% url 'blog_list' %}" class="nav-link">Blog</a></li>
+                <li><a href="{% url 'gallery' %}" class="nav-link">Gallery</a></li>
+                <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-6">
+            <div class="mb-4">
+            <!-- list -->
+            <h3 class="fw-bold mb-3">Support</h3>
+            <ul class="list-unstyled nav nav-footer flex-column nav-x-0">
+                <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+            </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <!-- contact info -->
+            <div class="mb-4">
+            <h3 class="fw-bold mb-3">Get in touch</h3>
+            <ul class="list-unstyled nav nav-footer flex-column nav-x-0">
+                {% for email_address in emailAddress %}
+                    <li class="mb-1">Email-{{forloop.counter}}: <span><a href="mail://{{email_address.email}}" newtab>{{email_address.email}}</a></span></li>
+                {% endfor %}
+                {% for office_address in officeAddress %}
+                <li> Address-{{forloop.counter}}: <span class="text-dark fw-semi-bold">{{office_address.office}}-{{office_address.state}}-{{office_address.city}}-{{office_address.street}}</span></li>
+                {% endfor %}
+
+                {% for phone_number in phoneNumbers %}
+                <li> Phone-{{forloop.counter}}: <span class="text-dark fw-semi-bold">{{phone_number.number|phone2numeric}}</span></li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

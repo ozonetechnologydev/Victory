@@ -1,0 +1,42 @@
+{% load static %}
+ 
+ <!-- Table -->
+<div class="table-responsive border-0 overflow-y-hidden">
+    <table class="table mb-0 text-nowrap align-items-center">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" class="border-0">Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for department in departments %}
+            <tr>
+                <td class="border-top-0">
+                    <div class="d-lg-flex">
+                        <div>
+                            <a href="{% url 'department_details' department.id %}">
+                                <img src="{{department.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                            </a>
+                        </div>
+                        <div class="ms-lg-3 mt-2 mt-lg-0 py-auto">
+                            <h4 class="mt-auto h5">
+                                <a href="{% url 'department_details'  department.id %}" class="text-inherit">
+                                    {{department.name|title}}
+                                </a>
+                            </h4>
+                            <span class="">
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                <span class="text-inherit">(140)</span>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div> 

@@ -1,0 +1,243 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %} 
+<!-- Plugins and style required by This views -->
+<!--=========================================================================================-->
+ <!--Data Tables -->
+<link href="{% static 'assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+
+
+ <link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+ <!--=========================================================================================-->
+{% endblock admin_style %}
+
+{% block admin_content %}
+  <!--Start Dashboard Content-->
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <!-- Breadcrumb-->
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h5 class="page-title  pt-4 pb-3">Branch List Data Tables</h5>
+                <ol class="breadcrumb shadow bg-light p-2">
+                    <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Branch list</li>
+                </ol>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+                    <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+                    <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                    <a href="{% url 'admin_create_blog' %}" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> new Blog</a>
+                    <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> Expor Data</a>
+                    <a href="javaScript:void();" class="dropdown-item"><i aria-hidden="true" class="fa fa-bar-chart"></i> Visualize Data</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-more"></i> More</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <form class="" method="POST", action="">
+        {% csrf_token %}
+        <!-- Card -->
+        <div class="card rounded-3">
+          <!-- Card Header -->
+          <div class="card-header border-bottom-0 p-0">
+            <ul class="nav nav-lb-tab" id="tab" role="tablist">
+              <li class="nav-item">
+                <a href="?category=all" class="nav-link">
+                  All
+                </a>
+              </li>
+              {% for category in categories %}
+                <li class="nav-item">
+                  <a href="?category={{category}}" class="nav-link">
+                    {{category|title}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="card-header border-bottom-0 p-2">
+            <label class="p-auto ms-4 my-auto"><i class="fa fa-table"></i>Blog List</label>
+            <div class="card-action my-auto d-flex">
+              <div class="input-group mr-2">
+                  <select class="form-select form-select-sm" name="action" required="">
+                      <option value="none">Choose...</option>
+                      <option value="delete_selected">Delete Selected Users</option>
+                  </select>
+                  <div class="input-group-append">
+                      {% comment %} <button type="button" class="btn  btn-outline-primary waves-effect waves-light">Go</button> {% endcomment %}
+                      <button type="button" class="btn btn-primary waves-effect waves-light"> <span>Go</span> </button>
+                      <button type="button" class="btn btn-primary split-btn-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
+                      <span class="caret"></span>
+                      </button>
+                      <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(95px, -199px, 0px); top: 0px; left: 0px; will-change: transform;">
+                      <a href="javaScript:void();" class="dropdown-item">Action</a>
+                      <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                      <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+              <!-- Tab -->
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush default-datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="border-0 font-size-inherit" >
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="checkAll" />
+                            <label class="form-check-label"  for="checkAll" ></label>
+                          </div>
+                        </th>
+                        <th scope="col" class="border-0">POST</th>
+                        <th scope="col" class="border-0">CATEGORY</th>
+                        <th scope="col" class="border-0">DATE</th>
+                        <th scope="col" class="border-0">Author</th>
+                        <th scope="col" class="border-0">STATUS</th>
+                        <th scope="col" class="border-0">COMMENTS</th>
+                        <th scope="col" class="border-0">VIEWS</th>
+                        <th scope="col" class="border-0">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table body -->
+                      {% for blog in blogs %}
+                        <tr>
+                          <td class="align-middle border-top-0">
+                            <div class="form-check">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="postOne"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="postOne"
+                              ></label>
+                            </div>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            <h6 class="mb-0">
+                              <a href="{% url 'blog_details' blog.id %}" class="text-inherit">
+                                {{blog.title|title|truncatewords:10}}
+                              </a>
+                            </h6>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            <a href="#" class="text-inherit">{{blog.category|title}}</a>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {{blog.created}}
+                          </td>
+                          <td class="align-middle border-top-0">
+                            <a href="{% url 'user_details' blog.author.id %}"	>
+                              <div class="d-flex align-items-center">
+                                      <img src="{{blog.author.get_profile_image.url}}" alt="" class="rounded-circle avatar-xs me-2" />
+                                      <h6 class="mb-0">{% if blog.author.get_full_name %}{{blog.author.get_full_name}}{% else %}{{blog.author.email}}{% endif %}</h6>
+                                  </div>
+                              </a>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {% if blog.status == "published" %}<span class="badge-dot bg-success me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "scheduled" %}<span class="badge-dot bg-info me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "draft" %}<span class="badge-dot bg-warning me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "deleted" %}<span class="badge-dot bg-danger me-1 d-inline-block align-middle" ></span>
+                                {% else %}<span class="badge-dot bg-dark me-1 d-inline-block align-middle" ></span>
+                                {% endif %}
+                                </span> {{blog.status}}
+                          </td>
+                          <td class="align-middle border-top-0 text-center">
+                            {{blog.comments.count}}
+                          </td>
+                          <td class="align-middle border-top-0 text-center">
+                            {{blog.views.count}}
+                          </td>
+                          <td class="text-muted align-middle border-top-0 text-center"  >
+                            <span class="dropdown dropstart">
+                              <a
+                                {% comment %} class="btn-icon btn btn-ghost btn-sm rounded-circle " {% endcomment %}
+                                href="#"
+                                role="button"
+                                id="courseDropdown1"
+                                data-bs-toggle="dropdown"
+                                data-bs-offset="-20,20"
+                                aria-expanded="false"
+                              >
+                                <i class="zmdi zmdi-menu"></i>
+                              </a>
+                              <span  class="dropdown-menu shadow" aria-labelledby="courseDropdown1"  >
+                                <span class="dropdown-header" >Settings</span   >
+                                <a class="dropdown-item" href="{% url 'admin_update_blog' blog.id %}" ><i  class="fa fa-edit dropdown-item-icon" ></i >Edit</a>
+                                <a class="dropdown-item" href="{% url 'admin_duplicate_blog' blog.id %}" ><i class="fa fa-copy dropdown-item-icon"  ></i  >Copy</a>
+                                <a class="dropdown-item" href="{% url 'admin_publish_blog' blog.id %}" ><i class="fa fa-toggle-right dropdown-item-icon"  ></i >Publish</a>
+                                <a class="dropdown-item" href="{% url 'admin_unpublish_blog' blog.id %}"><i  class="fa fa-toggle-left dropdown-item-icon"></i  >Unpublish</a>
+                                <a class="dropdown-item" href="{% url 'admin_delete_blog' blog.id %}"><i  class="fa fa-trash dropdown-item-icon"></i>Delete</a>
+                              </span>
+                            </span>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                    
+                </table>
+              </div>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+  <!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+<!-- Plugins and scripts required by This views -->
+<!--=========================================================================================-->
+
+  <!--Data Tables js-->
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+  
+  <!-- waves effect js -->
+<script src="{% static 'assets/js/waves.js' %}"></script> 
+<!--Inline script-->
+  <!--=========================================================================================-->
+  <script>
+    $(function() {
+      //Default data table
+        $('.default-datatable').DataTable();
+        $("form-select .form-select-sm")
+  });
+ </script>
+<!--=========================================================================================-->
+{% endblock admin_script %}
+

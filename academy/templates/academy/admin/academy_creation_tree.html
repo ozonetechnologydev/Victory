@@ -1,0 +1,151 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+
+
+<link href="{% static 'assets/css/table.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+
+{% endblock admin_style %}
+
+{% block admin_content %}
+<!--Start Dashboard Content-->
+<!--Start Dashboard Content-->
+
+<!-- Page header -->
+<div class="py-lg-8 py-4  bg-success">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+                <div>
+                    <h4 class="text-white display-5 fw-semi-bold">
+                        Academy Creation Tree
+                    </h4>
+                    <p class="text-white mb-6 ">
+                        this is a creation tree
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="pb-10">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-12 mt-n8 mb-10 mb-lg-0">
+                <!-- Card -->
+                <div class="card rounded-3">
+                    <!-- Card header -->
+                    <div class="card-header border-bottom-0 p-0">
+                        <div>
+                            <!-- Nav -->
+                            <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active"  href="?filter=last_day">Tody</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="?filter=last_week">Last Weak</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="?filter=last_month">Last Month</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"   href="?filter=last_year">Last year</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        {% include 'components/academy_tree.html' %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-12 mt-n8 mb-10 mb-lg-0">
+                <!-- Card -->
+                <div class="card rounded-3">
+                    <!-- Card header -->
+                    <h4 class="card-title m-0 p-4 text-light bg-primary">
+                        Form
+                    </h4>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div id="hx_academy_creation_form_id" class=" border-bottom-0 p-0">
+                            {% include 'components/forms.html' with form=branch_form action="/academy/htmx/branch/create/" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card -->
+        </div>
+    </div>
+</div>
+
+ <!--End Dashboard Content-->
+ {% endblock admin_content %}
+ {% block admin_script %}  
+
+ <!-- Plugins and scripts required by This views -->
+ <!--=========================================================================================-->
+ <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+ <script src="{% static 'assets/js/popper.min.js' %}"></script>
+ <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+ <!--Select Plugins Js-->
+ <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+
+ <!--Bootstrap Datepicker Js-->
+ <script src="{% static 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+ <!--Multi Select Js-->
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+ <!--material date picker js-->
+ <script src="{% static 'assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/ja.js' %}"></script>
+ 
+
+ {% comment %} <script>
+    $(function() {
+
+ 
+        $(".hx-delete-alert-confirm").click(function(e){
+             
+             var alert_text = $(e.currentTarget.id).attr("alert-text");
+ 
+             swal({
+                 title: "Are you sure?",
+                 text: alert_text || "Once deleted, you will not be able to recover data!",
+                 icon: "warning",
+                 buttons: true,
+                 dangerMode: true,
+             })
+             .then((willDelete) => {
+                 if (willDelete) {
+ 
+                     swal("Information!", "Poof! Your data has been deleted!,", "info", {
+                         icon: "success",
+                     });
+                     
+                     htmx.trigger("#" + e.currentTarget.id, "confirmed")
+ 
+                 } else {
+                     swal("Information!", "Your data file is safe!,", "info");
+                 }
+             });
+         });
+     });
+ 
+   </script> {% endcomment %}
+ <!--=========================================================================================-->
+ 
+{% endblock admin_script %}

@@ -1,0 +1,97 @@
+{% load static %}
+{% load myflatpage %}
+{% general_setting as generalSetting %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    {% comment %} <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon"> {% endcomment %}
+    <link rel="icon" href="{{generalSetting.favicon.url}}" type="image/x-icon">
+    
+
+    {% block style %}{% endblock style %}
+    {% include 'base/header.html' %}
+    
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="{% static 'assets/css/my_style.css' %}" rel="stylesheet">
+    
+</head>
+
+<body class="bg-opacity-10">
+    {% block content %}{% endblock content %}
+    
+    {% block script %}{% endblock script %}
+    {% include 'base/js.html' %}
+    <div id="show-alert"></div>
+    <a href="javaScript:void();" class="back-to-top" style="display: block;"><i class="fa fa-angle-double-up"></i> </a>
+    <script>
+    $(document).ready(function(){ 
+        $(window).on("scroll", function(){ 
+            if ($(this).scrollTop() > 300) { 
+                $('.back-to-top').fadeIn(); 
+            } else { 
+                $('.back-to-top').fadeOut(); 
+            } 
+        }); 
+
+        $('.back-to-top').on("click", function(){ 
+            $("html, body").animate({ scrollTop: 0 }, 500); 
+            return false; 
+        }); 
+
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+        })
+        
+        document.body.addEventListener('htmx:afterRequest', function (evt) {
+            if (evt.detail.failed) {
+                swal({
+                    title: "Somthing is Wrong!",
+                    text: "please try later",
+                    icon: "warning",
+                })
+            }
+        });
+        
+        document.body.addEventListener('htmx:beforeRequest', function (evt) {
+            if (evt.detail.failed) {
+                swal({
+                    title: "Somthing is Wrong!",
+                    text: "please try later",
+                    icon: "warning",
+                })
+            }
+        });
+        
+        $(".hx-delete-alert-confirm").click(function(e){
+             
+            var alert_text = $(e.currentTarget.id).attr("alert-text");
+
+            swal({
+                title: "Are you sure?",
+                text: alert_text || "Once deleted, you will not be able to recover data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    swal("Information!", "Poof! Your data has been deleted!,", "info", {
+                        icon: "success",
+                    });
+                    
+                    htmx.trigger("#" + e.currentTarget.id, "confirmed")
+
+                } else {
+                    swal("Information!", "Your data file is safe!,", "info");
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<div class="card mb-4">
+    <!-- Card header -->
+    <div class="card-header">
+        <h4 class="card-title mb-0 p-4 bg-success text-light">Edit Profile</h4>
+    </div>
+    <!-- Card body -->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div  
+                    id="dropzone-profile-dropzone" 
+                    dz-title="Drop profile image here to upload"
+                    actions="{% url 'ajax_upload_user_profile_image' %}"
+                    dz-post="{% url 'ajax_upload_user_profile_image' %}" 
+                    dz-max-file="1"
+                    dz-trigger="#dropzone-submitter" 
+                    dz-accepted-file="image/*"
+                    class="dropzone mt-4 border-dashed rounded-2 min-h-0 mb-1 ">
+                    <div class="fallback">
+                        <input name="image"  type="image" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div 
+                    id="dropzone-cover-dropzone" 
+                    dz-title="Drop cover image here to upload"
+                    actions="{% url 'ajax_upload_user_cover_image' %}"
+                    dz-post="{% url 'ajax_upload_user_cover_image' %}" 
+                    dz-max-file="1"
+                    dz-trigger="#dropzone-submitter" 
+                    dz-accepted-file="image/*"
+                    class="dropzone mt-4 border-dashed rounded-2 min-h-0 mb-1 ">
+                    <div class="fallback">
+                        <input name="image"  type="image" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div 
+                    id="dropzone-gallery-dropzone" 
+                    dz-title="Drop gallery image here to upload"
+                    actions="{% url 'ajax_upload_user__gallery_image' %}"
+                    dz-post="{% url 'ajax_upload_user__gallery_image' %}" 
+                    dz-trigger="#dropzone-submitter" 
+                    dz-accepted-file="image/*"
+                    class="dropzone mt-4 border-dashed rounded-2 min-h-0 mb-1 ">
+                    <div class="fallback">
+                        <input name="image"  type="image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="dropzone-submitter" class="btn btn-outline-white btn-block w-100 btn-small">Upload File</button>
+        {% include 'components/forms.html' with form=profile_form action='update/' image_form=True%}
+    </div>
+</div>
+

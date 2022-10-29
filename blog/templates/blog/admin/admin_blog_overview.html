@@ -1,0 +1,303 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+ 
+{% endblock admin_style %}
+
+{% block admin_content %}
+    <!--Start Dashboard Content-->
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+            <!-- Breadcrumb-->
+            <div class="row pt-2 pb-2">
+                <div class="col-sm-9">
+                    <h4 class="page-title  pt-4 pb-3">Branch List Data Tables</h4>
+                    <ol class="breadcrumb shadow bg-light p-2">
+                        <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Branch list</li>
+                    </ol>
+                </div>
+                <div class="col-sm-3">
+                    <div class="btn-group float-sm-right">
+                        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                        <a href="{% url 'admin_create_blog' %}" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> new Post</a>
+                        <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> Expor Data</a>
+                        <a href="javaScript:void();" class="dropdown-item"><i aria-hidden="true" class="fa fa-bar-chart"></i> Visualize Data</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-more"></i> More</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- End Breadcrumb-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4">
+                <!-- Card body -->
+                <div class="card-body">
+                    <span
+                        class="fs-6 text-uppercase fw-semi-bold"
+                        >Total Posts</span
+                    >
+                    <div
+                        class="mt-2 d-flex justify-content-between align-items-center"
+                    >
+                        <div class="lh-1">
+                            <h5 class="h1 fw-bold mb-1">{{num_all_blogs}}</h5>
+                            <span>{{num_bogs_last_30_day}} Last 30 Days</span>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-light-primary icon-shape icon-xl rounded-3 text-dark-primary"
+                            >
+                                <i class="mdi mdi-text-box-multiple mdi-24px"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <span
+                        class="fs-6 text-uppercase fw-semi-bold"
+                        >Assets</span
+                    >
+                    <div
+                        class="mt-2 d-flex justify-content-between align-items-center"
+                    >
+                        <div class="lh-1">
+                            <h2 class="h1 fw-bold mb-1">{{num_all_blogs_assets}}</h2>
+                            <span>{{num_all_blogs_medias}}+ Media Object</span>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-light-warning icon-shape icon-xl rounded-3 text-dark-warning"
+                            >
+                                <i class="mdi mdi-folder-multiple-image mdi-24px"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <span
+                        class="fs-6 text-uppercase fw-semi-bold"
+                        >USers Views</span
+                    >
+                    <div
+                        class="mt-2 d-flex justify-content-between align-items-center"
+                    >
+                        <div class="lh-1">
+                            <h2 class="h1 fw-bold mb-1">{{num_all_views_blogs}}</h2>
+                            <span>{{num_all_views_for_last_30_day_blogs}} in 30 Days</span>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-light-success icon-shape icon-xl rounded-3 text-dark-success"
+                            >
+                                <i class="mdi mdi-account-multiple mdi-24px"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <span
+                        class="fs-6 text-uppercase fw-semi-bold"
+                        >Comments</span
+                    >
+                    <div
+                        class="mt-2 d-flex justify-content-between align-items-center"
+                    >
+                        <div class="lh-1">
+                            <h2 class="h1 fw-bold mb-1">{{num_comment_for_all_before_tody_blogs}}</h2>
+                            <span>{{num_comment_for_today_blogs}}+ Comments</span>
+                        </div>
+                        <div>
+                            <span
+                                class="bg-light-info icon-shape icon-xl rounded-3 text-dark-info"
+                            >
+                                <i class="mdi mdi-comment-text mdi-24px"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4">
+                <!-- Card header -->
+                <div
+                    class="card-header d-flex justify-content-between align-items-center border-bottom-0 card-header-height"
+                >
+                    <h5 class="mb-0">Recent Posts</h5>
+                    <span class="dropdown dropstart">
+                        <a
+                            class="btn-icon btn btn-ghost btn-sm rounded-circle"
+                            href="#"
+                            role="button"
+                            id="courseDropdown1"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            <i class="fa fa-more-vertical"></i>
+                        </a>
+                <span class="dropdown-menu" aria-labelledby="courseDropdown1">
+                            <span class="dropdown-header">Settings</span>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-edit dropdown-item-icon"></i>Edit
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-trash dropdown-item-icon"></i>Remove
+                </a>
+                </span>
+                </span>
+            </div>
+            <!-- Table -->
+            <div class="table-responsive border-0 overflow-y-hidden">
+                <table class="table mb-0 text-nowrap">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="border-0">POST</th>
+                            <th scope="col" class="border-0">CATEGORY</th>
+                            <th scope="col" class="border-0">CREATED DATE</th>
+                            <th scope="col" class="border-0">Author</th>
+                            <th scope="col" class="border-0">STATUS</th>
+                            <th scope="col" class="border-0"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for blog in recent_blog %}
+                        <tr>
+                            <td class="align-middle border-top-0">
+                                <h6 class="mb-0">
+                                    <a href="{% url 'blog_details' blog.id %}" class="text-inherit">
+                                    {{blog.title|title|truncatewords:10}}
+                                    </a>
+                                </h6>
+                            </td>
+                        
+                            <td class="align-middle border-top-0">
+                                <a href="#" class="text-inherit">{{blog.category|title}}</a>
+                            </td>
+                            <td class="align-middle border-top-0">
+                                
+                                {{blog.created}}
+                            </td>
+                            <td class="align-middle border-top-0">
+                                <a href="{% url 'user_details' blog.author.id %}"	>
+                                <div class="d-flex align-items-center">
+                                        <img src="{{blog.author.profile_image.last.image.url}}" alt="" class="rounded-circle avatar-xs me-2" />
+                                        <h6 class="mb-0">{% if blog.author.get_full_name %}{{blog.author.get_full_name}}{% else %}{{blog.author.email}}{% endif %}</h6>
+                                    </div>
+                                </a>
+                            </td>
+                            <td class="align-middle border-top-0">
+                                {% if blog.status == "published" %}<span class="badge-dot bg-success me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "scheduled" %}<span class="badge-dot bg-info me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "draft" %}<span class="badge-dot bg-warning me-1 d-inline-block align-middle" ></span>
+                                {% elif blog.status == "deleted" %}<span class="badge-dot bg-danger me-1 d-inline-block align-middle" ></span>
+                                {% else %}<span class="badge-dot bg-danger me-1 d-inline-block align-middle" ></span>
+                                {% endif %}
+                                </span> {{blog.status}}
+
+                            </td>
+                            <td class="text-muted align-middle border-top-0 text-end">
+                                <span class="dropdown dropstart">
+                                    <a
+                                        class="btn-icon btn btn-ghost btn-sm rounded-circle"
+                                        href="#"
+                                        role="button"
+                                        id="courseDropdown2"
+                                        data-bs-toggle="dropdown"
+                                        data-bs-offset="-20,20" aria-expanded="false"
+                                    >
+                                        <i class="fa fa-more-vertical"></i>
+                                    </a>
+                                    <span
+                                        class="dropdown-menu"
+                                        aria-labelledby="courseDropdown2"
+                                            >
+                                        <span class="dropdown-header">Settings</span>
+                                        <a class="dropdown-item" href="#">
+                                        <i class="fa fa-edit dropdown-item-icon"></i
+                                            >Edit
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-move dropdown-item-icon"></i
+                                            >Move
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-copy dropdown-item-icon"></i
+                                            >Copy
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i
+                                                class="fa fa-toggle-left dropdown-item-icon"
+                                            ></i
+                                            >Publish
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i
+                                                class="fa fa-toggle-right dropdown-item-icon"
+                                            ></i
+                                            >Unpublish
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-trash dropdown-item-icon"></i
+                                            >Delete
+                                        </a>
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+
+  
+<!--=========================================================================================-->
+
+{% endblock admin_script %}
+
+
+
+                   
+  
+
+
+	

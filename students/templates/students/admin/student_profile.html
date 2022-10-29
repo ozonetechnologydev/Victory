@@ -1,0 +1,264 @@
+
+
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+ 
+{% endblock admin_style %}
+
+{% block admin_content %}
+    <!--Start Dashboard Content-->
+
+<!-- Breadcrumb-->
+<div class="row pt-2 pb-2">
+<div class="col-sm-9">
+    <h4 class="page-title  pt-3 pb-3">User Profile</h4>
+    <ol class="breadcrumb shadow bg-light p-2">
+        <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'users_list' %};">Users list</a></li>
+        <li class="breadcrumb-item"><a href="javaScript:void();">User Details</a></li>
+    </ol>
+</div>
+<div class="col-sm-3">
+    <div class="btn-group shadow float-sm-right">
+        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+        <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'change_user' student.user.id %}" class="dropdown-item ">chenge user</a>
+            <a href="{% url 'delete_user' student.user.id %}" class="dropdown-item ">delete user</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- End Breadcrumb-->
+
+	<!-- Bg -->
+	<div class="py-20 bg-success" style="background: url({{student.user.cover_image.url}}) no-repeat;background-position: center;"></div>
+	<!-- User info -->
+	<div class="card p-lg-2 pt-2 pt-lg-0 rounded-0 border-0">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-8 col-md-8 col-12">
+					<div class="d-flex align-items-center">
+						<div class="position-relative mt-n9">
+							<img src="{{student.user.profile_image.url}}" alt=""
+								class="rounded-circle avatar-xxl border-white border border-4 position-relative" >
+							<a href="#" class="position-absolute top-0 end-0 me-2" data-bs-toggle="tooltip" data-placement="top"
+								title="Verified">
+								<img src="{% static 'users_assets/images/svg/checked-mark.svg' %}" alt="" height="30" width="30" />
+							</a>
+						</div>
+						<div class="ms-3">
+							<h2 class="mb-0">{{student.user|title}}</h2>
+							<span class="badge bg-light-primary text-primary ms-2">{{student.user.email}}</span>
+							<span class="badge bg-light-primary text-success ms-2">Student</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-12">
+					<div class="fs-4 mt-4 mt-lg-0 pb-2 pb-lg-0 d-lg-flex justify-content-end">
+						<a href="#" class="zmdi zmdi-youtube text-muted me-2"></a>
+						<a href="#" class="zmdi zmdi-link-variant text-muted me-2"></a>
+						<a href="#" class="zmdi zmdi-instagram text-muted me-2"></a>
+						<a href="#" class="zmdi zmdi-facebook fs-4 text-muted me-2"></a>
+						<a href="#" class="zmdi zmdi-twitter text-muted"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Content -->
+	<div class="py-5 py-md-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-4 col-12">
+					<!-- Card -->
+					<div class="card border-0 mb-4">
+						<!-- Card body -->
+						<div class="card-body">
+							<h4>Bio</h4>
+							<p>{{student.user.bio}}</p>
+
+							<h4>About me</h4>
+							<p class="text-type-md">
+								{{student.user.about}}
+							</p>
+						</div>
+					</div>
+                    <!-- Card -->
+					<div class="card border-0 mb-4 ">
+                        <div class="card-header    border-light-3">
+                            Account
+						</div>
+						<!-- Card body -->
+						<div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">First Name: <span class="fs-6 mb-0">{{student.user.first_name}}</span></h6>
+									
+								</div>
+							</div>
+                            <div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">Last Name: <span class="fs-6 mb-0">{{student.user.last_name}}</span></h6>
+									
+								</div>
+							</div>
+							<div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">Username: <span class="fs-6 mb-0">{{student.user.username}}</span></h6>
+									
+								</div>
+							</div>
+                            <div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">Email: <span class="fs-6 mb-0">{{student.user.email}}</span></h6>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+                    <!-- Card -->
+					<div class="card border-0 mb-4 ">
+                        <div class="card-header    border-light-3">
+                            Address
+						</div>
+						<!-- Card body -->
+						<div class="card-body">
+							<div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">Street: <span class="fs-6 mb-0">{{student.user.address.street}}</span></h6>
+									
+								</div>
+							</div>
+                            <div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">City: <span class="fs-6 mb-0">{{student.user.address.city}}</span></h6>
+									
+								</div>
+							</div>
+                            <div class="d-flex align-items-center justify-content-between">
+								<div>
+									<h6 class="mb-0 fw-bold">State: <span class="fs-6 mb-0">{{student.user.address.state}}</span></h6>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+                
+					<!-- Card -->
+					<div class="card border-0 mb-4 mb-lg-0">
+						<!-- Card body -->
+						<div class="card-body">
+
+							<div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
+								<div>
+									<h4 class="mb-0 fw-bold">{{student_subjects_num}}</h4>
+									<p class="fs-6 mb-0">Courses</p>
+								</div>
+								<div>
+									<span><i class="fa fa-file-text fs-3"></i></span>
+								</div>
+							</div>
+                          
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-8 col-12">
+					<!-- Card -->
+					<div class="card border-0">
+						<!-- Card header -->
+						<div class="card-header">
+							<h4 class="mb-0">
+								{{student.user}} Courses {{student_subjects_num}}
+							</h4>
+						</div>
+						<!-- Card body -->
+						<div class="card-body">
+							<!-- List group -->
+							<ul class="list-group list-group-flush">
+                                {% for subject in student_subjects %}
+                                    <!-- List group item -->
+                                    <li class="list-group-item px-0 pb-3 pt-0">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <a href="{% url 'subject_details' subject.id %}">
+                                                <div class="d-lg-flex align-items-center">
+                                                    <div>
+                                                        <img src="{{subject.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                                    </div>
+                                                    <div class="ms-lg-3 mt-2 mt-lg-0">
+                                                        <h4 class="text-primary-hover">
+                                                            {{subject.name}}
+                                                        </h4>
+                                                        <ul class="list-inline fs-6 mb-0 text-inherit">
+                                                            <li class="list-inline-item">
+                                                                <i class="zmdi zmdi-clock-time-four-outline text-muted me-1"></i>{{subject.department.branch}}
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <i class="zmdi zmdi-clock-time-four-outline text-muted me-1"></i>{{subject.department.name}}
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <svg class="mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                                    <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                                    <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                                                </svg>
+                                                                {{subject.level}}
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                                <i class="zmdi zmdi-star text-warning"></i>
+                                                                <span class="text-warning">4.5</span>
+                                                                <span class="text-muted">(1,345)</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div>
+                                                <!-- Dropdown -->
+                                                <span class="dropdown dropstart">
+                                                    <a class="text-muted text-decoration-none" href="#" role="button" id="courseDropdown"
+                                                        data-toggle="dropdown"  data-offset="-20,20" aria-expanded="true">
+                                                        <i class="icon-options"></i>
+                                                    </a>
+                                                    <span class="dropdown-menu" aria-labelledby="courseDropdown">
+                                                        <span class="dropdown-header">Share</span>
+                                                        <a class="dropdown-item" href="#"><i
+                                                                class="zmdi zmdi-facebook fs-4 dropdown-item-icon"></i>Facebook</a>
+                                                        <a class="dropdown-item" href="#"><i
+                                                                class="zmdi zmdi-twitter fs-4 dropdown-item-icon"></i>Twitter</a>
+                                                        <a class="dropdown-item" href="#"><i class="zmdi zmdi-linkedin dropdown-item-icon"></i>Linked
+                                                            In</a>
+                                                        <a class="dropdown-item" href="#"><i class="zmdi zmdi-content-copy dropdown-item-icon"></i>Copy Link</a>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+							    {% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+
+	
+<!--=========================================================================================-->
+
+{% endblock admin_script %}
+	
+

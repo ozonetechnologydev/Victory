@@ -1,0 +1,58 @@
+{% load static %}
+ 
+ <!-- Table -->
+<div class="table-responsive border-0 overflow-y-hidden">
+    <table class="table mb-0 text-nowrap align-items-center">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" class="border-0">Sections</th>
+                <th scope="col" class="border-0">Courses</th>
+                <th scope="col" class="border-0">Students</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sections in sections %}
+            <tr>
+                <td class="border-top-0">
+                    <div class="d-lg-flex">
+                        <div>
+                            <a href="{% url 'section_details' sections.id %}">
+                                <img src="{{sections.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                            </a>
+                        </div>
+                        <div class="ms-lg-3 mt-2 mt-lg-0 py-auto">
+                            <h4 class="mt-auto ">
+                                <a href="{% url 'section_details'  sections.id %}" class="text-inherit">
+                                    {{sections.name|title}}
+                                </a>
+                            </h4>
+                            <span class="mb-0">
+                                Branch: 
+                                <a href="{% url 'branch_details'  sections.department.branch.id %}" class="badge bg-light-primary text-primary">
+                                    {{sections.department.branch.name}}
+                                </a>
+                            </span>
+                            <span class="mb-0">
+                                Department:
+                                <a href="{% url 'department_details'  sections.department.id %}" class="badge bg-light-info text-info">
+                                    {{sections.department.name}}
+                                </a>
+                            </span>
+                            <div class="">
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                <span class="text-inherit">(140)</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="border-top-0 ">{{sections.subjects.count}}</td>
+                <td class="border-top-0">{{sections.student_set.count}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

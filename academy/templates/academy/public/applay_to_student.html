@@ -1,0 +1,119 @@
+
+{% extends 'base/users_base.html' %} {% load static %}
+
+{% load static %}
+<!-- section -->
+
+{% block user_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow ">
+            <div class="card-header   text-uppercase">
+                {% if teacher %}Update Student Form{% else %}Create Student Form{% endif %}
+            
+            </div>
+                <div class="card-body  ">
+            <form class="loginForm w-100" method="POST", action="">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for error in form.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                    <span><strong>Wronge!</strong> {{error}}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                            {% for error in form.academic_year.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                    <span>{{error}}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <label for="{{ form.academic_year.id_for_label }}">academic year</label>
+                            <div class="position-relative has-icon-right">
+                                {{ form.academic_year }}
+                                
+                                {% if form.academic_year.help_text %}
+                                    <p class="help">{{ form.academic_year.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                  
+                      
+                    </div>
+                  
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            {% for error in form.class_types.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                    <span>{{error}}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <label for="{{ form.class_types.id_for_label }}">class types:</label>
+                            <div class="position-relative has-icon-right">
+                                {{ form.class_types }}
+                            
+                                {% if form.class_types.help_text %}
+                                    <p class="help">{{ form.class_types.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                            {% for error in form.sections.errors %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                    <span>{{error}}!</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <label for="{{ form.sections.id_for_label }}">sections:</label>
+                            <div class="position-relative has-icon-right">
+                                {{ form.sections }}
+                            
+                                {% if form.sections.help_text %}
+                                    <p class="help">{{ form.sections.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><hr>
+                <a href="{% url 'academy_dashboard' %}" class="btn btn-primary btn-round waves-effect waves-light m-1">Cancle</a>
+                <button type="submit" class="btn btn-success btn-round waves-effect waves-light m-1">{% if teacher %}Applay{% else %}Create Student{% endif %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

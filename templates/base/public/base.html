@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+ <!-- section -->
+ {% block style %}
+ {% include "base/public/header.html" %}
+  <!-- Custom Style-->
+  {% block public_style %}{% endblock public_style %}
+ {% endblock style %}
+
+ {% block content %}
+    {% include 'base/public/navbar.html' %}
+    {% block public_content %}{% endblock public_content %}
+    {% include 'base/footer.html' %}
+{% endblock content %}
+
+{% block script %}
+{% include "base/public/js.html" %}
+{% block public_script %}{% endblock public_script %}
+{% endblock script %}

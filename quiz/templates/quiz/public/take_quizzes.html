@@ -1,0 +1,269 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+
+
+<!-- Page header -->
+<div class="bg-success py-4 py-lg-6">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+          <div class="row ">
+            <div class="col-lg-6 col-12 px-4 text-white">
+                <h1 class="mb-0 text-white display-4">{{quiz.name|title}}</h1>
+                <h3 class="mb-0 text-white display-6">{{quiz.topic|title}}</h3>
+
+                <div class="mt-1">
+                    <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                        <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                        <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                    </svg>
+                    <span class="ms-1">difficulty</span>
+                    <span class="ms-1">: {{quiz.difficulty|title}}</span>
+
+                </div>
+                <div class="mt-1"> 
+                    <i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-12 px-4 text-white">
+                <div class="mt-4">
+                  <i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+                </div>
+                <div class="mt-1">
+                  <i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+                </div>
+                <div class="mt-1">
+                  <i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+                </div>
+              </div>
+              <div class="col-12  text-white my-4">
+                  <h2 id="time_to_finish_the_quiz" class="text-white text-center  display-2 mx-auto"></h1>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Content -->
+  <div class="py-6">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 mb-4">
+          
+          <div class="row d-lg-flex justify-content-between align-items-center">
+            <div class="col-md-6 col-lg-8 col-xl-9 ms-4">
+              <h4 class="mb-3 mb-lg-0">{{quiz.question_set.count}}  Question</h4>
+            </div>
+            <div class="d-inline-flex col-md-6 col-lg-4 col-xl-3">
+              <div class="me-2">
+                <!-- Nav -->
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-5 ">
+          <!-- Card -->
+          <div class="card border mb-6 mb-md-0 shadow-none">
+            <div class="card-header">
+              <h4 class="mb-0 fs-5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-filter text-muted me-2" viewBox="0 0 16 16">
+                  <path
+                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                </svg>All Questions</h4>
+            </div>
+            <div class="card-body py-3">
+                <ul class="nav flex-column nav-pills list-unstyled ms-n2 mb-4">
+                    {% for question in questions %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if forloop.first %}active{% endif %}" id="question_id_{{forloop.counter}}-tab" 
+                            data-bs-toggle="pill" href="#question_id_{{forloop.counter}}" 
+                            role="tab" aria-controls="question_id_{{forloop.counter}}" 
+                            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                            {{forloop.counter}}: {{question.text|truncatechars:35}}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="card-body py-3 d-grid">
+                <button target="#quiz_taking_form" type="button" class="btn btn-success text-white form-submiter">Done</button>
+            </div>
+
+
+          </div>
+
+        </div>
+  
+        <!-- Tab content -->
+        <div class="col-xl-8 col-lg-8 col-md-7 col-12">
+            <div class="card card-bordered card-hover cursor-pointer h-100">
+                    <!-- card body -->
+                <div class="card-body">
+                    <form  id="quiz_taking_form" method="POST" action="">
+                      {% csrf_token %}
+                        <div class="tab-content " id="v-pills-tabContent">
+                            {% for question in questions %}
+                                <div class="tab-pane fade nav-pills  {% if forloop.first %}show active{% endif %}" id="question_id_{{forloop.counter}}" role="tabpanel" aria-labelledby="question_id_{{forloop.counter}}-tab">
+                                    <h4 class="mx-2">{{forloop.counter}} : {{question.text}}</h4>
+                                    <ul class="list-group">
+                                        {% for answer in question.answer_set.all %}
+                                            <li class="list-group-item mb-2 border-0">
+
+                                              <input name="{{question.id}}" value="{{answer.id}}" class="form-check-input" type="radio" value="" id="flexCheckDefault"> 
+                                              : {{answer.text}}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <nav aria-label="Page navigation example">
+                                      <ul class="pagination">
+                                        <li  class="page-item ">
+                                          <span 
+                                          target="#question_id_{{forloop.counter|add:"-1"}}-tab"  
+                                          class="page-link {% if forloop.first %}disabled{% else %}btn-control{% endif %}" 
+                                          >Previous</span>
+                                        </li>
+                                        <li   class="page-item active">
+                                          <span  class="page-link" >{{forloop.counter}}</span>
+                                        </li>
+                                        <li class="page-item">
+                                          <span  
+                                          target="#question_id_{{forloop.counter|add:1}}-tab" 
+                                          class="page-link {% if forloop.last %}disabled{% else %}btn-control{% endif %}"
+                                          >Next</span>
+                                        </li>
+                                      </ul>
+                                    </nav>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+    {% endblock public_content %}
+
+{% block public_script %}
+<script>
+    $(function(){
+
+        const startQuizTime =  new Date().getTime();
+        var endQuizTime
+        var countDownDate = new Date()
+
+        countDownDate.setMinutes(countDownDate.getMinutes() + Number("{{quiz.time_to_finish}}"))
+        countDownDate = countDownDate.getTime();
+        const timeInterval = setInterval(function() {
+
+          endQuizTime = new Date().getTime();
+              
+          var distance = countDownDate - endQuizTime;
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          document.getElementById("time_to_finish_the_quiz").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+          
+          if (distance < 0) {
+            clearInterval(timeInterval);
+            document.getElementById("time_to_finish_the_quiz").innerHTML = "EXPIRED";
+            console.log(countDownDate - distance)
+            hundleSubmit()
+          }
+
+        }, 1000);
+
+        $(".btn-control").on("click",(e)=>{
+
+            var targetSelector = $(e.currentTarget).attr("target")
+            document.querySelector(targetSelector).click()
+
+        })
+
+        $(".form-submiter").on("click",(e)=>{
+          clearInterval(timeInterval);
+          hundleSubmit()
+        });
+
+        function hundleSubmit(){
+          console.log(">>>>>>>>>>>>>>>>>>>>>>>>>")
+          const quiz_duration = (endQuizTime - startQuizTime) / (60 * 1000);
+ 
+          const form = document.querySelector("#quiz_taking_form")
+
+          const questions = ("{% for question in questions %}{{question.id}}{% if not forloop.last %},{% endif %}{% endfor %}").split(',')
+          const url = form.action
+          
+          const form_data = new FormData(form)
+          const compulited_form_data = new FormData()
+          
+          const quiz_id = "{{quiz.id}}"
+        
+          compulited_form_data.append("quiz_id",quiz_id)
+          compulited_form_data.append("quiz_duration",quiz_duration)
+
+          questions.forEach(question => {
+            
+            compulited_form_data.append("users_questions",question)
+            compulited_form_data.append("user_answers",form_data.get(question))
+            
+          });
+          compulited_form_data.append("csrfmiddlewaretoken",  $('input[name=csrfmiddlewaretoken]').val());
+         
+          $.ajax({
+                url: url,
+                method: "POST",
+                dataType: 'json',
+                cache: false,
+                processData: false,
+                contentType: false,
+                data: compulited_form_data,
+                success:  function (data) {
+                  console.log(data)
+
+                  if(data.is_pass){
+                    swal("Good job! You Pass", "Score: "+ data.score +", number of correct answers: "+ data.num_correct_answers + ".", "success");
+                  }else{
+                    swal("Sorry! You Fail", "Score: "+ data.score +", number of correct answers: "+ data.num_correct_answers + ".", "warning");
+                  }
+
+                },
+                error: function(error){
+                  console.log(error)
+                  swal({
+                    title: "Somthing is Wrong!",
+                    text: "please try later",
+                    icon: "warning",
+                })
+                }
+            });
+
+        }
+
+      
+
+    });
+</script>
+{% endblock public_script %}

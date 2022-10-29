@@ -1,0 +1,150 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+  <div class="py-lg-18 py-10 bg-success">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-7 col-md-12">
+          <div class="py-8 py-lg-0 text-center">
+            <h1 class="display-2 fw-bold mb-3 text-primary">
+              <span class="text-dark px-3 px-md-0">Build Better</span>
+              <span class="headingTyped text-primary"></span>
+            </h1>
+            <p class="mb-6 h2 text-dark">
+              Build skills with courses Join Victory wisdom school to watch, play, learn, make,
+              and discover, uscipit esi viimentum laoreet non et odio.
+            </p>
+            <a href="{% url 'register' %}" class="btn btn-primary me-2"
+              >Register Free</a
+            >
+            <a href="../sign-up.html" class="btn btn-outline-primary"
+              >Applay New</a
+            >
+            <div class="mt-8 mb-0">
+              <ul class="list-inline">
+                <li
+                  class="list-inline-item text-dark fw-semi-bold lh-1 fs-4 me-3 mb-2 mb-md-0"
+                >
+                  <span
+                    class="icon-shape icon-xs rounded-circle bg-light-success text-center me-2"
+                    ><i class="zmdi zmdi-check text-success"></i></span
+                  ><span class="align-middle">{{branchs_num}} Branchs</span>
+                </li>
+                <li
+                  class="list-inline-item text-dark fw-semi-bold lh-1 fs-4 me-3 mb-2 mb-md-0"
+                >
+                  <span
+                    class="icon-shape icon-xs rounded-circle bg-light-success text-center me-2"
+                    ><i class="zmdi zmdi-check text-success"></i></span
+                  ><span class="align-middle"
+                    >{{total_num_teachers}} Expert teachers</span
+                  >
+                </li>
+                <li class="list-inline-item text-dark fw-semi-bold lh-1 fs-4">
+                  <span
+                    class="icon-shape icon-xs rounded-circle bg-light-success text-center me-2"
+                    ><i class="zmdi zmdi-check text-success"></i></span
+                  ><span class="align-middle">{{subjects_num}} courses</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="py-8 py-lg-18">
+    <div class="container">
+      <div class="row mb-8 justify-content-center">
+        <div class="col-lg-8 col-md-12 col-12 text-center">
+          <!-- caption -->
+          <span
+            class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl"
+            >Our Branchs</span
+          >
+          <h2 class="mb-2 display-4 fw-bold">What will you learn?</h2>
+          <p class="lead">
+            Vanilla JS is a fast, lightweight, cross-platformframework for
+            building incredible, powerful JavaScript applications.
+          </p>
+        </div>
+      </div>
+      <!-- row -->
+      <div class="row">
+        {% for branch in branches %}
+          <div class="offset-xl-2 col-lg-6 col-md-12 col-12">
+            {% include 'components/branch_card.html' with branch=branch %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8 py-lg-10">
+    <div class="container">
+      <div class="row mb-8 justify-content-center">
+        <div class="col-lg-8 col-md-12 col-12 text-center">
+          <!-- caption -->
+          <span
+            class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-xl"
+            >Our Departments</span
+          >
+          <h2 class="mb-2 display-4 fw-bold">What will you learn?</h2>
+          <p class="lead">
+            Vanilla JS is a fast, lightweight, cross-platformframework for
+            building incredible, powerful JavaScript applications.
+          </p>
+        </div>
+      </div>
+      <!-- row -->
+      <div class="row">
+        {% for department in departments %}
+          <div class="offset-xl-2 col-lg-6 col-md-12 col-12">
+            {% include 'components/department_card.html' with department=department %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Top courses-->
+  <div class="py-8 py-lg-16 bg-light-gradient-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-8">
+            <span
+              class="text-primary mb-3 d-block text-uppercase fw-semi-bold ls-lg"
+              >Our courses</span
+            >
+            <h2 class="mb-1 display-4 fw-bold">The world's top courses</h2>
+            <p class="mb-0 lead">
+              Choose from {{sections_num}} courses with new additions published
+              every month.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          {% include 'components/department_courses.html' with departments=departments %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+{% include 'components/vfooter.html' %}
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

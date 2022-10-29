@@ -1,0 +1,201 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+     <!-- Breadcrumb-->
+     <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+		    <h4 class="page-title">Data Tables</h4>
+		    <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javaScript:void();">Rukada</a></li>
+            <li class="breadcrumb-item"><a href="javaScript:void();">Tables</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data Tables</li>
+         </ol>
+	   </div>
+	   <div class="col-sm-3">
+       <div class="btn-group float-sm-right">
+        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+        <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> Expor Data</a>
+          <a href="javaScript:void();" class="dropdown-item"><i aria-hidden="true" class="fa fa-bar-chart"></i> Visualize Data</a>
+          <div class="dropdown-divider"></div>
+          <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-more"></i> More</a>
+        </div>
+      </div>
+     </div>
+     </div>
+    <!-- End Breadcrumb-->
+        <!--End Row-->
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="card bg-transparent text-light shadow-none border border-light-3">
+                <form class="" method="POST", action="">
+                    {% csrf_token %}
+                    <div class="card-header bg-transparent">
+                        <i class="fa fa-table"></i> Data Exporting
+                        <div class="card-action">
+                            <div class="input-group">
+                                <select class="confirm-action" name="action" required class="custom-select-sm">
+                                    <option value="none" >Choose...</option>
+                                    <option value="applied_selected">Applied selected Student</option>
+                                    <option value="dissmis_selected">Dissmis selected Student</option>
+                                    <option value="delete_selected">Delete selected Student</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn confirm-btn-alert btn-outline-primary waves-effect waves-light" >Go</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div class="table-responsive">
+                            <table id="data-table-example" class="table align-items-center table-flush bg-transparent data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Full Name</th>
+                                        <th>stasus</th>
+                                        <th>Admission Date</th>
+                                        <th>Branch</th>
+                                        <th>Department</th>
+                                        <th>Classes</th>
+                                        <th>Sections</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for student in students_list %}
+                                    <tr>
+                                        <td>
+                                            <div class="icheck-material-primary">
+                                                <input class="checkbox" name="student_{{student.id}}" type="checkbox" id="{{student.id}}">
+                                                <label for="{{student.id}}"></label>
+                                            </div>
+                                        </td>
+                                        <td>{{ student.profile.user.get_full_name}}</td>
+                                        {% if student.stasus == 'applied' %}
+                                        <td><span class="btn btn-sm btn-outline-success btn-round btn-block">applied</span></td>
+                                        {% elif student.stasus == 'dissmised' %}
+                                        <td><span class="btn btn-sm btn-outline-danger btn-round btn-block">dissmised</span></td>
+                                        {% else %}
+                                        <td><span class="btn btn-sm btn-outline-info btn-round btn-block">Pending</span></td>
+                                        {% endif %}
+                                        <td>{{ student.admission_date }}</td>
+                                        <td>{% for class_type in student.class_types.all %}{{class_type.department.branch}}, {% endfor %}</td>
+                                        <td>{% for class_type in student.class_types.all %}{{class_type.department}}, {% endfor %}</td>
+                                        <td>{% for class_type in student.class_types.all %}{{class_type}}, {% endfor %}</td>
+                                        <td>{% for section in student.sections.all %}{{section}}, {% endfor %}</td>
+                                        <td>{{student.profile.user.address}}</td>
+                                        <td>
+                                            <a href="{% url 'students_details' student.id %}">
+                                                <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                                            </a>
+                    
+                                            <a href="{% url 'update_students' student.id %}">
+                                                <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                                            </a>
+                    
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Full Name</th>
+                                        <th>stasus</th>
+                                        <th>Admission Date</th>
+                                        <th>Branch</th>
+                                        <th>Department</th>
+                                        <th>Classes</th>
+                                        <th>Sections</th>
+                                        <th>Admission Date</th>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- End Row-->
+
+{% endblock %}
+
+
+
+
+
+
+
+
+<button 
+class="btn btn-primary btn-round waves-effect btn-sm  waves-light "
+hx-get="{% url 'htmx_subject_creation_form' %}"
+hx-target="#subject_form_id_{{form_id}}_{{forloop.counter}}"
+hx-swap="beforeend"
+>
+<i class="fa fa-plus text-light"></i> Add Subject
+</button>
+<button 
+class="btn btn-primary btn-round waves-effect btn-sm  waves-light "
+hx-get="{% url 'htmx_section_creation_form' %}"
+hx-target="#section_form_id_{{form_id}}_{{forloop.counter}}"
+hx-swap="beforeend"
+>
+<i class="fa fa-plus text-light"></i> Add Section
+</button>
+
+
+<div class="py-lg-16 py-10">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-right-md-6 col-12 mb-10">
+           <!-- heading -->
+          <h2 class="display-4 mb-3 fw-bold">Our Team</h2>
+           <!-- lead -->
+          <p class="lead mb-5">Want to work with some of the best global talent and build a tool used by all the
+            companies you know and love? Join the Victory wisdom team and help shape the future of design.</p>
+             <!-- btn -->
+        </div>
+      </div>
+
+      <div class="row">
+        {% for team in teams %}
+        <div class="col-xl-4 col-lg-6 col-12">
+            <div class="card card-hover border-top border-muted border-4 card-hover-with-icon p-2">
+              <div class="card-body">
+                <!-- form section -->
+                <h2 class="display-4 mb-2 fw-bold">{{team.team_name}}</h2>
+                <p class="lead mb-5">
+                  {{team.descriptions}}
+                </p>
+                <hr>
+                <div class="row">
+                  {% for team_user in team.users.all %}
+                  sghdfhdah
+                      <div class="col-md-2 col-3">
+                        <div class="p-xl-5 p-lg-3 mb-3 mb-lg-0">
+                          <img src="{{team_user.get_profile_image.url}}" alt="" class="imgtooltip img-fluid rounded-circle" data-template="one">
+                          <div id="one" class="d-none">
+                            <h4 class="mb-0 fw-bold">{{team_user.get_full_name}}</h4>
+                            <span>{{team_user.email}}</span>
+                          </div>
+                        </div>
+                      </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="card-footer"></div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,89 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %} 
+<!-- Plugins and style required by This views -->
+<!--=========================================================================================-->
+ <!--Data Tables -->
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+ <link href="{% static 'assets/css/table.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+
+{% endblock admin_style %}
+
+{% block admin_content %}
+<!--Start Dashboard Content-->
+     <!-- Breadcrumb-->
+     <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+		    <h4 class="page-title  pt-3 pb-3  ">Students List Data Tables</h4>
+		    <ol class="breadcrumb shadow bg-light p-2">
+                <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                <li class="breadcrumb-item active" aria-current="page">students list</li>
+            </ol>
+         </ol>
+	   </div>
+	   <div class="col-sm-3">
+       <div class="btn-group float-sm-right">
+        <a href="{% url 'create_student' %}" type="button" class="btn btn-outline-primary waves-effect waves-light">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> Add New Student
+        </a>
+      </div>
+     </div>
+     </div>
+    <!-- End Breadcrumb-->
+        <!--End Row-->
+        <div class="row">
+            <div class="col-lg-12">
+                {% include "students/components/student_table.html" %} 
+            </div>
+        </div>
+        </div><!-- End Row-->
+
+<!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+<!-- Plugins and scripts required by This views -->
+<!--=========================================================================================-->
+
+  <!--=========================================================================================-->
+  <!--Data Tables js-->
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+  <script src="{% static 'assets/js/dynamic_table_form.js' %}"></script> 
+<!--Inline script-->
+  <!--=========================================================================================-->
+  <script>
+    $(function() {
+      //Default data table
+        $('.default-datatable').DataTable();
+        $("form-select .form-select-sm")
+
+      
+       
+        $('.data-table').toArray().forEach(data_table => {
+            var table = $(data_table).DataTable( {
+                lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'print', 'colvis' ]
+            } );
+        
+            table.buttons().container().appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        });
+          
+      
+    });
+   </script>
+  <!--=========================================================================================-->
+  {% endblock admin_script %}
+

@@ -1,0 +1,250 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %} 
+<!-- Plugins and style required by This views -->
+<!--=========================================================================================-->
+ <!--Data Tables -->
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+ <link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+ <link href="{% static 'assets/css/table.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+
+{% endblock admin_style %}
+
+{% block admin_content %}
+<!--Start Dashboard Content-->
+<!-- Breadcrumb-->
+     <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+		    <h4 class="page-title pt-3 pb-3">Users List Data Tables</h4>
+		    <ol class="breadcrumb shadow p-2">
+                <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Users list</li>
+            </ol>
+         </ol>
+	   </div>
+	   <div class="col-sm-3">
+       <div class="btn-group shadow float-sm-right">
+        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+        <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="{% url 'create_user_group' %}" class="dropdown-item"><i class="fa fa-plus" aria-hidden="true"></i> Create Uses Group</a>
+        </div>
+      </div>
+     </div>
+     </div>
+    <!-- End Breadcrumb-->
+    <!--End Row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <form id="users_group_list_table" class="dynamic-table" method="POST", action="">
+                {% csrf_token %}
+                <div class="card shadow border">
+                    <div class="card-header ">
+                        <label class="p-auto"><i class="fa fa-table"></i>Student List</label>
+                        <div class="card-action d-flex">
+                            <div class="input-group mr-2">
+                                <select class="form-select form-select-sm" name="action" required="">
+                                    <option value="none">Choose...</option>
+                                    <option value="delete_selected">Delete Selected Users</option>
+                                </select>
+                                <div class="input-group-append">
+                                    {% comment %} <button type="button" class="btn  btn-outline-primary waves-effect waves-light">Go</button> {% endcomment %}
+                                    <button type="submit" class="btn btn-primary waves-effect waves-light"> <span>Go</span> </button>
+                                    <button type="button" class="btn btn-primary split-btn-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(95px, -199px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a href="javaScript:void();" class="dropdown-item">Action</a>
+                                    <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                                    <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table  class="default-datatable table align-items-center table-flush">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" class="border-0" >
+                                            Select
+                                        </th>
+                                        <th scope="col" class="border-0">Name</th>
+                                        <th scope="col" class="border-0">Users</th>
+                                        <th scope="col" class="border-0">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for group in groups %}
+                                        <tr>
+                                            <td class="align-middle border-top-0">
+                                                <div class="form-check">
+                                                  <input
+                                                    type="checkbox"
+                                                    class="form-check-input"
+                                                    id="postOne"
+                                                  />
+                                                  <label
+                                                    class="form-check-label"
+                                                    for="postOne"
+                                                  ></label>
+                                                </div>
+                                            </td>
+                                            <td>{{group.name}}</td>
+                                            <td>{{group.user_set.count}}</td>
+                                            <td>
+                                                <a href="{% url 'update_user_group' group.id %}">
+                                                    <button type="button" class="btn btn-sm  btn-info"> 
+                                                        <i class="zmdi zmdi-edit"></i> Edit</button>
+                                                </a>
+                                                <a href="{% url 'update_user_group' group.id %}">
+                                                    <button type="button" class="btn btn-sm  btn-info"> 
+                                                        <i class="zmdi zmdi-edit"></i> Delete</button>
+                                                </a>
+                                            </td>
+            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="users_list_table" action="{% url 'multi_close_and_delete_user_account' %}" class="dynamic-table" method="POST">
+                {% csrf_token %}
+                <div class="card shadow border">
+                    <div class="card-header ">
+                        <label class="p-auto"><i class="fa fa-table"></i>Student List</label>
+                        <div class="card-action d-flex">
+                            <div class="input-group">
+                                <select class="form-select" name="action" id="inputGroupSelect04" required aria-label="Example select with button addon">
+                                    <option value="none">Choose...</option>
+                                    <option value="delete">Delete Selected Users</option>
+                                    <option value="activate">Activate Selected Users</option>
+                                    <option value="deactivate">Deactivated Selected Users</option>
+                                </select>
+                                <button class="btn btn-outline-secondary" type="submit">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="data-table table align-items-center">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" class="align-middle border-0" >
+                                            Select
+                                        </th>
+                                        <th scope="col" class="border-0">Full Name</th>
+                                        <th scope="col" class="border-0">Profile</th>
+                                        <th scope="col" class="border-0">status</th>
+                                        <th scope="col" class="border-0">User Name</th>
+                                        <th scope="col" class="border-0">Email Address</th>
+                                        <th scope="col" class="border-0">Gender</th>
+                                        <th scope="col" class="border-0">Age</th>
+                                        <th scope="col" class="border-0">Address</th>
+                                        <th scope="col" class="border-0">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in users_list %}
+                                        <tr>
+                                            <td scope="col"  class="align-middle border-top-0">
+                                                <div class="form-check">
+                                                  <input name="columns" value="{{user.id}}" type="checkbox" class="form-check-input" id="postOne" />
+                                                  <label class="form-check-label" for="postOne" ></label>
+                                                </div>
+                                            </td>
+                                            <td>{% if user.get_full_name %}{{user.get_full_name}}{% else %}No name{% endif %}</td>
+                                            <td>
+                                                <a href="{% url 'user_details' user.id %}">
+                                                    <img src="{{user.get_profile_image.url}}" class="avatar rounded-circle" alt="user avatar">
+                                                </a>
+                                            </td>
+                                            {% if user.is_active  %}
+                                            <td><span class="btn btn-sm btn-outline-success btn-round btn-block">Active</span></td>
+                                            {% else %}
+                                            <td><span class="btn btn-sm btn-outline-danger btn-round btn-block">Deactive</span></td>
+                                            {% endif %}
+                                            <td>{{user.username}}</td>
+                                            <td>{{user.email}}</td>
+                                            <td>{% if user.gender %}{{user.gender}}{% else %}None{% endif %}</td>
+                                            <td>{{user.birth_date|timesince}}</td>
+                                            <td>
+                                                {{user.address.state}}/
+                                                {{user.address.city}}/
+                                                {{user.address.street}}
+
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'change_user' user.id %}">
+                                                    <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i> Edit</button>
+                                                </a>
+                                            </td>
+            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!-- End Row-->
+
+  <!--End Dashboard Content-->
+  {% endblock admin_content %}
+
+  {% block admin_script %}
+  <!-- Plugins and scripts required by This views -->
+  <!--=========================================================================================-->
+  <!--Data Tables js-->
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+  <script src="{% static 'assets/js/dynamic_table_form.js' %}"></script> 
+<!--Inline script-->
+  <!--=========================================================================================-->
+  <script>
+    $(function() {
+      //Default data table
+        $('.default-datatable').DataTable();
+        $("form-select .form-select-sm")
+
+      
+       
+        $('.data-table').toArray().forEach(data_table => {
+            var table = $(data_table).DataTable( {
+                lengthChange: false,
+                buttons: [ 'copy', 'excel', 'pdf', 'print', 'colvis' ]
+            } );
+        
+            table.buttons().container().appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        });
+          
+      
+    });
+   </script>
+  <!--=========================================================================================-->
+  {% endblock admin_script %}
+  
+  

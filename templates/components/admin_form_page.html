@@ -1,0 +1,141 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+  <!-- Plugins and style required by this views -->
+<!--=========================================================================================-->
+<!--dropzone  -->
+<link href="{% static 'assets/libs/dropzone/dist/dropzone.css' %}" rel="stylesheet" /> 
+<!--Select Plugins-->
+<link href="{% static 'assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+<!--inputtags-->
+<link href="{% static 'assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+<!--multi select-->
+<link href="{% static 'assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+<!--Bootstrap Datepicker-->
+<link href="{% static 'assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+<!--Touchspin-->
+<link href="{% static 'assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<!--=========================================================================================-->
+{% endblock admin_style %}
+
+{% block admin_content %}
+<div class="row align-items-center justify-content-center g-0 min-vh-100">
+
+    <div class="col-lg-8 col-md-10 py-8 py-xl-0">
+        <!-- Card -->
+        <div class="card card-hover border-top border-muted border-4 card-hover-with-icon mb-4">
+        <!-- Card body -->
+            <div class="card-body p-4">
+                <div class="my-4 text-center">
+                    <h1 class="mb-1 fw-bold">{{form_title|truncatechars:50}}</h1>
+                </div>  
+                <!-- Form -->
+                <form action="{{action}}" class="loginForm w-100" method="POST", action="">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="row">
+                            <div class="col-12">
+                                {% for error in form.errors %}
+                                    <!-- Danger alert -->
+                                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </svg>
+                                        <div>
+                                        <span><strong>Wronge!</strong> {{error}}!</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% for field in form %}
+                    {% if field.widget_type == "clearablefile" or field.widget_type == "file" or field.widget_type == "image" %}
+                    <div class="col-lg-12 col-sm-12 my-4">
+                        <div class="form-group">
+                                <div  
+                                    id="dropzone-profile-dropzone" 
+                                    dz-title="Drop profile {{field.label}} here to upload"
+                                    dz-post="." 
+                                    dz-max-file="1"
+                                    dz-trigger="#dropzone-submitter" 
+                                    dz-accepted-file="image/*"
+                                    class="dropzone mt-4 border-dashed rounded-2 min-h-0 mb-1 ">
+                                    <div class="fallback">
+                                        {{field}}
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="dropzone-submitter" class="btn btn-outline-white btn-block w-100 btn-small">Upload File</button>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-12 col-sm-12 my-4">
+                            <div class="form-group">
+                                {% for error in field.errors %}
+                                        <!-- Danger alert -->
+                                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill me-2" viewBox="0 0 16 16">
+                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                        </svg>
+                                        <div>
+                                        <span><strong>Wronge!</strong> {{error}}!</span>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                {{ field.label_tag }}
+                                <div class="position-relative has-icon-right">
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+
+                        <!-- Button -->
+                    <div class="d-flex">
+                        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary btn-round waves-effect btn-sm  waves-light m-1">Cancle</a>
+                        <button  type="submit" class="btn btn-success btn-round waves-effect btn-sm waves-light m-1">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock admin_content %}
+{% block admin_script %}  
+<!-- Plugins and scripts required by This views -->
+        <!--Select Plugins Js-->
+        <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+        <!--Inputtags Js-->
+        <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+        <!--Bootstrap Datepicker Js-->
+        <script src="{% static 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+        <!--Multi Select Js-->
+        <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+        <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+        <!--Inputtags Js-->
+        <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+        <!--material date picker js-->
+        <script src="{% static 'assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/material-datepicker/js/ja.js' %}"></script>
+         <!--dropzone Js-->
+        <script src="{% static 'assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+        <script src="{% static 'assets/js/dropzone-script.js' %}"></script>
+        <!--Cutom Js-->
+        <script src="{% static 'assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+        <script src="{% static 'assets/js/form-script.js' %}"></script>
+        {% if alert %}
+        <script>
+            $(function(){
+                swal("{{alert.title}}","{{alert.body}}","{{alert.type}}");
+            });
+        </script>
+        {% endif %}
+
+{% endblock admin_script %}

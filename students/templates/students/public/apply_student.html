@@ -1,0 +1,169 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+{% block public_style %}
+
+<!-- Libs CSS -->
+<!--Select Plugins-->
+<link href="{% static 'assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+<!--inputtags-->
+<link href="{% static 'assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+<!--multi select-->
+<link href="{% static 'assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+<!--Bootstrap Datepicker-->
+<link href="{% static 'assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+<!--Touchspin-->
+<link href="{% static 'assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+
+
+
+
+ <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css"/>
+
+<link href="{% static 'assets/css/theme.min.css' %}" rel="stylesheet">
+<!--=========================================================================================-->
+
+ 
+
+<!--=========================================================================================-->
+
+{% endblock public_style %}
+{% block public_content %}
+<!--Start Dashboard Content-->
+
+ <!-- Page header-->
+ <div class="py-6 py-lg-12">
+    <div class="container">
+      <div class="row">
+        <div class="offset-lg-1 col-lg-7 col-12">
+
+          <!-- Content -->
+          <div class="mb-10">
+            <!-- heading -->
+            <h1 class="mb-3 display-4 fw-bold">Register & grow your career</h1>
+            <!-- lead -->
+            <p class="mb-0 lead pe-lg-10 ">
+              Build your profile and let recruiters find you. Get knowladge
+              postings delivered right to your email.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+      <div class="row">
+        <div class="offset-lg-1 col-lg-10 col-12">
+          <div class="row">
+            <div class=" col-md-8 col-12">
+              <div class="card card-bordered shadow-none mb-3">
+                  <!-- Card body -->
+                  <div class="card-body p-6">
+                    {% include "components/forms.html" with form=form action='/students/apply_student/' %}
+                  </div>
+              </div>
+            </div>
+
+            
+            <div class="col-md-4 col-12">
+              <!-- card -->
+              <div class="card bg-light-warning shadow-none">
+                <!-- card  body -->
+                <div class="card-body p-5">
+                  <div class="mb-4">
+                    <img class="navbar-logo-icon" src="{% static 'assets/images/logolight.png' %}" alt="">
+
+                  </div>
+                  <h3 class="mb-3">On registering you
+                    can</h3>
+                  <ul class="list-unstyled text-dark mb-0">
+                    <li class="d-flex align-items-start mb-3"><i
+                        class="mdi mdi-check-circle me-2 text-success"></i>Build your profile and let
+                      recruiters find you.</li>
+                    <li class="d-flex align-items-start mb-3"><i class="mdi mdi-check-circle me-2 text-success"></i>Get
+                      job postings delivered right
+                      to your email.</li>
+                    <li class="d-flex align-items-start"><i class="mdi mdi-check-circle me-2 text-success"></i>Find a
+                      Job & grow your career</li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- col -->
+
+      </div>
+    </div>
+  </div>
+
+
+ <!--End Dashboard Content-->
+ {% endblock public_content %}
+ {% block public_script %}  
+
+ <!-- Plugins and scripts required by This views -->
+ <!--=========================================================================================-->
+ <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+ <script src="{% static 'assets/js/popper.min.js' %}"></script>
+ <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+ <!--Select Plugins Js-->
+ <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+
+ <!--Bootstrap Datepicker Js-->
+ <script src="{% static 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+ <!--Multi Select Js-->
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+ <!--material date picker js-->
+ <script src="{% static 'assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/ja.js' %}"></script>
+ 
+ <script src="{% static 'assets/js/form-script.js' %}"></script>
+ <!--Inline script-->
+ <!--=========================================================================================-->
+ <script>
+   $(function() {
+     //Default data table
+
+       $("form-select .form-select-sm")
+
+       $(".hx-delete-alert-confirm").click(function(e){
+            
+            var alert_text = $(e.currentTarget.id).attr("alert-text");
+
+            swal({
+                title: "Are you sure?",
+                text: alert_text || "Once deleted, you will not be able to recover data!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    swal("Information!", "Poof! Your data has been deleted!,", "info", {
+                        icon: "success",
+                    });
+                    
+                    htmx.trigger("#" + e.currentTarget.id, "confirmed")
+
+                } else {
+                    swal("Information!", "Your data file is safe!,", "info");
+                }
+            });
+        });
+    });
+
+  </script>
+ <!--=========================================================================================-->
+ 
+
+{% endblock public_script %}

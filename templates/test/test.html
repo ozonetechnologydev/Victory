@@ -1,0 +1,279 @@
+{% extends 'base/users_base.html' %}
+{% load static %}
+
+ <!-- section -->
+ {% block user_content %}
+ <script src="{% static 'main/js/editor/editor.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-link.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-embed.js' %}"></script>
+ <script src="{% static 'main/js/editor/table.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-attaches.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-image.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-header.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-checklist.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-code.js' %}"></script>
+ <script src="{% static 'main/js/editor/bundle-delimiter.js' %}"></script>
+
+ <script src="{% static 'main/js/editor/link-autocomplete.js' %}"></script>
+
+ 
+
+ <form  action="{% url 'test_url' %}" method="POST"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="block"></div>
+    <div id="editorjs"></div>
+  
+    <button class="save-button">Save</button>
+    <pre class="output"></pre>
+    
+
+  </form>
+  <script>
+  </script>
+  
+  <script>
+    class SimpleImage {
+      static get toolbox() {
+        return {
+          title: 'Image',
+          icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>'
+        };
+      }
+    
+      render(){
+        return document.createElement('input');
+      }
+    
+      save(blockContent){
+        return {
+          url: blockContent.value
+        }
+      }
+    }
+    const editor = new EditorJS({
+      autofocus: true,
+      inlineToolbar: ['bold', 'italic', 'link'],
+      tools: {
+        image: SimpleImage,
+        table: {
+          class: Table,
+          inlineToolbar: true,
+        },
+        linkTool: {
+          class: LinkTool,
+          config: {
+            endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching,
+          }
+        },
+        embed: {
+          class: Embed,
+          config: {
+            services: {
+              youtube: true,
+              coub: true
+            }
+          }
+        },
+        link: {
+          class: LinkAutocomplete,
+          config: {
+            endpoint: 'http://localhost:3000/',
+            queryParam: 'search'
+          }
+        },
+        attaches: {
+          class: AttachesTool,
+          config: {
+            endpoint: 'http://localhost:8008/uploadFile'
+          }
+        },
+        image: {
+          class: ImageTool,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+            }
+          }
+        },
+        header: {
+          class: Header,
+          shortcut: 'CMD+SHIFT+H',
+          config: {
+            placeholder: 'Enter a header',
+            levels: [2, 3, 4],
+            defaultLevel: 3
+          }
+        },
+        underline: Underline,
+        raw: RawTool,
+        code: CodeTool,
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          shortcut: 'CMD+SHIFT+O',
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder: 'Quote\'s author',
+          },
+        },
+        checklist: {
+          class: Checklist,
+          inlineToolbar: true,
+        },
+        list: {
+          class: List,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered'
+          }
+        },
+        delimiter: Delimiter,
+       // list: {
+         // class: NestedList,
+         // inlineToolbar: true,
+       // },
+       // embed: Embed,
+       inlineCode: {
+        class: InlineCode,
+        shortcut: 'CMD+SHIFT+M',
+      },
+      warning: {
+        class: Warning,
+        inlineToolbar: true,
+        shortcut: 'CMD+SHIFT+W',
+        config: {
+          titlePlaceholder: 'Title',
+          messagePlaceholder: 'Message',
+        },
+      },
+
+
+      },
+      data: {
+        time: 1625072989362,
+        blocks: [
+
+          {
+              "type" : "text",
+              "data" : {
+                  "text" : "Create a directory for your module, enter it and run <span class=\"inline-code\">npm init</span> command."
+              }
+          },
+          {
+            "type" : "warning",
+            "data" : {
+                "title" : "Note:",
+                "message" : "Avoid using this method just for lulz. It can be very dangerous opposite your daily fun stuff."
+            }
+        },
+
+
+
+        {
+          "type" : "delimiter",
+          "data" : {}
+      },
+
+
+          {
+            id: "XXVTfnMlcE",
+            type: "table",
+            data: {
+              withHeadings: true,
+              content: [
+                ["English", "Russian", "Japanese"], 
+                ["Sweet", "Сладкий", "あまい"], 
+                ["Good morning", "Доброе утро", "おはようございます"]]
+            }
+          },
+          {
+            "type" : "checklist",
+            "data" : {
+                "items" : [
+                    {
+                      "text" : "This is a block-styled editor",
+                      "checked" : true
+                    },
+                    {
+                      "text" : "Clean output data",
+                      "checked" : false
+                    },
+                    {
+                      "text" : "Simple and powerful API",
+                      "checked" : true
+                    }
+                ]
+            }
+        },
+        {
+          "type" : "list",
+          "data" : {
+              "style" : "unordered",
+              "items" : [
+                  "This is a block-styled editor",
+                  "Clean output data",
+                  "Simple and powerful API"
+              ]
+          }
+      },
+      {
+        "type" : "code",
+        "data" : {
+            "code": "body {\n font-size: 14px;\n line-height: 16px;\n}",
+        }
+    },
+    {
+      "success": true,
+      "items": [
+        {
+          "href": "https://codex.so/editor",
+          "name": "The first item",
+          "description": ""
+        },
+        {
+          "href": "https://codex.so/media",
+          "name": "The second item",
+          "description": ""
+        }
+      ]
+    },{
+      "type" : "text",
+      "data" : {
+          "text" : "Create a directory for your module, enter it and run <a href=\"https://codex.so/\" data-name=\"CodeX Site\">npm init</a> command."
+      }
+  },
+  
+  {
+    "type" : "quote",
+    "data" : {
+        "text" : "The unexamined life is not worth living.",
+        "caption" : "Socrates",
+        "alignment" : "left"
+    }
+},
+
+
+
+
+
+
+  
+        ],
+        version: "2.22.1"
+      }
+      
+    });
+    const saveButton = document.querySelector('.save-button');
+    const output = document.querySelector('.output');
+
+    saveButton.addEventListener('click', () => {
+      editor.save().then(savedData => {
+        output.innerHTML = JSON.stringify(savedData, null, 4);
+      });
+    });
+    
+  </script>
+
+
+ {% endblock user_content %}

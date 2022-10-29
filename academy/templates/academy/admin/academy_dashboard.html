@@ -1,0 +1,80 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+ 
+{% endblock admin_style %}
+
+{% block admin_content %}
+  <!--Start Dashboard Content-->
+
+  <div class="row">
+      <div class="col-12 col-lg-12">
+        <div class="card  border border-light-3">
+          <div class="card-header   text-uppercase">Polar Chart</div>
+          <div class="card-body  ">
+            <canvas id="polarChart" class="polarChart" height="150">
+              {% for object in branch_info %}
+              <input name={{object.branch}} value={{object.number_of_students}} type="hidden">
+            {% endfor %}
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card  border border-light-3">
+        <div class="card-header  text-uppercase">Bar Chart</div>
+        <div class="card-body">
+          <canvas id="barChart" class="barChart" height="110">
+
+            <span name="dodola">
+              <input value="3" type="hidden">
+              <input value="7" type="hidden">
+              <input value="3" type="hidden">
+              <input value="4" type="hidden">
+              <input value="3" type="hidden">
+              <input value="9" type="hidden">
+              <input value="6" type="hidden">
+              <input value="3" type="hidden">
+              <input value="4" type="hidden">
+              <input value="3" type="hidden">
+              <input value="3" type="hidden">
+              <input value="9" type="hidden">
+            </span>
+
+            <span name="shashe">
+              <input value="1" type="hidden">
+              <input value="9" type="hidden">
+              <input value="3" type="hidden">
+              <input value="8" type="hidden">
+              <input value="3" type="hidden">
+              <input value="11" type="hidden">
+              <input value="5" type="hidden">
+              <input value="3" type="hidden">
+              <input value="11" type="hidden">
+              <input value="5" type="hidden">
+              <input value="3" type="hidden">
+              <input value="11" type="hidden">
+            </span>
+
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}
+
+  <!-- Chart js -->
+  <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
+  <!-- Chart JS -->
+  <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/Chart.js/chartjs-script.js' %}"></script>
+
+{% endblock admin_script %}

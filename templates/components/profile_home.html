@@ -1,0 +1,297 @@
+{% load static %}
+
+<div class="card mb-4">
+    <!-- Card header -->
+    <div class="card-header">
+        <h3 class="mb-0">Profile Details</h3>
+        <p class="mb-0">
+            You have full control to manage your own account setting.
+        </p>
+    </div>
+    <!-- Card body -->
+    <div class="card-body p-2">
+        <div class="d-lg-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center mb-4 mb-lg-0">
+                <img src="{{request.user.get_profile_image.url}}" id="img-uploaded"
+                    class="avatar-xl rounded-circle" alt="" />
+                <div class="ms-3">
+                    <div class="d-flex">
+                        <h4 class="ms-4">{{request.user}}</h4>
+                        <span class="badge bg-light-primary text-primary ms-4">{{request.user.email}}</span>
+                        <span class="badge bg-light-success text-success ms-4">{{request.user.username}}</span>
+                    </div>
+                    <h4 class="ms-4">Bio:</h4>
+                    <p class="ms-4 mb-0">
+                        {{request.user.bio}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr class="my-5" />
+        <h4 class="mb-0">About:</h4>
+        <div>
+            {{request.user.about|safe}}
+        </div>
+        <hr class="my-5 border-bottom">
+        
+        <div class="card-header w-100 p-0  bg-success">
+            <h4 class="card-title m-0 p-4 text-light">
+                Images
+            </h4>
+        </div>									
+        <!-- javascript behaviour -->
+        <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" id="all_images-tab" data-bs-toggle="tab" href="#all_images" role="tab" aria-controls="all_images" aria-selected="true">All Images</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="profile-image-tab" data-bs-toggle="tab" href="#profile-image" role="tab" aria-controls="profile-image" aria-selected="false">Profile Image</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="cover-image-tab" data-bs-toggle="tab" href="#cover-image" role="tab" aria-controls="cover-image" aria-selected="false">Cove Image</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="gallery-image-tab" data-bs-toggle="tab" href="#gallery-image" role="tab" aria-controls="gallery-image" aria-selected="false">Gallery Image</a>
+            </li>
+        </ul>
+        
+    </div>
+</div>
+<div class="tab-content p-2" id="myTabContent">
+    <div class="tab-pane fade show active" id="all_images" role="tabpanel" aria-labelledby="all_images-tab">
+        <div class="row">
+            {% if  request.user.userimage_set.exists %}
+                {% for image in request.user.userimage_set.all %}
+                    <div id="all_user_image_{{forloop.counter}}" class="col-lg-4 col-md-6 col-sm-12 px-1">
+                        <div class="card m-1 card-hover">
+                            <div class="bg-cover rounded-3 mb-2 h-20rem"
+                            style="max-height:200px; background-image:url({{image.image.url}});"></div>
+                            <div class="card-body p-2">
+                                <p class="m-1">{{image}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="m-1"><small class="text-muted">{{image.created|timesince}} ago</small></p>
+                                    <div class="btn-group">
+                                        <span class="" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <span class="dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_profile_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set profile
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class=" dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_cover_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set cover
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span 
+                                                    id="all_delete_user_image_{{forloop.counter}}"   role="button" 
+                                                    class="dropdown-item hx-delete-alert-confirm" 
+                                                    hx-get="{% url 'htmx_delete_user_image' image.id %}"
+                                                    hx-target="#all_user_image_{{forloop.counter}}"
+                                                    hx-trigger='confirmed'
+                                                    hx-swap="outerHTML"
+                                                    >remove 
+                                                </span>
+                                                {% comment %} id="hx_delete_section_id_{{department.id}}_{{forloop.counter}}"
+                                                class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                                hx-get="{% url 'htmx_section_delete' section.id %}" 
+                                                hx-target="#hx_section_id_{{department.id}}_{{forloop.counter}}" 
+                                                hx-trigger='confirmed'
+                                                hx-swap="outerHTML" {% endcomment %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="card-title m-0 p-4 ">
+                    No Images
+                </h4>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile-image" role="tabpanel" aria-labelledby="profile-image-tab">
+        <div class="row">
+            {% if  request.user.get_profile_images.exists %}
+                {% for image in request.user.get_profile_images %}
+                    <div id="user_profile_image_{{forloop.counter}}" class="col-lg-4 col-md-6 col-sm-12 px-1">
+                        <div class="card m-1 card-hover">
+                            <div class="bg-cover rounded-3 mb-2 h-20rem"
+                            style="max-height:200px; background-image:url({{image.image.url}});"></div>
+                            <div class="card-body p-2">
+                                <small class="text-muted">{{image.name}}</small>
+                                <div class="d-flex justify-content-between">
+                                   <small class="text-muted">{{image.created|timesince}} ago</small>
+                                    <div class="btn-group">
+                                        <span class="" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <span class="dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_profile_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set profile
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class=" dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_cover_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set cover
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span 
+                                                    class="dropdown-item hx-delete-alert-confirm" 
+                                                    id="user_delete_profile_image_{{forloop.counter}}"  role="button" 
+                                                    hx-get="{% url 'htmx_delete_user_image' image.id %}"
+                                                    hx-target="#user_profile_image_{{forloop.counter}}"
+                                                    hx-trigger='confirmed'
+                                                    hx-swap="outerHTML"
+                                                    >remove 
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="card-title m-0 p-4 ">
+                    No Images
+                </h4>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="cover-image" role="tabpanel" aria-labelledby="cover-image-tab">
+        <div class="row">
+            {% if  request.user.get_cover_images.exists %}
+                {% for image in request.user.get_cover_images %}
+                    <div id="user_cover_image_{{forloop.counter}}" class="col-lg-4 col-md-6 col-sm-12 px-1">
+                        <div class="card m-1 card-hover">
+                            <div class="bg-cover rounded-3 mb-2 h-20rem"
+                            style="max-height:200px; background-image:url({{image.image.url}});"></div>
+                            <div class="card-body p-2">
+                                <small class="text-muted">{{image.name}}</small>
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">{{image.created|timesince}} ago</small>
+                                    <div class="btn-group">
+                                        <span class="" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <span class="dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_profile_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set profile
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class=" dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_cover_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set cover
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdown-item hx-delete-alert-confirm" 
+                                                    id="user_delete_cover_image_{{forloop.counter}}"  role="button" 
+                                                    hx-get="{% url 'htmx_delete_user_image' image.id %}"
+                                                    hx-target="#user_cover_image_{{forloop.counter}}"
+                                                    hx-trigger='confirmed'
+                                                    hx-swap="outerHTML"
+                                                    >remove 
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="card-title m-0 p-4 ">
+                    No Images
+                </h4>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="gallery-image" role="tabpanel" aria-labelledby="gallery-image-tab">
+        <div class="row">
+            {% if  request.user.get_gallery_images.exists %}
+                {% for image in request.user.get_gallery_images %}
+                    <div id="gallery_user_image_{{forloop.counter}}" class="col-lg-4 col-md-6 col-sm-12 px-1">
+                        <div class="card m-1 card-hover">
+                            <div class="bg-cover rounded-3 mb-2 h-20rem"
+                            style="max-height:200px; background-image:url({{image.image.url}});"></div>
+                            <div class="card-body p-2">
+                                <small class="text-muted">{{image.name}}</small>
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">{{image.created|timesince}} ago</small>
+                                    <div class="btn-group">
+                                        <span class="badge bg-primary dropdown-toggle" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        more
+                                        </span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <span class="dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_profile_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set profile
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class=" dropdown-item"  role="button" 
+                                                    hx-get="{% url 'htmx_set_cover_image' image.id %}"
+                                                    hx-target="#show-alert"
+                                                    hx-swap="innerHTML"
+                                                    >set cover
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <span class="dropdown-item  hx-delete-alert-confirm" 
+                                                    id="gallery_delete_user_image_{{forloop.counter}}"  role="button" 
+                                                    hx-delete="{% url 'htmx_delete_user_image' image.id %}"
+                                                    hx-target="#gallery_user_image_{{forloop.counter}}"
+                                                    hx-trigger='confirmed'
+                                                    hx-swap="outerHTML"
+                                                    >remove 
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="card-title m-0 p-4 ">
+                    No Images
+                </h4>
+            {% endif %}
+        </div>
+    </div>
+</div>

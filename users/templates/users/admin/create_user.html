@@ -1,0 +1,215 @@
+
+
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+
+{% block admin_style %}
+  <!-- Plugins and style required by this views -->
+  <!--=========================================================================================-->
+  <!--dropzone  -->
+  <link href="{% static 'users_assets/libs/dropzone/dist/dropzone.css' %}" rel="stylesheet" /> 
+  <!--summernote  -->
+  <link rel="stylesheet" href="{% static 'admin_assets/plugins/summernote/dist/summernote-bs4.css' %}"/>
+
+  <!--Select Plugins-->
+  <link href="{% static 'admin_assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+  <!--inputtags-->
+  <link href="{% static 'admin_assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+  <!--multi select-->
+  <link href="{% static 'admin_assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+  <!--Bootstrap Datepicker-->
+  <link href="{% static 'admin_assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+  <!--Touchspin-->
+  <link href="{% static 'admin_assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<!--=========================================================================================-->
+{% endblock admin_style %}
+
+{% block admin_content %}
+  <!--Start Dashboard Content-->
+    <!-- End Breadcrumb-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card  ">
+                    <div class="card-header   text-uppercase">
+                    Add User Form
+                    </div>
+                        <div class="card-body  ">
+                    
+                    <form class="loginForm w-100" method="POST", action="">
+                      {% csrf_token %}
+                      {% if form.errors %}
+                            <div class="row">
+                                <div class="col-12">
+                                    {% for error in form.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span><strong>Wronge!</strong> {{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">                                    
+                                    {% for error in form.first_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span>{{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <label for="{{ form.first_name.id_for_label }}">Your First Name:</label>
+                                    <div class="position-relative has-icon-right">
+                                        {{ form.first_name }}
+                                        
+                                        {% if form.first_name.help_text %}
+                                            <p class="help">{{ form.first_name.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="form-group">
+                                    {% for error in form.last_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span>{{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <label for="{{ form.last_name.id_for_label }}">Your Last Name</label>
+                                    <div class="position-relative has-icon-right">
+                                        {{ form.last_name }}
+                                       
+                                        {% if form.last_name.help_text %}
+                                            <p class="help">{{ form.last_name.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="form-group">
+                                    {% for error in form.email.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span>{{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                                    <div class="position-relative has-icon-right">
+                                        {{ form.email }}
+                                        
+                                        {% if form.email.help_text %}
+                                            <p class="help">{{ form.email.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {% for error in form.password1.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span>{{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <label for="{{ form.password1.id_for_label }}">Password 1:</label>
+                                    <div class="position-relative has-icon-right">
+                                    {{ form.password1 }}
+                                    
+                                    {% if form.password1.help_text %}
+                                        <p class="help">{{ form.password1.help_text|safe }}</p>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {% for error in form.password2.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <div class="alert-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                            <span>{{error}}!</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <label for="{{ form.password2.id_for_label }}">Password 2:</label>
+                                    <div class="position-relative has-icon-right">
+                                        {{ form.password2 }}
+                                        
+                                        {% if form.password2.help_text %}
+                                            <p class="help">{{ form.password2.help_text|safe }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      <br><hr>
+                      <a href="{% url 'academy_dashboard' %}" class="btn btn-primary btn-round waves-effect waves-light m-1">Cancle</a>
+                      <button type="submit" class="btn btn-success btn-round waves-effect waves-light m-1">Add User</button>
+                    </form>
+                </div>
+        </div>
+<!--End Dashboard Content-->
+{% endblock admin_content %}
+
+{% block admin_script %}  
+  
+  
+<!-- Plugins and scripts required by This views -->
+<!--=========================================================================================-->
+<script src="{% static 'admin_assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+<script src="{% static 'users_assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+<script src="{% static 'users_assets/libs/dropzone/dist/dropzone-custom.js' %}"></script>
+<!--=========================================================================================-->
+<!--Bootstrap Touchspin Js-->
+<script src="{% static 'admin_assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-touchspin/js/bootstrap-touchspin-script.js' %}"></script>
+
+<!--Select Plugins Js-->
+<script src="{% static 'admin_assets/plugins/select2/js/select2.min.js' %}"></script>
+<!--Inputtags Js-->
+<script src="{% static 'admin_assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+
+<!--Inline script-->
+<script>
+  $(function(){
+
+      $("#id_password1, #id_password2")?.addClass("form-control")
+      $("#id_password, #id_username")?.addClass("form-control")
+      $("#id_old_password, #id_new_password1, #id_new_password2")?.addClass("form-control")
+
+  });
+</script>
+
+<!--=========================================================================================-->
+
+{% endblock admin_script %}

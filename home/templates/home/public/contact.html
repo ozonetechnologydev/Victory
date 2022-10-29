@@ -1,0 +1,230 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+  <div class="container-fluid">
+    <div class="row align-items-center min-vh-100">
+      <!-- col -->
+      <div class="col-lg-6 col-md-12 col-12">
+        <div class="px-xl-20 px-md-8 px-4 py-8 py-lg-0">
+              <!-- content -->
+          <div class="d-flex justify-content-between mb-7 align-items-center">
+            <a href="../index.html"><img
+                src="../assets/images/brand/logo/logo.svg" alt="">
+            </a>
+          </div>
+          <div class="text-dark">
+            <h1 class="display-4 fw-bold">Get In Touch.</h1>
+            <p class="lead text-dark">
+              Fill in the form to the right to get in touch with someone on
+              our
+              team, and we will reach out shortly.
+            </p>
+            <div class="mt-8">
+            <p class="fs-4 mb-4">
+              If you are seeking support please visit our <a href="#">support
+                portal</a> before
+              reaching out directly.
+            </p>
+                <!-- address -->
+
+              <p class="fs-4"><i class="fa fa-phone text-primary
+                  me-2"></i> + 251 925 1139 11</p>
+              <p class="fs-4"><i class="fa fa-envelope-open
+                  text-primary me-2"></i> victorywisdom@gmail.com</p>
+              <p class="fs-4 d-flex"><i class="fa fa-address-card
+                  text-primary me-2"></i> Dodola and shashamane</p>
+            </div>
+            <div class="mt-10">
+              <!--Facebook-->
+              <a href="#" class="text-muted me-3">
+                <i class="zmdi zmdi-facebook fs-3"></i>
+              </a>
+              <!--Twitter-->
+              <a href="#" class="text-muted me-3">
+                <i class="zmdi zmdi-twitter  fs-3"></i>
+              </a>
+
+              <!--GitHub-->
+              <a href="#" class="text-muted">
+                <i class="zmdi zmdi-github fs-3"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- background color -->
+      <div
+        class="col-lg-6 d-lg-flex align-items-center w-lg-50 min-vh-lg-100 position-fixed-lg bg-cover bg-light top-0
+        right-0" >
+        <div class="px-4 px-xl-10 py-8 py-lg-0">
+          <div class="card card-hover border-top border-muted border-4 card-hover-with-icon p-8 my-4">
+            <div class="card-body">
+              <!-- form section -->
+              <div id="form">
+                  <!-- form row -->
+                <form class="row" method="POST", action="">
+                  {% csrf_token %}
+                  {% if form.errors %}
+                              <div class="row">
+                                  <div class="col-12">
+                                      {% for error in form.errors %}
+                                          <div class="alert alert-danger alert-dismissible" role="alert">
+                                              <button type="button" class="close" data-dismiss="alert">×</button>
+                                              <div class="alert-icon">
+                                                  <i class="fa fa-times"></i>
+                                              </div>
+                                              <div class="alert-message">
+                                              <span><strong>Wronge!</strong> {{error}}!</span>
+                                              </div>
+                                          </div>
+                                      {% endfor %}
+                                  </div>
+                              </div>
+                          {% endif %}
+                      <!-- form group -->
+                  <div class="mb-3 col-12 col-md-6">
+                      <div class="form-group">                                    
+                        {% for error in form.first_name.errors %}
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <div class="alert-icon">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                                <div class="alert-message">
+                                <span>{{error}}!</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <label for="{{ form.first_name.id_for_label }}">Your First Name:</label>
+                        <div class="position-relative has-icon-right">
+                            {{ form.first_name }}
+                            
+                            {% if form.first_name.help_text %}
+                                <p class="help">{{ form.first_name.help_text|safe }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                    <!-- form group -->
+                  <div class="mb-3 col-12 col-md-6">
+                    <div class="form-group">
+                      {% for error in form.last_name.errors %}
+                          <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                                  <i class="fa fa-times"></i>
+                              </div>
+                              <div class="alert-message">
+                              <span>{{error}}!</span>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <label for="{{ form.last_name.id_for_label }}">Your Last Name</label>
+                      <div class="position-relative has-icon-right">
+                          {{ form.last_name }}
+                          
+                          {% if form.last_name.help_text %}
+                              <p class="help">{{ form.last_name.help_text|safe }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+                  </div>
+                    <!-- form group -->
+                  <div class="mb-3 col-12 col-md-6">
+                    <div class="form-group">
+                      {% for error in form.email.errors %}
+                          <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                                  <i class="fa fa-times"></i>
+                              </div>
+                              <div class="alert-message">
+                              <span>{{error}}!</span>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <label for="{{ form.email.id_for_label }}">Email:</label>
+                      <div class="position-relative has-icon-right">
+                          {{ form.email }}
+                          
+                          {% if form.email.help_text %}
+                              <p class="help">{{ form.email.help_text|safe }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+                  </div>
+                    <!-- form group -->
+                  <div class="mb-3 col-12 col-md-6">
+                    <div class="form-group">
+                      {% for error in form.phone_number.errors %}
+                          <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert">×</button>
+                              <div class="alert-icon">
+                                  <i class="fa fa-times"></i>
+                              </div>
+                              <div class="alert-message">
+                              <span>{{error}}!</span>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+                      <div class="position-relative has-icon-right">
+                          {{ form.phone_number }}
+                          
+                          {% if form.phone_number.help_text %}
+                              <p class="help">{{ form.phone_number.help_text|safe }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+                  </div>
+                    <!-- form group -->
+                  <div class="mb-3 col-12">
+                
+                  <div class="form-group">
+                    {% for error in form.message.errors %}
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <div class="alert-icon">
+                                <i class="fa fa-times"></i>
+                            </div>
+                            <div class="alert-message">
+                            <span>{{error}}!</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <label for="{{ form.message.id_for_label }}">Message:</label>
+                    <div class="position-relative has-icon-right">
+                        {{ form.message }}
+                        
+                        {% if form.message.help_text %}
+                            <p class="help">{{ form.message.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                    <!-- button -->
+                  <div class=" col-12 my-4">
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

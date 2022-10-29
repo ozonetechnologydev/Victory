@@ -1,0 +1,45 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+
+    <!-- Page Content -->
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+        {% for gallery in galleries %}
+          <div class="py-2">
+            <div class="container-fluid px-md-2">
+              <!-- row -->
+              <div class="row">
+                <div class="py-12">
+                  <div class="text-center my-2">
+                    <h2 class="display-4 fw-bold">{{gallery.title}}</h2>
+                    <p class="mb-0 lead">{{gallery.descriptions}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                {% for image in gallery.images.all %}
+                    <div class="col-lg-3 col-md-6 col-sm-12 px-1">
+                      <div class="bg-cover rounded-3 mb-2 h-20rem card-hover border-top border-muted border-10 card-hover-with-icon mb-4 "
+                        style="background-image:url({{image.image.url}});max-height:200px">
+                      </div>
+                    </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

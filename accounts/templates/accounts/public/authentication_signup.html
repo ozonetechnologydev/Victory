@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+ <!-- section -->
+ {% block style %}
+ 
+
+ <link href="{% static 'assets/libs/bootstrap-icons/font/bootstrap-icons.css' %}" rel="stylesheet" />
+ <link href="{% static 'assets/fonts/feather/feather.css' %}" rel="stylesheet">
+ <link href="{% static 'assets/libs/tiny-slider/dist/tiny-slider.css' %}" rel="stylesheet">
+
+ <link href="{% static 'assets/css/theme.min.css' %}" rel="stylesheet">
+
+
+ {% endblock style %}
+
+ {% block content %}
+		<div class="container d-flex flex-column">
+			<div class="row align-items-center justify-content-center g-0 min-vh-100">
+
+				<div class="col-lg-5 col-md-8 py-8 py-xl-0">
+				<!-- Card -->
+				<div class="card shadow my-5">
+					<!-- Card body -->
+					<div class="card-body p-6">
+					<div class="mb-4 text-center">
+						<a class="ms-auto" href="{% url 'home' %}"><img class="dashboard-logo-icon-lg" src="{% static 'main/images/logomain.png' %}" class="mb-4" alt=""></a>
+						<h1 class="mb-1 fw-bold">Sign up</h1>
+					</div>
+					<!-- Form -->
+					<form class="loginForm w-100" method="POST", action="">
+						{% csrf_token %}
+						{% if form.errors %}
+								<div class="row">
+									<div class="col-12">
+										{% for error in form.errors %}
+											<div class="alert alert-danger alert-dismissible" role="alert">
+												<button type="button" class="close" data-dismiss="alert">×</button>
+												<div class="alert-icon">
+													<i class="fa fa-times"></i>
+												</div>
+												<div class="alert-message">
+												<span><strong>Wronge!</strong> {{error}}!</span>
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+								</div>
+							{% endif %}
+							{% for field in form %}
+							<div class="col-lg-12 col-sm-12">
+								<div class="form-group">
+									{% for error in field.errors %}
+										<div class="alert alert-danger alert-dismissible" role="alert">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<div class="alert-icon">
+												<i class="fa fa-times"></i>
+											</div>
+											<div class="alert-message">
+											<span>{{error}}!</span>
+											</div>
+										</div>
+									{% endfor %}
+									{{ field.label_tag }}
+									<div class="position-relative has-icon-right">
+										{{ field }}
+										{% if field.help_text %}
+											<p class="help">{{ field.help_text|safe }}</p>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						
+						<!-- Checkbox -->
+							<div class="d-lg-flex justify-content-between align-items-center my-4">
+								<div>
+									<a href="forget-password.html">Forgot your password?</a>
+								</div>
+							</div>
+							<div>
+							<!-- Button -->
+							<div class="d-grid">
+						<button type="submit" class="btn btn-primary ">Sign in</button>
+						</div>
+						</div>  
+					</form>
+					</div>
+					<div class="card-footer text-center py-3">
+					<p class="text-muted mb-0">Already have an account? <a href="{% url 'login' %}"> Sign In here</a></p>
+				</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+{% endblock content %}
+
+{% block script %}
+	<!-- Libs JS -->
+	<script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'assets/libs/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+	<script src="{% static 'assets/libs/dragula/dist/dragula.min.js' %}"></script>
+	<script src="{% static 'assets/libs/tiny-slider/dist/min/tiny-slider.js' %}"></script>
+
+	<!-- Theme JS -->
+	<script src="{% static 'assets/js/theme.min.js' %}"></script>
+	<script>
+	$(function(){
+		$("input")?.addClass("form-control");
+	});
+	</script>
+
+{% endblock script %}

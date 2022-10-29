@@ -1,0 +1,70 @@
+<div class="table-responsive">
+    <table id="data-table-example" class="table align-items-center table-flush     default-datatable">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Branch</th>
+                <th>Rating</th>
+                <th>Courses</th>
+                <th>Sections</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for department in departments %}
+                <tr id="delete_department_column_id_{{department.id}}">
+                    <td>
+                        <h4 class="mb-1 h5">
+                            <a href="{% url 'department_details' department.id %}" class="text-inherit">
+                                {{department.name|title}}
+                            </a>
+                        </h4>
+                    </td>
+                    <td>
+                        {% if department.branch %}
+                            <h4 class="mb-1 h5">
+                                <a href="{% url 'branch_details'  department.branch.id %}" class="text-inherit">
+                                    {{department.branch.name|title}}
+                                </a>
+                            </h4>
+                        {% endif %} 
+                    </td>
+                    <td>
+                        <div class="">
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                            <span class="text-inherit">(140)</span>
+                        </div>
+                    </td>
+                    <td>{{department.subject_set.count}}</td>
+                    <td>{{department.section_set.count}}</td>
+
+                    <td>
+                        <a href="{% url 'department_details' department.id %}">
+                            <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                        </a>
+
+                        <a href="{% url 'update_department' department.id %}">
+                            <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                        </a>
+                        <a 
+                            id="delete_department_{{department.id}}" 
+                            class="hx-delete-alert-confirm" 
+                            hx-get="{% url 'htmx_department_delete' department.id %}"
+                            hx-target="#delete_department_column_id_{{department.id}}"
+                            hx-trigger='confirmed'
+                            hx-swap="outerHTML"
+                        >
+                            <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

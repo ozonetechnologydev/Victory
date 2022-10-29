@@ -1,0 +1,59 @@
+<div class="table-responsive">
+    <table id="data-table-example" class="table align-items-center table-flush  default-datatable">
+        <thead>
+            <tr>
+                <th>Branch</th>
+                <th>Location</th>
+                <th>departments</th>
+                <th>Rating</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for branch in branches %}
+                <tr id="delete_branch_id_{{forloop.counter}}">
+                    <td>
+                        <h4 class="mb-1 h5">
+                            <a href="{% url 'branch_details' branch.id %}" class="text-inherit">
+                                {{branch.name|title}}
+                            </a>
+                        </h4>
+                    </td>
+                    <td>{{branch.location}}</td>
+                    <td>{{branch.department_set.count}}</td>
+                    <td>
+                        <div class="">
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                            <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                            <span class="text-inherit">(140)</span>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{% url 'branch_details' branch.id %}">
+                            <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                        </a>
+
+                        <a href="{% url 'update_branch' branch.id %}">
+                            <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                        </a>
+                        <a 
+                            id="all_delete_branch_{{forloop.counter}}" 
+                            class="hx-delete-alert-confirm" 
+                            hx-get="{% url 'htmx_branch_delete' branch.id %}"
+                            hx-target="#delete_branch_id_{{forloop.counter}}"
+                            hx-trigger='confirmed'
+                            hx-swap="outerHTML"
+                        >
+                            <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                        </a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

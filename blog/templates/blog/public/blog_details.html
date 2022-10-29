@@ -1,0 +1,178 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+    <!-- Content -->
+    <div class="py-4 py-lg-8 pb-14 ">
+      <div class="container">
+
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+            <div class="text-center mb-4">
+              <a href="#" class="fs-5 fw-semi-bold d-block mb-4 text-primary">
+                {{blog.category|title}}
+              </a>
+              <h1 class="display-3 fw-bold mb-4">
+                {{blog.title|title}}
+              </h1>
+              <span class="mb-3 d-inline-block">{{blog.published|timesince}} ago</span>
+            </div>
+            <!-- Media -->
+            <div class="d-flex justify-content-between align-items-center mb-5">
+
+              <div class="d-flex align-items-center">
+                <a href="{% url 'user_details' blog.author.id %}"	>
+                  <img src="{{blog.author.get_profile_image.url}}" alt="" class="rounded-circle avatar-md">
+								</a>
+                <div class="ms-2 lh-1">
+                    <a href="{% url 'user_details' blog.author.id %}"	>
+                      <h5 class="mb-1 ">{{blog.author.get_full_name}}</h5>
+                      <span class="text-primary">{{blog.author.email}}</span>
+                    </a>
+                  </div>
+
+              </div>
+              <div>
+                <span class="ms-2 text-muted">Share</span>
+                <a href="#" class="ms-2 text-muted"><i class="zmdi zmdi-facebook fs-4"></i></a>
+                <a href="#" class="ms-2 text-muted"><i class="zmdi zmdi-twitter fs-4"></i></a>
+                <a href="#" class="ms-2 text-muted "><i class="zmdi zmdi-linkedin fs-4"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <!-- Image -->
+          <div class="col-xl-10 col-lg-10 col-md-12 col-12 mb-6 ms-auto jjustify-content-center">
+            <img src="{{blog.blogimage_set.first.image.url}}" alt="" class="img-fluid rounded-3">
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+            <!-- Descriptions -->
+            <div class="mb-4">
+                {{blog.body_text|safe}}
+            </div>
+
+          </div>
+        </div>
+            
+        <!-- row -->
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+            <div class="row">
+                <div class="col-lg-4 col-12">
+                  {% for image in blog_image_col_1 %}
+                    <div class="bg-cover rounded-3 mb-2 h-20rem"
+                      style="background-image:url({{image.image.url}});">
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="col-lg-4 col-12">
+                  {% for image in blog_image_col_2 %}
+                    <div class="bg-cover rounded-3 mb-2 h-20rem"
+                      style="background-image:url({{image.image.url}});">
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="col-lg-4 col-12">
+                  {% for image in blog_image_col_3 %}
+                    <div class="bg-cover rounded-3 mb-2 h-20rem"
+                      style="background-image:url({{image.image.url}});">
+                    </div>
+                  {% endfor %}
+                </div>
+            </div>
+            <div class="row my-4">
+              <ul class="list-group">
+                {% for file in blog.blogfile_set.all %}
+                  <a href="{{file.file.url}}" class="list-group-item text-start py-auto" download>{{file.file}}</a>
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+
+        <!-- example with list group -->
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+            <div class="text-center">
+              <h2 class="display-4 fw-bold">Comments</h2>
+              <p class="mb-0 lead">Join our newsletter and get resources, curated content, and design inspiration
+                delivered straight to your inbox.
+              </p>
+              <hr class="mt-4">
+              <div class="d-flex bg-white p-4 round-top justify-content-between align-items-center w-100">
+                  <div class="d-flex align-items-center ">
+                      <a href="{% url 'user_details' blog.author.id %}"	>
+                          <img src="{{blog.author.get_profile_image.url}}" alt="" class="rounded-circle avatar-md">
+                      </a>
+                      <div class="ms-2 lh-1">
+                          <a href="{% url 'user_details' blog.author.id %}"	>
+                          <h5 class="mb-1 ">{{blog.author.get_full_name}}</h5>
+                          <span class="text-primary">{{blog.author.email}}</span>
+                          </a>
+                      </div>
+                  </div>
+                  <div>
+                      <span class="ms-2 text-muted">Share</span>
+                      <a href="#" class="ms-2 text-muted"><i class="zmdi zmdi-facebook fs-4"></i></a>
+                      <a href="#" class="ms-2 text-muted"><i class="zmdi zmdi-twitter fs-4"></i></a>
+                      <a href="#" class="ms-2 text-muted "><i class="zmdi zmdi-linkedin fs-4"></i></a>
+                  </div>
+              </div>
+          </div>
+          {% include "components/comments.html" with comments=blog.comments.all blog=blog %}
+
+          </div>
+
+          <div class="col-lg-12 col-md-12 col-12 mb-2">
+            <div class="row justify-content-center">
+              <div class="col-xl-8 col-lg-8 col-md-12 col-12 mb-2">
+              <!-- Subscribe to Newsletter -->
+                  <div class="py-12">
+                    <div class="text-center mb-6">
+                      <h2 class="display-4 fw-bold">Sign up for our Newsletter</h2>
+                      <p class="mb-0 lead">Join our newsletter and get resources, curated content, and design inspiration
+                        delivered straight to your inbox.</p>
+                    </div>
+                    <!-- Form -->
+                    <form class="row px-md-20"
+                        mathod="POST"  
+                        hx-post="{% url 'htmx_create_blog_subscriber' %}"
+                        hx-target="#show-alert"
+                        hx-swap="innerHTML"
+                        hx-trigger="submit">
+                      <div class="mb-3 col ps-0 ms-2 ms-md-0">
+                        <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                      </div>
+                      <div class="mb-3 col-auto ps-0">
+                        <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Container -->
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <div class="my-5">
+              <h2>Related Post</h2>
+            </div>
+          </div>
+          {% include 'components/blog_lists.html' with page_obj=page_obj %}
+        </div>
+      </div>
+    </div>
+    {% endblock public_content %}
+
+    {% block public_script %}
+    
+    {% endblock public_script %}

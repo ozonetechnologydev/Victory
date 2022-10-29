@@ -1,0 +1,87 @@
+{% load static %}
+ 
+ <!-- Table -->
+ <div class="table-responsive border-0 overflow-y-hidden">
+    <table class="table mb-0 text-nowrap align-items-center">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" class="border-0">Courses</th>
+                <th scope="col" class="border-0">Teacher</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+                <tr>
+                    <td class="border-top-0">
+                        <div class="d-lg-flex">
+                            <div>
+                                <a href="{% url 'subject_details' subject.id %}">
+                                    <img src="{{subject.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                </a>
+                            </div>
+                            <div class="ms-lg-3 mt-2 mt-lg-0">
+                                <h4 class="mb-1 h5">
+                                    <a href="{% url 'subject_details' subject.id %}" class="text-inherit">
+                                        {{subject.name}}
+                                    </a>
+                                    <span class="ms-4">
+                                        <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                        </svg>
+                                        <span class="mb-0 badge bg-light-primary text-primary">{{subject.level}} </span>
+                                    </span>
+                                </h4>
+            
+                                <span class="mb-0">
+                                    Branch: 
+                                    <a href="{% url 'branch_details'  subject.department.branch.id %}" class="badge bg-light-primary text-primary">
+                                        {{subject.department.branch.name}}
+                                    </a>
+                                </span>
+                                <span class="mb-0">
+                                    Department:
+                                    <a href="{% url 'department_details'  subject.department.id %}" class="badge bg-light-info text-info">
+                                        {{subject.department.name}}
+                                    </a>
+                                </span>
+                                <div class="">
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                    <span class="text-inherit">(140)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="border-top-0">
+                        <a href="{% url 'teacher_details' subject.teacher.user.id %}">
+                            <div class="d-flex align-items-center">
+                                <div class="position-relative">
+                                    <img src="{{subject.teacher.user.profile_image.url}}" alt="" class="rounded-circle avatar-lg" />
+                                    <a href="#" class="position-absolute mt-2 ms-n3" data-bs-toggle="tooltip" data-placement="top" title="Verifed">
+                                        <img src="{% static 'users_assets/images/svg/checked-mark.svg' %}" alt="" height="30" width="30"  />
+                                    </a>
+                                </div>
+                                <div class="ms-4">
+                                    <h4 class="mb-0">{{subject.teacher.user}}</h4>
+                                    <p class="mb-1 fs-6">{{subject.teacher.profession}}</p>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                    <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                    <span class="text-inherit">(140)</span>
+                                </div>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,176 @@
+.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #e8e7ed;
+    border-radius: 0.25rem;
+    color: #18113c;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+    padding: .375rem .75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .form-control {
+      transition: none;
+    }
+  }
+  .form-control[type="file"] {
+    overflow: hidden;
+  }
+  .form-control[type="file"]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+  .form-control:focus {
+    background-color: #fff;
+    border-color: #754ffe;
+    box-shadow: 0 0 0 3px rgba(231, 225, 253, 0.75);
+    color: #18113c;
+    outline: 0;
+  }
+  .form-control::-webkit-date-and-time-value {
+    height: 1.6em;
+  }
+  .form-control::-moz-placeholder {
+    color: #a8a3b9;
+    opacity: 1;
+  }
+  .form-control:-ms-input-placeholder {
+    color: #a8a3b9;
+    opacity: 1;
+  }
+  .form-control::placeholder {
+    color: #a8a3b9;
+    opacity: 1;
+  }
+  .form-control:disabled,
+  .form-control[readonly] {
+    background-color: #f5f4f8;
+    opacity: 1;
+  }
+  .form-control::-webkit-file-upload-button {
+    -webkit-margin-end: 1.25rem;
+    background-color: #fff;
+    border: 0 solid;
+    border-color: inherit;
+    border-inline-end-width: 1px;
+    border-radius: 0;
+    color: #18113c;
+    margin: -0.75rem -1.25rem;
+    margin-inline-end: 1.25rem;
+    
+    pointer-events: none;
+    -webkit-transition: color 0.15s ease-in-out,
+      background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .form-control::file-selector-button {
+    -webkit-margin-end: 1.25rem;
+    background-color: #fff;
+    border: 0 solid;
+    border-color: inherit;
+    border-inline-end-width: 1px;
+    border-radius: 0;
+    color: #18113c;
+    margin: -0.75rem -1.25rem;
+    margin-inline-end: 1.25rem;
+    
+    pointer-events: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .form-control::-webkit-file-upload-button {
+      -webkit-transition: none;
+      transition: none;
+    }
+    .form-control::file-selector-button {
+      transition: none;
+    }
+  }
+  .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #f2f2f2;
+  }
+  .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: #f2f2f2;
+  }
+  .form-control-plaintext {
+    background-color: transparent;
+    border: solid transparent;
+    border-width: 1px 0;
+    color: #5c5776;
+    display: block;
+    margin-bottom: 0;
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+  .form-control-plaintext.form-control-lg,
+  .form-control-plaintext.form-control-sm {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .form-control-sm {
+    border-radius: 0.2rem;
+    font-size: 0.765625rem;
+    min-height: calc(1.6em + 1rem + 2px);
+    padding: 0.5rem 0.875rem;
+  }
+  .form-control-sm::-webkit-file-upload-button {
+    -webkit-margin-end: 0.875rem;
+    margin: -0.5rem -0.875rem;
+    margin-inline-end: 0.875rem;
+    padding: 0.5rem 0.875rem;
+  }
+  .form-control-sm::file-selector-button {
+    -webkit-margin-end: 0.875rem;
+    margin: -0.5rem -0.875rem;
+    margin-inline-end: 0.875rem;
+    padding: 0.5rem 0.875rem;
+  }
+  .form-control-lg {
+    border-radius: 0.5rem;
+    font-size: 1.09375rem;
+    min-height: calc(1.6em + 1.5rem + 2px);
+  }
+  .form-control-lg::-webkit-file-upload-button {
+    -webkit-margin-end: 1.25rem;
+    margin: -0.75rem -1.25rem;
+    margin-inline-end: 1.25rem;
+  }
+  .form-control-lg::file-selector-button {
+    -webkit-margin-end: 1.25rem;
+    margin: -0.75rem -1.25rem;
+    margin-inline-end: 1.25rem;
+  }
+  textarea.form-control {
+    min-height: calc(1.6em + 1.5rem + 2px);
+  }
+  textarea.form-control-sm {
+    min-height: calc(1.6em + 1rem + 2px);
+  }
+  textarea.form-control-lg {
+    min-height: calc(1.6em + 1.5rem + 2px);
+  }
+  .form-control-color {
+    height: auto;
+    padding: 0.75rem;
+    width: 3rem;
+  }
+  .form-control-color:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+  .form-control-color::-moz-color-swatch {
+    border-radius: 0.25rem;
+    height: 1.6em;
+  }
+  .form-control-color::-webkit-color-swatch {
+    border-radius: 0.25rem;
+    height: 1.6em;
+  }

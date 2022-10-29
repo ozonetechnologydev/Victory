@@ -1,0 +1,161 @@
+
+/* Tables */
+table.grid {
+    width: 100%;
+    border: none;
+    background-color: #f1f1f1;
+    padding: 0px;
+}
+table.grid td {
+    border: 4px solid white;
+    padding: 8px;
+}
+
+.card .table{
+	margin-bottom:0px;
+}
+
+.card .table td, .card .table th {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+.table.align-items-center td, .table.align-items-center th {
+    vertical-align: middle;
+}
+.table thead th {
+    font-size: .72rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e9ecef;
+}
+.table-flush td, .table-flush th {
+    border-right: 0;
+    border-left: 0;
+}
+.table td, .table th {
+    white-space: nowrap;
+}
+.table th {
+    font-weight: 600;
+}
+.table-responsive{
+	white-space:nowrap;
+}
+.table .thead-primary th {
+    color: #fff;
+    background-color: #5e72e4;
+    border-color: #5e72e4;
+}
+
+.table .thead-secondary th {
+    color: #fff;
+    background-color: #ff2fa0;
+    border-color: #ff2fa0;
+}
+
+.table .thead-success th {
+    color: #fff;
+    background-color: #2dce89;
+    border-color: #2dce89;
+}
+
+.table .thead-danger th {
+    color: #fff;
+    background-color: #f5365c;
+    border-color: #f5365c;
+}
+
+.table .thead-warning th {
+    color: #fff;
+    background-color: #fb6340;
+	border-color: #fb6340;
+}
+
+.table .thead-info th {
+    color: #fff;
+    background-color: #11cdef;
+    border-color: #11cdef;
+}
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #172b4d;
+    border-color: #172b4d;
+}
+
+.table .thead-light th {
+    color: #495057;
+    background-color: #e9eaea;
+    border-color: #e9eaea;
+}
+
+.table-primary {
+    color: #fff;
+    background-color: #5e72e4;
+}
+
+.table-primary td, .table-primary th, .table-primary thead th {
+    border-color: rgba(244, 245, 250, 0.15);
+}
+
+.table-secondary {
+    color: #fff;
+    background-color: #ff2fa0;
+}
+
+.table-secondary td, .table-secondary th, .table-secondary thead th {
+    border-color: rgba(244, 245, 250, 0.30);
+}
+
+.table-success {
+    color: #fff;
+    background-color: #2dce89;
+}
+
+.table-success td, .table-success th, .table-success thead th {
+    border-color: rgba(244, 245, 250, 0.30);
+}
+
+.table-danger {
+    color: #fff;
+    background-color: #f5365c;
+}
+
+.table-danger td, .table-danger th, .table-danger thead th {
+    border-color: rgba(244, 245, 250, 0.30);
+}
+
+.table-warning {
+    color: #fff;
+    background-color: #fb6340;
+}
+.table-warning td, .table-warning th, .table-warning thead th {
+   border-color: rgba(244, 245, 250, 0.30);
+}
+
+.table-info {
+    color: #fff;
+    background-color: #11cdef;
+}
+.table-info td, .table-info th, .table-info thead th {
+    border-color: rgba(244, 245, 250, 0.30);
+}
+.table-dark {
+    color: #fff;
+    background-color: #172b4d;
+}
+.table-dark td, .table-dark th, .table-dark thead th {
+    border-color: rgba(244, 245, 250, 0.15);
+}
+.table-light {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+.table-light td, .table-light th, .table-light thead th {
+    border-color: rgb(221, 222, 222);
+}
+.table-active, .table-active>td, .table-active>th {
+    background-color: #f4f7f7;
+}

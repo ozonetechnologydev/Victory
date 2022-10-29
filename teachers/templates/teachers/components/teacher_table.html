@@ -1,0 +1,59 @@
+<div class="table-responsive">
+    <table id="example" class="default-datatable table align-items-center table-flush">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Profile</th>
+                <th>Phone Number</th>
+                <th>courses</th>
+                <th>Joining Date</th>
+                <th>Salary</th>
+                 <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for teacher in teachers %}
+                <tr id="delete_teacher_column_id_{{teacher.id}}">
+                    <td>{{ teacher.user.get_full_name}}</td>
+                    <td>
+                        <a href="{% url 'user_details' teacher.user.id %}">
+                            <img src="{{teacher.user.get_profile_image.url}}" class="rounded-circle avatar" alt="user avatar">
+                        </a>
+                    </td>
+                    <td>{{teacher.phone_number}}</td>
+                    <td>{{teacher.subject_set.count}}</td>
+                    <td>{{ teacher.joining_date|date:"d/m/y h:i A"  }}</td>
+                    <td>{{ teacher.salary }}</td>
+                    <td>
+                        {{teacher.user.address.state}}/
+                        {{teacher.user.address.city}}/
+                        {{teacher.user.address.street}}/
+
+                    </td>
+
+                    <td>
+                        <a href="{% url 'user_details' teacher.user.id %}">
+                            <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                        </a>
+
+                        <a href="{% url 'update_teachers' teacher.id %}">
+                            <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                        </a>
+                        <a 
+                            id="delete_teacher_{{forloop.counter}}" 
+                            class="hx-delete-alert-confirm" 
+                            hx-get="{% url 'htmx_delete_teachers' teacher.id %}"
+                            hx-target="#delete_teacher_column_id_{{teacher.id}}"
+                            hx-trigger='confirmed'
+                            hx-swap="outerHTML"
+                        >
+                            <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                        </a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

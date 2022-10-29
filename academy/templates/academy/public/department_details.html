@@ -1,0 +1,284 @@
+
+{% extends 'base/users_base.html' %} {% load static %}
+
+{% load static %}
+<!-- section -->
+
+{% block user_content %}
+
+    <!-- Page header -->
+    <div class="pt-lg-8 pb-lg-16 pt-8 pb-12 bg-success">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-7 col-lg-7 col-md-12">
+                    <div>
+                        <h1 class="text-white display-4 fw-semi-bold">{{department.name}}</h1>
+                        <p class="text-white mb-6 lead">
+                            {{department.bio}}
+                        </p>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="bookmark text-white text-decoration-none">
+                                <i class="fa fa-bookmark text-white-50 me-2"></i>Bookmark
+                            </a>
+
+                            <span class="text-white ms-3"><i class="fa fa-user text-white-50"></i> 1200 Enrolled </span>
+                            <span class="ms-4">
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                <span class="text-white">(140)</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="pb-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12 col-12 mt-n8 mb-4 mb-lg-0">
+                    <!-- Card shadow -->
+                    <div class="card shadow rounded-3">
+                        <!-- Card shadow header -->
+                        <div class="card-header border-bottom-0 p-0">
+                            <div>
+                                <!-- Nav -->
+                                <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="description-tab" data-bs-toggle="pill" href="#description_id" role="tab" aria-controls="description" aria-selected="false">Description</a>
+                                    </li>
+                                    
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="section-tab" data-bs-toggle="pill" href="#section_id" role="tab" aria-controls="section" aria-selected="false">Section</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="subject-tab" data-bs-toggle="pill" href="#subject_id" role="tab" aria-controls="subject" aria-selected="false">Courses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="review-tab" data-bs-toggle="pill" href="#review_id" role="tab" aria-controls="review" aria-selected="false">Reviews</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="faq-tab" data-bs-toggle="pill" href="#faq_id" role="tab" aria-controls="faq" aria-selected="false">FAQ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Card shadow Body -->
+                        <div class="card-body">
+                            <div class="tab-content" id="tabContent">
+                                <div class="tab-pane fade active show" id="description_id" role="tabpanel" aria-labelledby="description-tab">
+                                    <!-- Description -->
+                                    <div class="mb-4">
+                                            <h3 class="mb-2">Department Descriptions</h3>
+                                            <p class="text-type-md">{{department.descriptions}}</p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h5 class="mt-2 mb-3 "><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
+                                        <div class="table-responsive ">
+                                            <table class="table table-hover table-striped">
+                                                <tbody>                                    
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="section_id" role="tabpanel" aria-labelledby="section-tab">
+                                     <!-- Table -->
+                                     {% include 'components/users_sections_list.html' with sections=department_sections %}
+                                </div>
+                                <div class="tab-pane fade" id="subject_id" role="tabpanel" aria-labelledby="subject-tab">
+                                    <!-- Table -->
+                                    {% include 'components/users_courses_list.html' with subjects=department_subjects %}
+                                </div>
+                               
+                                <div class="tab-pane fade" id="review_id" role="tabpanel" aria-labelledby="review-tab">
+                                   <!-- Reviews -->
+                                   {% include 'components/reviews.html' with reviews=department.departmentreview_set.all review_form=review_form  %}
+                                </div>
+                                <!-- Tab pane -->
+                                <div class="tab-pane fade" id="faq_id" role="tabpanel" aria-labelledby="faq-tab">
+                                    <!-- FAQ -->
+                                    <div>
+                                        <h3 class="mb-3">Branch - Frequently Asked Questions</h3>
+                                        <div class="mb-4">
+                                            <h4>How this course help me to design layout?</h4>
+                                            <p>
+                                                My name is Jason Woo and I work as human duct tape at Gatsby, that means that I do a lot of different things. Everything from dev roll to writing content to writing code. And I used to work as an architect at IBM. I live in Portland, Oregon.
+                                            </p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h4>What is important of this course?</h4>
+                                            <p>
+                                                We'll dive into GraphQL, the fundamentals of GraphQL. We're only gonna use the pieces of it that we need to build in Gatsby. We're not gonna be doing a deep dive into what GraphQL is or the language specifics. We're also gonna get into MDX. MDX is a way
+                                                to write React components in your markdown.
+                                            </p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h4>Why Take This Course?</h4>
+                                            <p>
+                                                We'll dive into GraphQL, the fundamentals of GraphQL. We're only gonna use the pieces of it that we need to build in Gatsby. We're not gonna be doing a deep dive into what GraphQL is or the language specifics. We're also gonna get into MDX. MDX is a way
+                                                to write React components in your markdown.
+                                            </p>
+                                        </div>
+                                        <div class="mb-4">
+                                            <h4>Is able to create application after this course?</h4>
+                                            <p>
+                                                We'll dive into GraphQL, the fundamentals of GraphQL. We're only gonna use the pieces of it that we need to build in Gatsby. We're not gonna be doing a deep dive into what GraphQL is or the language specifics. We're also gonna get into MDX. MDX is a way
+                                                to write React components in your markdown.
+                                            </p>
+                                            <p>
+                                                We'll dive into GraphQL, the fundamentals of GraphQL. We're only gonna use the pieces of it that we need to build in Gatsby. We're not gonna be doing a deep dive into what GraphQL is or the language specifics. We're also gonna get into MDX. MDX is a way
+                                                to write React components in your markdown.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-12 mt-lg-n22">
+                    <!-- Card shadow -->
+                    <div class="card shadow mb-3 mb-4">
+                        <div class="p-1">
+                            <div class="d-flex justify-content-center position-relative rounded border-white border rounded-3 bg-cover" style="background-image: url(/static/users_assets/images/course/course-javascript.jpg);">
+                                <img src="{{department.cover_image.url}}" alt="" class="card-img-top rounded-top-md" />
+                            </div>
+                        </div>
+                        <!-- Card shadow body -->
+                        <div class="card-body">
+                            <!-- Price single page -->
+                            {% if request.user.is_superuser %}
+                            <div class="mb-3">
+                                <span class="text-dark fw-bold h2">{{department.name}}</span>
+                            </div>
+                            <div class="d-grid">
+                                    <a href="{% url 'update_department' department.id  %}" class="btn btn-outline-primary">Edit Department</a>
+                                
+                            </div>
+                            {% else %}
+                            <div class="mb-3">
+                                <span class="text-dark fw-bold h2">$600</span>
+                                <del class="fs-4 text-muted">$750</del>
+                            </div>
+                            <div class="d-grid">
+                                    <a href="pricing.html" class="btn btn-outline-primary">Get Full Access</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Card shadow -->
+                    <div class="card shadow mb-4">
+                        <div>
+                            <!-- Card shadow header -->
+                            <div class="card-header">
+                                <h4 class="mb-0">Department Info</h4>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item bg-transparent"> 
+                                    <div class="d-lg-flex">
+                                        <div>
+                                            <a href="{% url 'branch_details' department.branch.id %}">
+                                                <img src="{{department.branch.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                            </a>
+                                        </div>
+                                        <div class="ms-lg-3 mt-2 mt-lg-0 py-auto">
+                                            <h4 class="mt-auto h5">
+                                                Branch:
+                                                <a href="{% url 'department_details'  department.branch.id %}" class="text-inherit">
+                                                    {{department.branch.name|title}}
+                                                </a>
+                                            </h4>
+                                            <span class="">
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1 text-warning"></i>
+                                                <i class="zmdi zmdi-star me-n1-half text-warning"></i>
+                                                <span class="text-inherit">(140)</span>
+                                            </span>
+                                        </div>
+                                      </div> 
+                                </li>
+                           </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card shadow -->
+            <div class="pt-12 pb-3">
+                <div class="row d-md-flex align-items-center mb-4">
+                    <div class="col-12">
+                        <h2 class="mb-0">Related Department</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for related_department in related_departments %}
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Card shadow -->
+                        <div class="card shadow mb-4 card-hover">
+                            <a href="{% url 'department_details' related_department.id %}" class="card-img-top"><img src="{{related_department.cover_image.url}}" alt="" class="card-img-top rounded-top-md" /></a>
+                            <!-- Card shadow body -->
+                            <div class="card-body">
+                                <h4 class="mb-2 text-truncate-line-2"><a href="{% url 'department_details' related_department.id  %}" class="text-inherit">{{related_department.name}}</a></h4>
+                                
+                                <div class="lh-1">
+                                    <span>
+                                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                                        <i class="zmdi zmdi-star text-warning me-n1"></i>
+                                        <i class="zmdi zmdi-star text-warning"></i>
+                                    </span>
+                                    <span class="text-warning">4.5</span>
+                                    <span class="fs-6 text-muted">(7,700)</span>
+                                </div>
+                            </div>
+                            <!-- Card shadow footer -->
+                            <div class="card-footer">
+                                <ul class="mb-3 list-inline">
+                                    <li class="list-inline-item">Courses: {{related_department.subject_set.count}} </li> 
+                                    <li class="list-inline-item">Section: {{related_department.subject_set.count}} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  {% endblock %}
+

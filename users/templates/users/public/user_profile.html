@@ -1,0 +1,468 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+{% block public_style %}
+<!-- Plugins and style required by this views -->
+<!--=========================================================================================-->
+<!--dropzone  -->
+<link href="{% static 'assets/libs/dropzone/dist/dropzone.css' %}" rel="stylesheet" /> 
+<!--Select Plugins-->
+<link href="{% static 'assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+<!--inputtags-->
+<link href="{% static 'assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+<!--multi select-->
+<link href="{% static 'assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+<!--Bootstrap Datepicker-->
+<link href="{% static 'assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+<!--Touchspin-->
+<link href="{% static 'assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<!--=========================================================================================-->
+{% endblock public_style %}
+
+{% block public_content %}
+	<div class="pt-5 pb-5">
+		<div class="container">
+			<!-- User info -->
+			<div class="row align-items-center">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-12">
+					<!-- Bg -->
+					<div class="pt-16 rounded-top-md bg-success" style="
+						background: url({{request.user.get_cover_image.url}}) no-repeat;
+						background-size: cover;
+					"></div>
+					<div
+						class="d-flex align-items-end justify-content-between bg-white px-4 pt-2 pb-4 rounded-none rounded-bottom-md shadow-sm">
+						<div class="d-flex align-items-center">
+							<div class="me-2 position-relative d-flex justify-content-end align-items-end mt-n5">
+								<img src="{{request.user.get_profile_image.url}}" class="avatar-xl rounded-circle border border-4 border-white position-relative"
+									alt="" />
+								<a href="#" class="position-absolute top-0 end-0" data-bs-toggle="tooltip" data-placement="top"
+									title="Verified">
+									<img src="{% static 'assets/images/svg/checked-mark.svg' %}" alt="" height="30" width="30" />
+								</a>
+							</div>
+							<div class="lh-1">
+								<h2 class="ms-4">{{request.user|title}}</h2>
+								<span class="badge bg-light-primary text-primary ms-4">{% if request.user.email %}{{request.user.email}}{% else %}{{request.user.username}}{% endif %}</span>
+								<span class="badge bg-light-primary text-success ms-4">
+									{% if request.user.is_superuser %}Admin
+									{% elif request.user.teacher %}Teacher
+									{% elif request.user.student %}Student
+									{% else %}Local User
+									{% endif %}
+								</span>
+								<h4 class="ms-4">Bio:</h4>
+								<p class="ms-4">{{request.user.bio}}</p>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+	<!-- Content -->
+
+			<div class="row mt-0 mt-md-4">
+				<div class="col-lg-3 col-md-4 col-12">
+					<!-- User profile -->
+					<nav class="navbar navbar-expand-md navbar-light shadow-sm mb-4 mb-lg-0 sidenav">
+						<!-- Menu -->
+						<a class="d-xl-none d-lg-none d-md-none text-inherit fw-bold" href="#">Menu</a>
+						<!-- Button -->
+						<button 
+							class="navbar-toggler collapsed bg-primary" 
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#sidenav"
+							aria-controls="sidenav"
+							aria-expanded="false"
+							aria-label="Toggle navigation"
+						>
+							<span class="icon-bar top-bar mt-0"></span>
+							<span class="icon-bar middle-bar"></span>
+							<span class="icon-bar bottom-bar"></span>
+						  </button>
+						<div class="collapse navbar-collapse" id="sidenav">
+							<div class="navbar-nav flex-column">
+								<span class="navbar-header">Dashboard</span>
+								<ul class="nav flex-column nav-pills list-unstyled ms-n2 mb-4">
+									<li class="nav-item ">
+										<a class="nav-link active" id="home_id-tab" data-bs-toggle="pill"
+											href="#home_id" role="tab" aria-controls="home_id"
+											aria-selected="true">
+											<i class="fa fa-home nav-icon"></i> Home
+										</a>
+									</li>
+									<li class="nav-item ">
+										<a class="nav-link " id="dashboard_id-tab" data-bs-toggle="pill"
+											href="#dashboard_id" role="tab" aria-controls="dashboard_id"
+											aria-selected="true">
+											<i class="zmdi zmdi-view-dashboard nav-icon"></i>  My Dashboard
+										</a>
+									</li>
+
+									
+									
+									
+									{% if request.user.student or request.user.teacher %}
+										<li class="nav-item ">
+											<a class="nav-link " id="my_course_id-tab" data-bs-toggle="pill"
+												href="#my_course_id" role="tab" aria-controls="my_course_id"
+												aria-selected="true">
+												<i class="fa fa-book nav-icon"></i>  My Courses
+											</a>
+										</li>
+										
+									{% endif %}
+									{% if request.user.teacher %}
+										<li class="nav-item">
+											<a class="nav-link" id="my_students_id-tab" data-bs-toggle="pill"
+												href="#my_students_id" role="tab" aria-controls="my_students_id"
+												aria-selected="false">
+												<i class="fa fa-users nav-icon"></i> </i>  Students
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" id="my_review_id-tab" data-bs-toggle="pill" href="#my_review_id"
+												role="tab" aria-controls="my_review_id" aria-selected="false">
+												<i class="fa fa-star nav-icon"></i>  Reviews
+											</a>
+										</li>
+									{% endif %}
+
+									<li class="nav-item">
+										<a class="nav-link" id="my_quiz_id-tab" data-bs-toggle="pill" href="#my_quiz_id"
+											role="tab" aria-controls="my_quiz_id" aria-selected="false">
+											<i class="fa fa-question nav-icon"></i> Quiz
+										</a>
+									</li>
+
+
+
+
+									<!-- Navbar header -->
+									<span class="navbar-header mt-4">Account Settings</span>
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" id="edit_may_profile_id-tab" data-bs-toggle="pill" href="#edit_may_profile_id" role="tab" aria-controls="edit_may_profile_id" aria-selected="false">
+											<i class="zmdi zmdi-settings nav-icon"></i>Edit Profile
+										</a>
+									</li>
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" id="edit_may_address_id-tab" data-bs-toggle="pill" href="#edit_may_address_id" role="tab" aria-controls="edit_may_address_id" aria-selected="false">
+											<i class="fa fa-address-book nav-icon"></i>Address
+										</a>
+									</li>
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" id="edit_may_account_id-tab" data-bs-toggle="pill" href="#edit_may_account_id" role="tab" aria-controls="edit_may_account_id" aria-selected="false">
+											<i class="fa fa-user nav-icon"></i>Account
+										</a>
+									</li>
+							
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" id="change_password_id-tab" data-bs-toggle="pill" href="#change_password_id" role="tab" aria-controls="change_password_id" aria-selected="false">
+											<i  class="fa fa-lock nav-icon"></i>Change Password
+										</a>
+									</li>
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'logout' %}">
+											<i class="fa fa-sign-out nav-icon"></i>Sign Out
+										</a>
+									</li>
+									{% if not request.user.is_superuser %}
+									<!-- Nav item -->
+									<li class="nav-item">
+										<a class="nav-link" id="delete_account_id-tab" data-bs-toggle="pill" href="#delete_account_id" role="tab" aria-controls="delete_account_id" aria-selected="false">
+											<i class="fa fa-trash nav-icon"></i>Delete Profile
+										</a>
+									</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<div class="col-lg-9 col-md-8 col-12">
+					<!-- javascript behavior vertical pills -->
+					<div class="row">
+						<div class="col-12">
+							<div class="tab-content" id="v-pills-tabContent">
+
+								<div class="tab-pane fade active show"id="home_id" role="tabpanel"aria-labelledby="home_id-tab">
+									{% include "components/profile_home.html" %}
+								</div>
+								<div class="tab-pane fade" id="dashboard_id" role="tabpanel"
+									aria-labelledby="dashboard_id-tab">
+									{% if request.user.teacher %}
+										<div class="row">
+											<div class="col-lg-4 col-md-12 col-12">
+												<!-- Card -->
+												<div class="card mb-4">
+													<div class="p-4">
+														<span class="fs-6 text-uppercase fw-semi-bold">Courses</span>
+														<h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
+														{{request.user.teacher.subject_set.count}}
+														</h2>
+														<span class="d-flex justify-content-between align-items-center">
+															<span>Courses this month</span>
+															<span class="badge bg-success ms-2">2</span>
+														</span>
+													</div>
+												</div>
+											</div>
+						
+											<div class="col-lg-4 col-md-12 col-12">
+												<!-- Card -->
+												<div class="card mb-4">
+													<div class="p-4">
+														<span class="fs-6 text-uppercase fw-semi-bold">Sections</span>
+														<h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
+														{{request.user.teacher.subject_set.count}}
+														</h2>
+														<span class="d-flex justify-content-between align-items-center">
+															<span>Sections this month</span>
+															<span class="badge bg-info ms-2">4</span>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-12 col-12">
+												<!-- Card -->
+												<div class="card mb-4">
+													<div class="p-4">
+														<span class="fs-6 text-uppercase fw-semi-bold">Courses Rating</span>
+														<h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">
+															4.80
+														</h2>
+														<span class="d-flex justify-content-between align-items-center">
+															<span>Rating this month</span>
+															<span class="badge bg-warning ms-2">10+</span>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									{% endif %}
+									{% include "components/comingsoon.html" %}
+								</div>
+								<div class="tab-pane fade" id="my_course_id" role="tabpanel" aria-labelledby="my_course_id-tab">
+									<div class="card mb-4">
+										<!-- Card body -->
+										<div class="card-body">
+											{% if request.user.teacher %}
+												{% include 'components/teacher_courses_table.html' %}
+											{% else %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% if request.user.teacher %}
+									<div class="tab-pane fade" id="my_students_id" role="tabpanel"
+										aria-labelledby="my_students_id-tab">
+										
+										{% include 'components/students_list.html' %}
+										
+									</div>
+									<div class="tab-pane fade" id="my_review_id" role="tabpanel"
+										aria-labelledby="my_review_id-tab">
+										<div class="card mb-4">
+											<!-- Card body -->
+											<div class="card-body">
+												{% include 'components/reviews.html' with reviews=request.user.teacher.teacherreview_set.all %}
+											</div>
+										</div>
+									</div>
+								{% endif %}
+								{% if request.user.teacher or request.user.student %}
+									<div class="tab-pane fade" id="my_quiz_id" role="tabpanel"
+										aria-labelledby="my_quiz_id-tab">
+										{% if request.user.teacher %}
+											<div class="row">
+												<div class="col-12">
+													<div class="row d-lg-flex justify-content-between align-items-center">
+														<div class="col-md-6 col-lg-8 col-xl-9">
+														<h4 class="mb-3 mb-lg-0">Displaying 9 out of 68 courses</h4>
+														</div>
+														<div class="d-inline-flex col-md-6 col-lg-4 col-xl-3">
+														<div class="ms-auto">
+															<!-- Nav -->
+															<a href="{% url 'quiz_creation_tree' %}" class="btn btn-primary btn-md text-white ms-auto">
+																	<i class="fa fa-plus" aria-hidden="true"> New Quiz</i>
+															</a>
+														</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row mt-4">
+												<div class="col-12">
+													{% for quiz in request.user.quiz_set.all %}
+								
+														<div class="card card-bordered mb-3 card-hover cursor-pointer">
+															<!-- card body -->
+															<div class="card-body">
+																<!-- text -->
+																<div class="d-flex justify-content-between my-auto">
+																	<div class="ms-0">
+																		<a href="{% url 'take_quizzes' quiz.id %}" class="text-inherit">
+																			<h3 class="mb-1 fs-4">
+																			{{quiz.name|title}}
+																			</h3>
+																			<h5 class="mb-1 fs-5">
+																				{{quiz.topic|title}}
+																			</h5>
+																		</a>
+																		<div class="mt-4">
+																			<div class="mt-1">
+																				<svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+																					xmlns="http://www.w3.org/2000/svg">
+																					<rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+																					<rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+																					<rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+																				</svg>
+																				<span class="ms-1">difficulty</span>
+																				<span class="ms-1">: {{quiz.difficulty|title}}</span>
+											
+																			</div>
+																			<div class="mt-1"> 
+																				<i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="mx-auto mb-md-0">
+																		
+																		<div class="mt-1">
+																			<i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+																		</div>
+																		<div class="mt-1">
+																			<i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+																		</div>
+																		<div class="mt-1">
+																			<i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+																		</div>
+																		
+																		<div class="mt-4">
+																			<i class="fa fa-clock text-muted"></i> <span>{{quiz.created|timesince}} ago</span>
+																		</div>
+																	</div>
+																	<div class="me-0 ps-auto">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+																			class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
+																			<path  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+																		</svg>
+																	</div>
+																</div>
+
+															</div>
+														</div>
+													{% empty %}
+														<li>Sorry, no athletes in this list.</li>
+													{% endfor %}
+												</div>
+											</div>
+										{% else %}
+											{% include "components/comingsoon.html" %}
+										{% endif %}
+									</div>
+								{% endif %}
+								{% comment %} //////////////////////////////////// {% endcomment %}
+								<div class="tab-pane fade"id="edit_may_profile_id" role="tabpanel"aria-labelledby="edit_may_profile_id-tab">
+									{% include "components/update_profile.html" %}
+								</div>
+								<div class="tab-pane fade" id="edit_may_address_id" role="tabpanel" aria-labelledby="edit_may_address_id-tab">
+									<div class="card mb-4">
+										<div class="card-header">
+											<h4 class="card-title border-bottom mb-0 p-4 bg-success text-light">Edit Address</h4>
+										</div>
+										<!-- Card body -->
+										<div class="card-body">
+											{% include 'components/forms.html' with form=address_form action='address/update/' %}
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="edit_may_account_id" role="tabpanel" aria-labelledby="edit_may_account_id-tab">
+									<div class="card mb-4">
+										<div class="card-header">
+											<h4 class="card-title border-bottom mb-0 p-4 bg-success text-light">Edit Account</h4>
+										</div>
+										<!-- Card body -->
+										<div class="card-body">
+											{% include 'components/forms.html' with form=account_form  action='/accounts/update/' %}
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="change_password_id" role="tabpanel"aria-labelledby="change_password_id-tab">
+									<div class="card mb-4">
+										<div class="card-header">
+											<h4 class="card-title border-bottom mb-0 p-4 bg-success text-light">Chenge Password</h4>
+										</div>
+										<!-- Card body -->
+										<div class="card-body">
+											{% if request.user.is_superuser %}
+											{% include 'components/forms.html' with form=password_form action='/accounts/admin/password/change/' %}
+											{% else %}
+											{% include 'components/forms.html' with form=password_form action='/accounts/password/change/' %}
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% if not request.user.is_superuser %}
+									<div class="tab-pane fade" id="delete_account_id" role="tabpanel"aria-labelledby="delete_account_id-tab">
+										<div class="card mb-4">
+											<!-- Card body -->
+											<div class="card-header">
+												<h4 class="card-title border-bottom mb-0 p-4 bg-success text-light">Delete your account</h4>
+												<p class="my-4">Delete or Close your account permanently.</p>
+											</div>
+											<!-- Card body -->
+											<div class="card-body p-4">
+												<span class="text-danger h4">Warning</span>
+												<p>
+													If you close your account, you will be unsubscribed from all
+													your 0 courses, and will lose access forever.
+												</p>
+												<a href="{% url 'close_user_account' %}" class="btn btn-outline-danger btn-sm">Close My Account</a>
+											</div>
+
+										</div>
+									</div>
+								{% endif %}
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+ <!-- Footer -->
+
+
+ {% endblock public_content %}
+
+
+ {% block public_script %}
+  <!--dropzone Js-->
+<script src="{% static 'assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+<script src="{% static 'assets/js/dropzone-script.js' %}"></script>
+ <!--Bootstrap Touchspin Js-->
+ <script src="{% static 'assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js' %}"></script>
+ <script src="{% static 'assets/plugins/bootstrap-touchspin/js/bootstrap-touchspin-script.js' %}"></script>
+ 
+ <!--Select Plugins Js-->
+ <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+ <!--Multi Select Js-->
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+ <script src="{% static 'assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+ <script src="{% static 'assets/js/form-script.js' %}"></script>
+{% endblock public_script %}

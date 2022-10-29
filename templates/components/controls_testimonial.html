@@ -1,0 +1,43 @@
+{% load static %}
+{% if reviews %}
+<div class="position-relative">
+    <!-- controls -->
+    <ul class="controls-testimonial controls " id="sliderTestimonialControls">
+      <li class="prev">
+        <i class="fa fa-chevron-left"></i>
+      </li>
+      <li class="next ms-2">
+        <i class="fa fa-chevron-right"></i>
+      </li>
+    </ul>
+      <!-- slider -->
+    <div class="sliderTestimonial">
+      <!-- item -->
+      {% for review in reviews %}
+        <div class="item">
+          <div class="card">
+            <div class="card-body text-center p-6">
+              <!-- img -->
+              <img src="{{review.author.get_profile_image.url}}" alt="" class="avatar avatar-lg rounded-circle">
+              <p class="mb-0 mt-3">“{{review.body_text}}”</p>
+                <!-- rating -->
+              <div class="lh-1 mb-3 mt-4">
+                <span>
+                  {% if review.rating >= 1 %}<i class="zmdi zmdi-star me-n1 text-warning"></i>{% endif %}
+                  {% if review.rating >= 2 %}<i class="zmdi zmdi-star me-n1 text-warning"></i>{% endif %}
+                  {% if review.rating >= 3 %}<i class="zmdi zmdi-star me-n1 text-warning"></i>{% endif %}
+                  {% if review.rating >= 4 %}<i class="zmdi zmdi-star me-n1 text-warning"></i>{% endif %}
+                  {% if review.rating >= 5 %}<i class="zmdi zmdi-star me-n1 text-warning"></i>{% endif %}
+                </span>
+                <span class="text-warning">5</span>
+                  <!-- text -->
+              </div>
+              <h3 class="mb-0 h4">wanofi</h3>
+              <span>Software Engineer at Palantir</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}

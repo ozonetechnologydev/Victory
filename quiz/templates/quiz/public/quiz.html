@@ -1,0 +1,205 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+
+ <!-- Page Content -->
+
+ <div class="bg-light-primary py-lg-14 py-12 bg-cover "
+ >
+ <!-- container -->
+ <div class="container ">
+   <!-- row -->
+   <div class="row align-items-center">
+     <div class="col-lg-6 col-12">
+       <div>
+         <div class=" text-center text-md-start ">
+           <!-- heading -->
+           <h1 class=" display-2 fw-bold  mb-3">challenge your self
+             with our questions</h1>
+           <!-- lead -->
+           <p class="lead">Doloremque enim molestias iure dolorem ipsa, ea quis excepturi iure delectus, repellat voluptatem itaque hic, eum alias explicabo quos quidem quaerat sapiente modi? Cum distinctio quae, deleniti reprehenderit natus libero nobis</p>
+         </div>
+         <div class="mt-8">
+           <!-- card -->
+           <div class="bg-white rounded-md-pill shadow rounded-3 mb-4">
+             <!-- card body -->
+             <div class="p-md-2 p-4">
+               <!-- form -->
+               <form class="row g-1">
+                 <div class="col-12 col-md-5">
+
+                   <!-- input -->
+                   <div class="input-group mb-2 mb-md-0 border-md-0 border rounded-pill">
+                     <!-- input group -->
+                     <span class="input-group-text bg-transparent border-0 pe-0 ps-md-3 ps-md-0" id="searchJob"><svg
+                         xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                         class="bi bi-search text-muted" viewBox="0 0 16 16">
+                         <path
+                           d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                       </svg></span>
+                     <!-- search -->
+                     <input type="search" class="form-control  rounded-pill border-0 ps-3 form-focus-none"
+                       placeholder="quiz Title" aria-label="quiz Title" aria-describedby="searchJob">
+                   </div>
+
+                 </div>
+                 <div class="col-12 col-md-4">
+                   <!-- inpt group -->
+                   <div class="input-group mb-3 mb-md-0 border-md-0 border rounded-pill">
+                     <span class="input-group-text bg-transparent border-0 pe-0 ps-md-0" id="location"><svg
+                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-geo-alt  text-muted" viewBox="0 0 16 16">
+                         <path
+                           d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                         <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                       </svg></span>
+                     <!-- search -->
+                     <input type="search" class="form-control rounded-pill  border-0 ps-3 form-focus-none"
+                       placeholder="quiz name" aria-label="quiz name" aria-describedby="location">
+                   </div>
+
+                 </div>
+                 <div class="col-12 col-md-3  text-end d-grid">
+                   <!-- button -->
+                   <button type="submit" class="btn btn-primary rounded-pill">Search</button>
+                 </div>
+               </form>
+             </div>
+
+           </div>
+
+           <!-- text -->
+           {% comment %} <span class=" fs-4">Currently listing 30,642 jobs from 5,717 companies</span> {% endcomment %}
+         </div>
+       </div>
+     </div>
+     <div class="offset-lg-1 col-lg-5 col-12 text-center">
+         <div class="position-relative ">
+             <img src="{% static 'assets/images/job/png/job-hero-section.png' %}" class="img-fluid ">
+             <div class="position-absolute top-0 mt-7 ms-n6 ms-md-n6 ms-lg-n12 start-0">
+                 <img src="{% static 'assets/images/job/job-hero-block-1.svg' %}" class="img-fluid ">
+             </div>
+             <div class="position-absolute bottom-0 mb-12 me-n6 me-md-n4 me-lg-n12 end-0 ">
+                 <img src="{% static 'assets/images/job/job-hero-block-2.svg' %}" class="img-fluid ">
+             </div>
+             <div class="position-absolute bottom-0 mb-n4 ms-n1 ms-md-n4 ms-lg-n7 start-0">
+                 <img src="{% static 'assets/images/job/job-hero-block-3.svg' %}" class="img-fluid ">
+             </div>
+
+
+         </div>
+         </div>
+   </div>
+ </div>
+</div>
+
+
+
+ <div class="py-lg-12 pb-8">
+   <!-- container -->
+
+   <div class="container">
+     <!-- row -->
+
+     <div class="row">
+       <div class="offset-xl-2 col-xl-8 col-md-12 col-12">
+         <div class=" text-center mb-8">
+           <!-- col -->
+
+
+           <!-- text -->
+
+           <span class="text-uppercase text-primary fw-semi-bold ls-md">QUIZZES</span>
+           <!-- heading -->
+
+           <h2 class="h1 fw-bold mt-3">The most challenged Quizzes</h2>
+
+
+         </div>
+         <!-- row -->
+
+         {% for quiz in quizzes %}
+                
+                    <div class="card card-bordered mb-3 card-hover cursor-pointer">
+                        <!-- card body -->
+                        <div class="card-body">
+                            <!-- text -->
+                            <div class="d-flex justify-content-between my-auto">
+                                <div class="ms-0">
+                                    <a href="{% url 'take_quizzes' quiz.id %}" class="text-inherit">
+                                        <h3 class="mb-1 fs-4">
+                                        {{quiz.name|title}}
+                                        </h3>
+                                        <h5 class="mb-1 fs-5">
+                                            {{quiz.topic|title}}
+                                        </h5>
+                                    </a>
+                                    <div class="mt-4">
+                                        <div class="mt-1">
+                                            <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                            </svg>
+                                            <span class="ms-1">difficulty</span>
+                                            <span class="ms-1">: {{quiz.difficulty|title}}</span>
+        
+                                        </div>
+                                        <div class="mt-1"> 
+                                            <i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mx-auto mb-md-0">
+                                    
+                                    <div class="mt-1">
+                                        <i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        <i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+                                    </div>
+                                    <div class="mt-1">
+                                        <i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <i class="fa fa-clock text-muted"></i> <span>{{quiz.created|timesince}} ago</span>
+                                    </div>
+                                </div>
+                                <div class="me-0 ps-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-bookmark text-muted bookmark" viewBox="0 0 16 16">
+                                        <path  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+         <!-- button -->
+         <div class="mt-6 text-center">
+           <a href="{% url 'quizzes_list' %}" class="btn btn-outline-primary">Browse All Quzzes Postings</a>
+         </div>
+       </div>
+     </div>
+
+   </div>
+ </div>
+
+
+{% include "components/vfooter.html" %}
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

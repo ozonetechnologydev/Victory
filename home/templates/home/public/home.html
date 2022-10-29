@@ -1,0 +1,239 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+{% load myflatpage %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+  
+<div class="home-page">
+  <section class="py-lg-16 py-8 bg-success">
+      <!-- container -->
+    <div class="container">
+        <!-- row -->
+      <div class="row align-items-center">
+          <!-- col -->
+        <div class="col-lg-6 mb-6 mb-lg-0">
+          <div class="">
+              <!-- heading -->
+            <h5 class="text-dark mb-4"><i
+                class="fa fa-check icon-xxs icon-shape bg-light-success text-success rounded-circle me-2"></i>Most
+              trusted education platform</h5>
+                <!-- heading -->
+            <h1 class="display-3 fw-bold mb-3">Grow your skills and speak faster</h1>
+              <!-- para -->
+            <p class="pe-lg-10 mb-5">Start, switch, or advance your career with more than 5,000 courses, Professional
+              Certificates, and degrees from world-class universities and companies.</p>
+                <!-- btn -->
+            <a href="#" class="btn btn-primary">Join Us Now</a>
+            <a href="https://youtu.be/2au3gpQRBes" class="popup-youtube fs-4 text-inherit ms-3"><img
+                src="{% static 'assets/images/svg/play-btn.svg' %}" alt="" class="me-2">Watch Demo</a>
+
+          </div>
+        </div>
+          <!-- col -->
+        <div class="col-lg-6 d-flex justify-content-center">
+            <!-- images -->
+          <div class="position-relative">
+          <img src="{% static 'assets/images/bg-thumb.svg' %} " alt="" class=" ">
+          <img width="350px" src="{% static 'assets/images/jemall.png' %}" alt="" class=" position-absolute end-0 bottom-0">
+          <img src="{% static 'assets/images/frame-1.svg' %}" alt="" class=" position-absolute top-0 ms-lg-n10 ms-n19">
+          <img src="{% static 'assets/images/frame-2.svg' %} " alt="" class=" position-absolute bottom-0 start-0 ms-lg-n14 ms-n6 mb-n7">
+          <img src="{% static 'assets/images/target.svg' %} " alt="" class=" position-absolute bottom-0 mb-10 ms-n10 ms-lg-n1 ">
+          <img src="{% static 'assets/images/sound.svg' %} " alt="" class=" position-absolute top-0  start-0 mt-18 ms-lg-n19 ms-n8" >
+          <img src="{% static 'assets/images/trophy.svg' %} " alt="" class=" position-absolute top-0  start-0 ms-lg-n14 ms-n5" >
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- container -->
+  <section class="pb-10">
+    <div class="container">
+        <!-- row -->
+      <div class="row">
+        <div class="col-6 col-lg-3 border-top-md border-bottom border-end-md ">
+            <!-- text -->
+          <div class="py-7 text-center">
+            <div class="mb-3">
+              <i class="icon-organization icons fs-2 text-info"> </i>
+            </div>
+            <div class="lh-1">
+              <h2 class="mb-1">{{branches.count}}+</h2>
+              <span>Branchs</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-6 col-lg-3 border-top-md border-bottom border-end-lg ">
+            <!-- icon -->
+          <div class="py-7 text-center">
+            <div class="mb-3">
+              <i class="fa fa-building fs-2 text-warning"> </i>
+            </div>
+              <!-- text -->
+            <div class="lh-1">
+              <h2 class="mb-1">{{departments.count}}+</h2>
+              <span>departments</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-6 col-lg-3 border-top-lg border-bottom border-end-md ">
+            <!-- icon -->
+          <div class="py-7 text-center">
+            <div class="mb-3">
+              <i class="fa fa-book fs-2 text-primary"></i>
+            </div>
+              <!-- text -->
+            <div class="lh-1">
+              <h2 class="mb-1">{{subjects.count}}+</h2>
+              <span>Courses</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-6 col-lg-3 border-top-lg border-bottom ">
+            <!-- icon -->
+          <div class="py-7 text-center">
+            <div class="mb-3">
+              <i class="fa fa-users fs-2 text-success"> </i>
+            </div>
+              <!-- text -->
+            <div class="lh-1">
+              <h2 class="mb-1">{{teachers.count}}+</h2>
+              <span>teachers</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+
+  <section class="pb-lg-14 pb-8">
+      <!-- row -->
+    <div class="container">
+      <div class="row">
+          <!-- col -->
+        <div class="col-12">
+          <div class="mb-6">
+            <h2 class="mb-1 h1">Most Popular Courses</h2>
+            <p>These are the most popular courses among Victory wisdom school Courses learners worldwide in year 2022</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Nav tab -->
+          {% include 'components/department_courses.html' with departments=departments %}
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section -->
+  <section class="my-lg-14 mb-8">
+    <!-- container -->
+    <div class="container bg-success rounded-3">
+      <!-- row -->
+      <div class="row align-items-center">
+        <!-- col -->
+        <div class="col-lg-6 col-12 d-none d-lg-block">
+          <div class="d-flex justify-content-center ">
+            <!-- img -->
+            <div class="position-relative">
+              <img src="{% static 'assets/images/seyf.png' %}" alt="" class="img-fluid mt-n13">
+              <div class="ms-n12 position-absolute bottom-0 start-0 mb-6">
+              </div>
+              <!-- img -->
+              <div class="me-n4 position-absolute top-0 end-0">
+                <img src="{% static 'assets/images/svg/graph.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-12 p-2">
+          <div class="text-white p-5 p-lg-0">
+            <!-- text -->
+            <h2 class="h1 text-white">Become an student today</h2>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Odit, facilis repudiandae? Id, 
+                optio? Aliquid laboriosam pariatur vitae praesentium repellendus, 
+                deleniti reprehenderit minus, molestias adipisci dolorum neque autem nihil sit consequuntur..</p>
+            <a href="#" class="btn btn-white mt-4">Start learning Today</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- section -->
+  <section class=" pt-14 pb-16">
+    <div class="container">
+      <!-- row -->
+      <div class="row mb-10">
+        <div class="offset-lg-1 col-lg-10 col-12">
+          <div class="row align-items-center">
+            <!-- col -->
+            <div class="col-md-6">
+              <!-- rating -->
+              <div class="">
+                <div class="mb-3"><span class="text-dark fw-semi-bold">4.5/5.0</span> <span>
+                    <i aria-hidden="true" class="fa fa-star text-warning"></i>
+                    <i aria-hidden="true" class="fa fa-star text-warning"></i>
+                    <i aria-hidden="true" class="fa fa-star text-warning"></i>
+                    <i aria-hidden="true" class="fa fa-star text-warning"></i>
+                    <i aria-hidden="true" class="fa fa-star-half-empty text-warning"></i>
+                  </span>
+                  <span class="text-warning">5</span><span class="ms-2">(Based on 3265 ratings)</span></div>
+                  <!-- heading -->
+                <h2 class="h1">What our customers say</h2>
+                <p class="mb-0"> Hear from <span class="text-dark">teachers</span>, <span
+                    class="text-dark">trainers</span>, and <span class="text-dark">leaders</span> in the learning space
+                  about how Victory wisdom school empowers them to provide
+                  quality online learning experiences.</p>
+
+              </div>
+            </div>
+            <div class="col-md-6 text-md-end mt-4 mt-md-0">
+              <!-- btn -->
+              <a href="#" class="btn btn-primary">View Reviews</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- row -->
+      <div class="row">
+        <!-- col -->
+        <div class="col-md-12">
+          {% include 'components/controls_testimonial.html'  %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      <!-- footer -->
+{% include 'components/vfooter.html' %}
+</div>
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

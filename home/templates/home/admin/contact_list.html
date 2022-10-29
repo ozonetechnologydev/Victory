@@ -1,0 +1,83 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+
+
+<!--=========================================================================================-->
+
+{% endblock admin_style %}
+
+{% block admin_content %}
+<!--Start Dashboard Content-->
+     <!-- Breadcrumb-->
+     <div class="row pt-2 pb-2">
+        <div class="col-sm-9">
+		    <h4 class="page-title  pt-4 pb-3">Contact List Data Tables</h4>
+		    <ol class="breadcrumb  bg-light p-2">
+                <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Branch list</li>
+            </ol>
+	   </div>
+	   <div class="col-sm-3">
+       <div class="btn-group float-sm-right">
+        <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+        <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+        <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu">
+          <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-view-headline"></i> Expor Data</a>
+          <a href="javaScript:void();" class="dropdown-item"><i aria-hidden="true" class="fa fa-bar-chart"></i> Visualize Data</a>
+          <div class="dropdown-divider"></div>
+          <a href="javaScript:void();" class="dropdown-item"><i class="zmdi zmdi-more"></i> More</a>
+        </div>
+      </div>
+     </div>
+     </div>
+    <!-- End Breadcrumb-->
+        <!--End Row-->
+
+<div class="container">
+    {% for contact in contacts %}
+        <!-- Horizontal -->
+        <div class="card mb-3 card-bordered mb-4 card-hover" >
+            <div class="card-header  border-light-3">
+                <span class="text-inherit ms-3">{{contact.first_name|title}} {{contact.last_name|title}}</span>
+                <span class="badge bg-light-primary text-primary ms-2">{{contact.email}}</span>
+                <span class="badge bg-light-success text-success ms-2">{{contact.phone_number}}</span>
+            
+                <div class="card-action">
+                    <div class="dropdown">
+                        <a href="javascript:void();" class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+                        <i class="icon-options "></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="javascript:void();">Action</a>
+                            <a class="dropdown-item" href="javascript:void();">Another action</a>
+                            <a class="dropdown-item" href="javascript:void();">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void();">Separated link</a>
+                        </div>
+                    </div>
+                </div>
+            <hr>
+
+            </div>
+            <div class="row g-0">
+            <div class="col-12">
+                <div class="card-body">
+
+                <p class="card-text p-3">{{contact.message}}</p>
+                <p class="card-text text-end"><small class="text-muted">{{contact.date_time|timesince}} ago</small></p>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+ <!--End Dashboard Content-->
+ {% endblock admin_content %}
+ {% block admin_script %}  
+
+
+{% endblock admin_script %}

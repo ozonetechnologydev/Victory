@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  {% load %}
+  <head>   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+  
+    <!--favicon-->
+    <link href="{% static 'admin_assets/images/favicon.png' %}" rel="icon"  type="image/x-icon">
+    <!--material datepicker css-->
+    <link rel="stylesheet" href="{% static 'admin_assets/plugins/material-datepicker/css/bootstrap-material-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+    <!--Select Plugins-->
+    <link href="{% static 'admin_assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+    <!--inputtags-->
+    <link href="{% static 'admin_assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+    <!--multi select-->
+    <link href="{% static 'admin_assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+    <!--Bootstrap Datepicker-->
+    <link href="{% static 'admin_assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+    <!--Touchspin-->
+    <link href="{% static 'admin_assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+    <!--Data Tables -->
+    <link href="{% static 'admin_assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+  
+    <link rel="stylesheet" href="{% static 'admin_assets/plugins/summernote/dist/summernote-bs4.css' %}"/>
+    <!-- notifications css -->
+    <link rel="stylesheet" href="{% static 'admin_assets/plugins/notifications/css/lobibox.min.css' %}"/>
+  
+    <!-- simplebar CSS-->
+    <link href="{% static 'admin_assets/plugins/simplebar/css/simplebar.css' %}" rel="stylesheet"/>
+    <!-- Bootstrap core CSS-->
+    <link href="{% static 'admin_assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <!-- jquery steps CSS-->
+    <link href="{% static 'admin_assets/plugins/jquery.steps/css/jquery.steps.css' %}" rel="stylesheet" type="text/css" >
+    <!-- animate CSS-->
+    <link href="{% static 'admin_assets/css/animate.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Icons CSS-->
+    <link href="{% static 'admin_assets/css/icons.css' %}" rel="stylesheet" type="text/css"/>
+    <!-- Sidebar CSS-->
+    <link href="{% static 'admin_assets/css/sidebar-menu.css' %}" rel="stylesheet"/>
+  
+  
+  
+  
+    {% comment %} ####################################### {% endcomment %}
+  {% comment %} <link rel="stylesheet" href="css/style.css"/> {% endcomment %}
+  
+    <title>victory</title>
+  </head>
+  
+
+<body class="bg-success">
+
+<!-- Start wrapper-->
+ <div id="wrapper">
+ 
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center coming-soon">
+                       
+                        <h2 class="coming-soon-title text-white">We are coming soon</h2>
+                        <h6 class="text-white text-uppercase">Lets Join and work with us</h6>
+                        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt <br>ut labore et dolore magna aliqua. </p>
+                        <!--subscribe form-->
+                        <form class="form-inline justify-content-center py-4">
+                           <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter your email....">
+                            <div class="input-group-append">
+                              <button class="btn btn-success" type="button">Subscribe</button>
+                            </div>
+                          </div>
+                         </form>
+                         <!--end subscribe form-->
+                        <div class="mt-4">
+                          <a href="{% url 'home' %}" class="btn btn-success btn-round shadow-primary m-1">Go To Home </a>
+                          <!-- <a href="javascript:void();" class="btn btn-outline-success btn-round m-1">Previous Page </a> -->
+                        </div>
+                         
+                        <div class="mt-4">
+                            <p class="text-white">Copyright © 2022<a href="http://www.mikigode.me">Ozone Technology </a>| All rights reserved.</p>
+                        </div>
+                           <hr class="w-50 border-light-2">
+                         <div class="mt-2">
+                            <a href="javascript:void()" class="btn-social btn-social-circle btn-facebook waves-effect waves-light m-1"><i class="fa fa-facebook"></i></a>
+                            <a href="javascript:void()" class="btn-social btn-social-circle btn-google-plus waves-effect waves-light m-1"><i class="fa fa-google-plus"></i></a>
+                            <a href="javascript:void()" class="btn-social btn-social-circle btn-behance waves-effect waves-light m-1"><i class="fa fa-telegram"></i></a>
+                            <a href="javascript:void()" class="btn-social btn-social-circle btn-dribbble waves-effect waves-light m-1"><i class="fa fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+ </div><!--wrapper-->
+
+
+
+ <script src="{% static 'admin_assets/js/jquery.min.js' %}"></script>
+ <script src="{% static 'admin_assets/js/popper.min.js' %}"></script>
+ <script src="{% static 'admin_assets/js/bootstrap.min.js' %}"></script>
+ <!-- Plugins and scripts required by all views -->
+
+ <!-- simplebar js -->
+ <script src="{% static 'admin_assets/plugins/simplebar/js/simplebar.js' %}"></script>
+ <!-- waves effect js -->
+ <script src="{% static 'admin_assets/js/waves.js' %}"></script>
+ <!-- sidebar-menu js -->
+ <script src="{% static 'admin_assets/js/sidebar-menu.js' %}"></script>
+</body>
+</html>

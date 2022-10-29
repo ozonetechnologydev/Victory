@@ -1,0 +1,55 @@
+<div class="table-responsive">
+    <table id="example" class="default-datatable table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Profile</th>
+                <th>Admission Date</th>
+                <th>Phone Number</th>
+                <th>Branchs</th>
+                <th>Departments</th>
+                <th>Sections</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr id="hx_student_list_id_{{forloop.counter}}">
+                    <td>{{ student.user.get_full_name}}</td>
+                    <td>
+                        <a href="{% url 'user_details' student.user.id %}">
+                            <img src="{{student.user.get_profile_image.url}}" class="avatar avatar-lg rounded-circle" alt="user avatar">
+                        </a>
+                    </td>
+                    <td>{{ student.admission_date|date:"d/m/y h:i A" }}</td>
+                    <td>{{student.phone_number}}</td>
+                    <td>{% for section in student.sections.all %}{{section.department.branch.name}}<br>{% endfor %}</td>
+                    <td>{% for section in student.sections.all %}{{section.department.name}}<br> {% endfor %}</td>
+                    <td>{% for section in student.sections.all %}{{section.name}}<br>{% endfor %}</td>
+                    <td>
+                        <a href="{% url 'user_details' student.user.id %}">
+                            <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                        </a>
+
+                        <a hx-get="{% url 'htmx_user_and_student_update' student.user.id %}" hx-target="#hx_student_creation_form_id" hx-swap="innerHTML" >
+                            <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                        </a>
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        <a 
+                            id = "hx_delete_student_id_{{forloop.counter}}"
+                            class="hx-delete-alert-confirm"
+                            hx-delete="{% url 'htmx_student_delete' student.id %}"
+                            hx-target="#hx_student_list_id_{{forloop.counter}}" 
+                            hx-swap="innerHTML"
+                            hx-trigger='confirmed'
+                            
+                        >
+                            <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

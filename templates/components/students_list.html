@@ -1,0 +1,128 @@
+{% load static %}
+<!-- Card -->
+<div class="card mb-4">
+    <!-- Card body -->
+    <div class="p-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="mb-0">Students</h3>
+            <span>Meet people taking your course.</span>
+        </div>
+        <!-- Nav -->
+            <div class="nav btn-group flex-nowrap" role="tablist">
+                <button class="btn btn-outline-white active" data-bs-toggle="tab" data-bs-target="#tabPaneGrid" role="tab"
+                    aria-controls="tabPaneGrid" aria-selected="true">
+                    <span class="fa fa-th-large"></span>
+                </button>
+                <button class="btn btn-outline-white" data-bs-toggle="tab" data-bs-target="#tabPaneList" role="tab"
+                    aria-controls="tabPaneList" aria-selected="false">
+                    <span class="fa fa-list"></span>
+                </button>
+            </div>
+    </div>
+</div>
+<!-- Tab content -->
+<div class="tab-content">
+    <div class="tab-pane fade show active pb-4" id="tabPaneGrid" role="tabpanel" aria-labelledby="tabPaneGrid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-12 mb-3">
+                <!-- Content -->
+                <div class="row">
+                    <div class="col pe-0">
+                        <!-- Form -->
+                        <form>
+                            <input type="search" class="form-control" placeholder="Search by Name" />
+                        </form>
+                    </div>
+                    <!-- Button -->
+                </div>
+            </div>
+            {% for student in students_list %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Card -->
+                    <div class="card mb-4">
+                        <!-- Card body -->
+                        <div class="card-body p-2">
+                            <div class="text-center">
+                                <a href="{% url 'user_details' student.user.id %}">
+
+                                    <img src="{{student.user.get_profile_image.url}}" class="rounded-circle avatar-xl mb-3" alt="" />
+                                    <h4 class="mb-1">Wade Warren</h4>
+                                    <p class="mb-0 fs-6">
+                                        {{student.user.email}}
+                                    </p>
+                                </a>
+                                {% comment %} <a href="#" class="btn btn-sm btn-outline-white mt-3">Message</a> {% endcomment %}
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom ">
+                                <span>Phone Number</span>
+                                <span class="text-dark text-end ms-auto"> {{student.phone_number}}</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom ">
+                                <span>Admission Date</span>
+                                <span class="text-dark text-end ms-auto"> {{ student.admission_date|date:"d/m/y h:i A" }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom ">
+                                <span>Branchs</span>
+                                <span class="text-dark text-end ms-auto">{% for section in student.sections.all %}{{section.department.branch.name}}<br>{% endfor %}</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom ">
+                                <span>Departments</span>
+                                <span class="text-dark text-end ms-auto"> {% for section in student.sections.all %}{{section.department.name}}<br> {% endfor %}</span>
+                            </div>
+                            <div class="d-flex justify-content-between border-bottom ">
+                                <span>Sections</span>
+                                <span class="text-dark text-end ms-auto"> {% for section in student.sections.all %}{{section.name}}<br>{% endfor %}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- Tab pane -->
+    <div class="tab-pane fade" id="tabPaneList" role="tabpanel" aria-labelledby="tabPaneList">
+        <div class="card">
+            <div class="card-body p-4">
+                <!-- Table -->
+                <div class="table-responsive px-2">
+                    <table id="example" class="default-datatable table">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Profile</th>
+                                <th>Email Address</th>
+                                <th>Admission Date</th>
+                                <th>Phone Number</th>
+                                <th>Branchs</th>
+                                <th>Departments</th>
+                                <th>Sections</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students_list %}
+                                <tr id="hx_student_list_id_{{forloop.counter}}">
+                                    <td>{{ student.user.get_full_name}}</td>
+                                    <td>
+                                        <a href="{% url 'user_details' student.user.id %}">
+                                            <div class="avatar avatar-md avatar-indicators ">
+                                                <img alt="avatar" src="{{student.user.get_profile_image.url}}" class="rounded-circle">
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>{{ student.user.email }}</td>
+                                    <td>{{ student.admission_date|date:"d/m/y h:i A" }}</td>
+                                    <td>{{student.phone_number}}</td>
+                                    <td>{% for section in student.sections.all %}{{section.department.branch.name}}<br>{% endfor %}</td>
+                                    <td>{% for section in student.sections.all %}{{section.department.name}}<br> {% endfor %}</td>
+                                    <td>{% for section in student.sections.all %}{{section.name}}<br>{% endfor %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

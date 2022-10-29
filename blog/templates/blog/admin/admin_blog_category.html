@@ -1,0 +1,204 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+
+ <!-- Plugins and style required by This views -->
+<!--=========================================================================================-->
+  <!--Data Tables -->
+  <link href="{% static 'assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+  <!--=========================================================================================-->
+
+{% endblock admin_style %}
+
+{% block admin_content %}
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <!-- Breadcrumb-->
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-9">
+                <h5 class="page-title  pt-4 pb-3">Categories</h5>
+                <ol class="breadcrumb  bg-light p-2">
+                    <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Branch list</li>
+                </ol>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+                    <button 
+                        type="button" 
+                        class="btn btn-outline-primary waves-effect waves-light"
+                        hx-get="{% url 'admin_blog_create_category' %}" 
+                        hx-target="#admin_blog_create_category_model"
+                        hx-swap="innerHTML"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#newCatgory"
+                        ><i class="fa fa-plus-square" aria-hidden="true"></i> Add New Category
+                    </button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-12">
+      <form class="" method="POST", action="">
+        {% csrf_token %}
+        <!-- Card -->
+        <div class="card rounded-3">
+          <!-- Card Header -->
+        <div class="card-header border-bottom-0 p-2">
+            <label class="p-auto ms-4 my-auto"><i class="fa fa-table"></i>Blog List</label>
+            <div class="card-action my-auto d-flex">
+            <div class="input-group mr-2">
+                <select class="form-select form-select-sm" name="action" required="">
+                    <option value="none">Choose...</option>
+                    <option value="delete_selected">Delete Selected Users</option>
+                </select>
+                <div class="input-group-append">
+                    {% comment %} <button type="button" class="btn  btn-outline-primary waves-effect waves-light">Go</button> {% endcomment %}
+                    <button type="button" class="btn btn-primary waves-effect waves-light"> <span>Go</span> </button>
+                    <button type="button" class="btn btn-primary split-btn-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(95px, -199px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a href="javaScript:void();" class="dropdown-item">Action</a>
+                    <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                    <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+          <div class="card-body">
+              <!-- Tab -->
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush default-datatable">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="border-0 font-size-inherit" >
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="checkAll" />
+                            <label class="form-check-label"  for="checkAll" ></label>
+                          </div>
+                        </th>
+                        <th class="border-0">CATEGORY</th>
+                        <th class="border-0">SLUG</th>
+                        <th class="border-0">POSTS</th>
+                        <th class="border-0"> DATE CREATED</th>
+                        <th class="border-0">DATE UPDATED</th>
+                        <th scope="col" class="border-0">ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Table body -->
+                      {% for category in categories %}
+                        <tr id="admin_blog_update_category_table">
+                          <td class="align-middle border-top-0">
+                            <div class="form-check">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="postOne"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="postOne"
+                              ></label>
+                            </div>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            <h6 class="mb-0">
+                                {{category.title|title|truncatewords:10}}
+                            </h6>
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {{category.slug}}
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {{category.get_blogs.count}}
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {{category.created}}
+                          </td>
+                          <td class="align-middle border-top-0">
+                            {{category.updated}}
+                          </td>
+                          <td class="text-muted align-middle border-top-0 text-center"  >
+                            <button class="btn btn-sm btn-info"><i class="fas fa-edit "></i></button>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade " id="newCatgory" tabindex="-1" role="dialog" aria-labelledby="newCatgoryLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-md " >
+          <div class="modal-content p-2">
+              <div class="modal-header">
+                  <h4 class="modal-title mb-0" id="newCatgoryLabel">
+                      Create New Category
+                  </h4>
+                  <button type="button"
+                  class="btn-close" 
+                  data-bs-dismiss="modal" 
+                  aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="admin_blog_create_category_model" 
+                      hx-post="{% url 'admin_blog_create_category' %}" 
+                      hx-trigger="submit" 
+                      hx-swap="innerHTML"
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+{% endblock admin_content %}
+
+{% block admin_script %}
+<!-- Plugins and scripts required by This views -->
+<!--=========================================================================================-->
+<!--Data Tables js-->
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/jszip.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/pdfmake.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/vfs_fonts.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'admin_assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js' %}"></script>
+  <!-- waves effect js -->
+  <script src="{% static 'assets/js/waves.js' %}"></script> 
+<!--Inline script-->
+<!--=========================================================================================-->
+<script>
+$(function() {
+  //Default data table
+    $('.default-datatable').DataTable();
+    $("form-select .form-select-sm")
+});
+</script>
+<!--=========================================================================================-->
+
+{% endblock admin_script %}
+
+
+

@@ -1,0 +1,108 @@
+<form  id="student_list_table" action="{% url 'multi_update_students' %}"  class="dynamic-table" method="POST", action="">
+    {% csrf_token %}
+    <div class="card       shadow-none border border-light-3">
+        <div class="card-header  ">
+            <label class="p-auto"><i class="fa fa-table"></i> Student List</label>
+            <div class="card-action d-flex">
+                <div class="input-group">
+                    <select class="form-select" name="action" id="inputGroupSelect04" required aria-label="Example select with button addon">
+                        <option value="none">Choose...</option>
+                        <option value="delete">Delete Selected Students Info</option>
+                        <option value="payed">Set Payed Selected Students Payment</option>
+                        <option value="unpaid">Set Unpaid Selected Students Payment</option>
+                        <option value="applied">Set Applied Selected Students Status</option>
+                        <option value="pending">Set Pending Selected Students Status</option>
+                        <option value="dismissed">Set Dismissed Selected Students Status</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit">Go</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example" class="data-table table align-items-center">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="align-middle border-0" >
+                                Select
+                            </th>
+                            <th>Full Name</th>
+                            <th>Profile</th>
+                            <th>status</th>
+                            <th>payment</th>
+                            <th>Admission Date</th>
+                            <th>Phone Number</th>
+                            <th>Branchs</th>
+                            <th>Departments</th>
+                            <th>Sections</th>
+                            <th>Address</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr id="delete_student_column_id_{{student.id}}">
+                                <td>
+                                    <div class="icheck-material-primary">
+                                        <input class="checkbox" name="columns" value="{{student.id}}" type="checkbox" id="{{student.id}}">
+                                        <label for="{{student.id}}"></label>
+                                    </div>
+                                </td>
+                                <td>{{ student.user.get_full_name}}</td>
+                                <td>
+                                    <a href="{% url 'user_details' student.user.id %}">
+                                        <img src="{{student.user.get_profile_image.url}}" class="rounded-circle avatar" alt="user avatar">
+                                    </a>
+                                </td>
+                                {% if student.status == 'applied' %}
+                                <td><span class="btn btn-sm btn-outline-success btn-round btn-block">{{student.status}}</span></td>
+                                {% elif student.status == 'dismissed' %}
+                                <td><span class="btn btn-sm btn-outline-danger btn-round btn-block">{{student.status}}</span></td>
+                                {% else %}
+                                <td><span class="btn btn-sm btn-outline-info btn-round btn-block">{{student.status}}</span></td>
+                                {% endif %}
+                                {% if student.payment == 'payed' %}
+                                <td><span class="btn btn-sm btn-outline-success btn-round btn-block">{{student.payment}}</span></td>
+                                {% else %}
+                                <td><span class="btn btn-sm btn-outline-danger btn-round btn-block">{{student.payment}}</span></td>
+                                {% endif %}
+                                <td>{{ student.admission_date|date:"d/m/y h:i A" }}</td>
+                                <td>{{student.phone_number}}</td>
+                                <td>{% for section in student.sections.all %}{{section.department.branch.name}}<br>{% endfor %}</td>
+                                <td>{% for section in student.sections.all %}{{section.department.name}}<br> {% endfor %}</td>
+                                <td>{% for section in student.sections.all %}{{section.name}}<br>{% endfor %}</td>
+                                <td>
+                                    {{student.user.address.state}}/
+                                    {{student.user.address.city}}/
+                                    {{student.user.address.street}}
+                                </td>
+                                <td>
+                                    <a href="{% url 'user_details' student.user.id %}">
+                                        <button type="button" class="btn btn-sm  btn-primary"> <i class="zmdi zmdi-open-in-new"></i></button>
+                                    </a>
+            
+                                    <a href="{% url 'update_students' student.id %}">
+                                        <button type="button" class="btn btn-sm  btn-info"> <i class="zmdi zmdi-edit"></i></button>
+                                    </a>
+
+                                    <a 
+                                        id="delete_student_{{forloop.counter}}" 
+                                        class="hx-delete-alert-confirm" 
+                                        hx-get="{% url 'htmx_student_delete' student.id %}"
+                                        hx-target="#delete_student_column_id_{{student.id}}"
+                                        hx-trigger='confirmed'
+                                        hx-swap="outerHTML"
+                                    >
+                                        <button type="button" class="btn btn-sm  btn-danger"> <i class="zmdi zmdi-delete"></i></button>
+                                    </a>
+                        
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

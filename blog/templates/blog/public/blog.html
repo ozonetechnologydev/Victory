@@ -1,0 +1,218 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+ {% block public_style %}
+
+{% endblock public_style %}
+
+{% block public_content %}
+    <!-- Page header -->
+    <div class="pt-9 pb-9 ">
+      <div class="container">
+        <div class="row ">
+          <div class="offset-xl-2 col-xl-8 offset-lg-1 col-lg-10 col-md-12 col-12">
+            <div class="text-center mb-5">
+              <h1 class=" display-2 fw-bold">Victory Newsroom</h1>
+              <p class=" lead">
+                Our features, journey, tips and us being us. Lorem ipsum dolor sit amet, accumsan in,
+                tempor
+                dictum neque.
+              </p>
+            </div>
+            <!-- Form -->
+            <form class="row px-md-20"
+				mathod="POST"  
+				hx-post="{% url 'htmx_create_blog_subscriber' %}"
+				hx-target="#show-alert"
+				hx-swap="innerHTML"
+				hx-trigger="submit">
+			
+              <div class="mb-3 col ps-0  ms-2 ms-md-0">
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required="">
+              </div>
+              <div class="mb-3 col-auto ps-0">
+                <button class="btn btn-primary btn-sm px-5" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Content -->
+    <div class="pb-8">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <!-- Flush Nav -->
+            <div class="flush-nav">
+              <nav class="nav">
+                <a class="nav-link active ps-0" href="?category=all">All</a>
+				{% for category in categories %}
+                	<a class="nav-link" href="?category={{category}}" >
+						{{category|title}}
+					</a>
+				{% endfor %}
+              </nav>
+
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+            <!-- Card -->
+            <div class="card mb-4 card-hover border-top border-muted border-4 card-hover-with-icon">
+              <div class="row g-0">
+                <!-- Image -->
+                <a href="{% url 'blog_details' blog_last.id %}" class="col-lg-8 col-md-12 col-12 bg-cover img-left-rounded"
+                  style="background-image: url({{blog_last.blogimage_set.first.image.url}});">
+
+
+                  <img src="{{blog_last.blogimage_set.first.image.url}}" class="img-fluid " alt=""></a>
+                <div class="col-lg-4 col-md-12 col-12">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <a href="#" class="fs-5 mb-3 fw-semi-bold d-block">{{blog_last.category|title}}</a>
+                    <h1 class="mb-2 mb-lg-4"> <a href="{% url 'blog_details' 1 %}" class="text-inherit">
+                        {{blog_last.title|title}}
+                      </a>
+                    </h1>
+					<p >
+						{{blog_last.body_text|safe|escape|striptags|truncatewords:30}}
+					</p>
+                    <!-- Media content -->
+                    <div class="row align-items-center g-0 mt-lg-7 mt-4">
+						<div class="col-auto">
+							<!-- Img  -->      
+						<a href="{% url 'user_details' blog_last.author.id %}"	>
+							<img src="{{blog_last.author.get_profile_image.url}}" alt="" class="rounded-circle avatar-sm me-2">
+						</a>
+					</div>
+					<div class="col lh-1 ">
+						<a href="{% url 'user_details' blog_last.author.id %}"	>
+							<h5 class="mb-1">{{blog_last.author.get_full_name_or_email}}</h5>
+						</a>
+					</div>
+                      <div class="col-auto">
+                        <p class="fs-6 mb-0"><i class="fe fe-clock text-muted"></i> {{blog_last.published|timesince}} ago</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+		</div>
+    </div>
+</div>
+
+    <!-- Content -->
+    <div class="pb-16">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-7 col-12">
+				  <div class="row">
+						{% include 'components/blog_lists.html' with page_obj=page_obj %}
+				</div>
+			</div>
+
+
+				<div class="col-lg-4 col-md-5 col-12 mt-6 mt-md-0">
+				  <!-- search -->
+				  
+				<div class="mb-4">
+					<div class="mb-3 position-relative">
+						<form method="GET" action="?search">
+							<input type="search" name="search" class="form-control " placeholder="Search...">
+							<span class="position-absolute end-0 top-0 my-2  me-4 "><i class="fe fe-search fs-5"></i></span>
+						</form>
+					</div>
+				  </div>
+
+				  <div class="row text-center">
+					<div class="col-md-12 px-lg-10 my-2">		  
+						<span class="text-uppercase text-primary desplay-3 fw-semi-bold ls-md">Browse Category
+						</span>
+					</div>
+				</div>
+					<!-- search -->
+					
+				{% for blog in pin_blogs %}
+					{% include 'components/blog_card.html' with blog=blog %}
+				{% endfor %}
+				<div class="card mb-4 border ">
+					<!-- card body -->
+					<div class="card-body p-4">
+					  <h3>Catagores</h3>
+					  <div class="mt-3">
+						<!-- list -->
+						<ul class="list-unstyled mb-0">
+							{% for category in categories  %}
+						  <li class="mb-3">
+							<h6 class="lh-lg">
+								<a href="?category=acadanic" class="text-inherit">
+									{{category.title|title}} -> <span class="mb-0 text-muted">{{category.get_published_blogs.count}} blogs</span>
+								</a>
+							</h6>
+						  </li>
+						  {% endfor %}
+						</ul>
+					  </div>
+					</div>
+				  </div>
+				
+				  <!-- card -->
+				  <div class="card mb-4 border ">
+					<!-- card body -->
+					<div class="card-body p-4">
+					  <h3>Recent Posts</h3>
+					  <div class="mt-3">
+						<!-- list -->
+						<ul class="list-unstyled mb-0">
+							{% for r_blog in recent_blog %}
+						  <li class="mb-3">
+							<h6 class="lh-lg">
+								<a href="{% url 'blog_details' r_blog.id %}" class="text-inherit">
+									{{r_blog.title|title}}
+								</a>
+							</h6>
+						  </li>
+						  {% endfor %}
+						</ul>
+					  </div>
+					</div>
+				  </div>
+				  <!-- card -->
+				  
+				  <!-- card -->
+				  <div class="card mb-4 border ">
+					<!-- card body -->
+					<div class="card-body p-4">
+					  <h3>Archive</h3>
+					  <div class="mt-3">
+						<!-- list -->
+						<ul class="list-unstyled mb-0 nav nav-x-0 flex-column">
+							{% for archive in archives %}
+								<li class="lh-lg mb-1">
+		
+								<i class="fe fe-arrow-right text-muted"></i>
+								<a href="?date={{archive|date:'Y-n'}}" class="text-link d-inline">
+									{{archive|date:'F Y'}}</a>
+								</li>
+							{% endfor %}
+  
+						</ul>
+					  </div>
+					</div>
+				  </div>
+						<!-- card -->				
+				</div>
+			</div>
+  
+		</div>
+	  </div>
+
+{% endblock public_content %}
+
+{% block public_script %}
+
+{% endblock public_script %}

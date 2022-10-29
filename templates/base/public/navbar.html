@@ -1,0 +1,233 @@
+{% load static %}
+<!--Start topbar header-->
+{% load myflatpage %}
+{% general_setting as generalSetting %}
+
+<header class="topbar-nav">
+
+  <nav class="navbar navbar-expand-lg p-1 ps-3 pe-3 navbar-default bg-success">
+    <div class="container-fluid px-0">
+      <a class="navbar-brand" href="{% url 'home' %}"><img class="navbar-logo-icon" src="{{generalSetting.logo.url}}" alt=""></a>
+      <!-- Mobile view nav wrap -->
+      <ul class="navbar-nav navbar-right-wrap ms-auto d-lg-none d-flex nav-top-wrap">
+        {% if request.user.is_authenticated  %}
+            {% if request.user.is_superuser %}
+              <a href="{% url 'academy_dashboard' %}" class="btn btn-sm btn-primary" type="button" >
+                <i class="zmdi zmdi-view-dashboard"></i></i> Dashboard
+              </a>
+
+            {% endif %}
+            <li class="dropdown ms-2">
+              <a class="rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="avatar avatar-md avatar-indicators avatar-online">
+                  <img alt="avatar" src="{{request.user.get_profile_image.url}}" class="rounded-circle">
+                </div>
+                
+              </a>
+              <div class="dropdown-menu dropdown-menu-end shadow">
+                <div class="dropdown-item">
+                  <a href="{% url 'user_profile' %}">
+                    <div class="d-flex">
+                      <div class="avatar avatar-md avatar-indicators avatar-online">
+                        <img alt="avatar" src="
+                        {% if request.user.get_profile_image.url %}
+                        {{request.user.get_profile_image.url}}
+                        {% else %}{% static 'assets/images/avater.png' %}
+                        {% endif %}" class="rounded-circle">
+                      </div>
+                      <div class="ms-3 lh-1">
+                        <h5 class="mb-1">{{request.user.get_full_name}}</h5>
+                        <p class="mb-0 text-muted">{% if request.user.email %}{{request.user.email}}{% else %}{{request.user.username}}{% endif %}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="dropdown-divider"></div>
+                <ul class="list-unstyled">
+                  <li class="d-flex">
+                    <a class="dropdown-item" href="{% url 'user_profile' %}">
+                      <i class="fa fa-user me-2 text-success"></i>
+                      Profile  
+                    </a>
+                    <span class="badge bg-success  my-auto mx-1">
+                      {% if request.user.is_superuser %}Admin
+                      {% elif request.user.teacher %}Teacher
+                      {% elif request.user.student %}Student
+                      {% else %}Local User
+                      {% endif %}
+                    </span>
+                  </li>
+      
+                <div class="dropdown-divider"></div>
+                <ul class="list-unstyled">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                      <i class="fa fa-sign-out me-2 text-danger"></i>Sign Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+        {% else %}
+          <div class="ms-auto mt-lg-0">
+            <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark btn-sm ms-3">Sign in</a>
+            <a href="{% url 'register' %}" class="btn btn-sm btn-dark btn-sm ms-1">Sign up</a>
+          </div>
+        {% endif %}
+      </ul>
+      <!-- Button -->
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="icon-bar top-bar mt-0"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="navbar-default">
+
+        <ul class="navbar-nav m-0 p-0 my-auto">
+
+          <li class="nav-item me-2   m-0 p-0 my-auto dropdown">
+              <button class="btn btn-sm btn-primary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i aria-hidden="true" class="fa fa-mortar-board"></i> Academy
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="navbarLanding">
+                <li>
+                  <h4 class="dropdown-header">Academy</h4>
+                </li>
+                {% if request.user.is_academic_registrar %}
+                <li>
+                  <a href="{% url 'academy_creation_tree' %}" class="dropdown-item d-flex justify-content-between">
+                    Register Academy
+                  </a>
+                </li>
+                {% endif %}
+                {% if  request.user.is_student_registrar %}
+                  <li>
+                    <a href="{% url 'student_creation_tree' %}" class="dropdown-item d-flex justify-content-between">
+                      Register Student
+                    </a>
+                  </li>
+                {% endif %}
+                <li>
+                  <a href="{% url 'academy_home' %}" class="dropdown-item d-flex justify-content-between">
+                  Home Academy
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'course_filter_list' %}" class="dropdown-item">
+                    Courses
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'quiz' %}" class="dropdown-item">
+                    Quiz
+                  </a>
+                </li>
+                <li>
+                    {% if not request.user.subject or not request.user.teacher %}
+                        <a href="{% url 'apply_student1' %}" class="dropdown-item">
+                          Apply
+                        </a>
+                  {% endif %}
+                </li>
+              </ul>
+          </li>
+
+        </ul> 
+
+        <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog_list' %}">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">contact</a>
+          </li>
+                   
+        </ul>
+
+        <ul class="navbar-nav navbar-right-wrap ms-auto d-none d-lg-block">
+
+          {% if request.user.is_authenticated  %}
+            {% if request.user.is_superuser %}
+              <a href="{% url 'academy_dashboard' %}" class="btn btn-sm btn-primary" role="button" >
+                <i class="zmdi zmdi-view-dashboard"></i> Dashboard
+              </a>
+
+            {% endif %}
+              <li class="dropdown ms-2 d-inline-block">
+                <a class="rounded-circle" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                  <div class="avatar avatar-md avatar-indicators avatar-online">
+                    <img alt="avatar" src="{% if request.user.get_profile_image.url %}
+                    {{request.user.get_profile_image.url}}
+                    {% else %}{% static 'assets/images/avater.png' %}{% endif %}" class="rounded-circle">
+                  </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                  <div class="dropdown-item">
+                    <a href="{% url 'user_profile' %}">
+
+                    <div class="d-flex">
+                      <div class="avatar avatar-md avatar-indicators avatar-online">
+                        <img alt="avatar" src="{% if request.user.get_profile_image.url %}
+                        {{request.user.get_profile_image.url}}
+                        {% else %}{% static 'assets/images/avater.png' %}{% endif %}" class="rounded-circle">
+                      </div>
+                      <div class="ms-3 lh-1">
+                        <h5 class="mb-1">{{request.user.get_full_name}}</h5>
+                        <p class="mb-0 text-muted">{% if request.user.email %}{{request.user.email}}{% else %}{{request.user.username}}{% endif %}</p>
+                       
+                      </div>
+                    </div>
+                  </a>
+
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <ul class="list-unstyled">
+                    <li class="d-flex">
+                      <a class="dropdown-item" href="{% url 'user_profile' %}">
+                        <i class="fa fa-user me-2 text-success"></i>
+                        Profile  
+                      </a>
+                      <span class="badge bg-success my-auto mx-1">
+                        {% if request.user.is_superuser %}Admin
+                        {% elif request.user.teacher %}Teacher
+                        {% elif request.user.student %}Student
+                        {% else %}Local User
+                        {% endif %}
+                      </span>
+                    </li>
+                  <div class="dropdown-divider"></div>
+                  <ul class="list-unstyled">
+                    <li>
+                      <a class="dropdown-item" href="{% url 'logout' %}">
+                        <i class="fa fa-sign-out me-2 text-danger"></i>Sign Out
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+          {% else %}
+            <div class="ms-auto mt-lg-0">
+              <a href="{% url 'login' %}" class="btn btn-sm btn-outline-dark btn-sm ms-3">Sign in</a>
+              <a href="{% url 'register' %}" class="btn btn-sm btn-dark btn-sm ms-1">Sign up</a>
+            </div>
+          {% endif %}
+          
+        </ul>
+
+      </div> 
+      
+    </div>
+  </nav>
+
+</header>

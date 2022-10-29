@@ -1,0 +1,339 @@
+{% extends 'base/public/base.html' %}
+{% load static %}
+
+{% block public_style %}
+
+
+<link href="{% static 'assets/css/table.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+
+{% endblock public_style %}
+
+{% block public_content %}
+<!--Start Dashboard Content-->
+<!--Start Dashboard Content-->
+
+<!-- Page header -->
+<div class="pt-lg-6 pb-lg-8 pt-5 pb-4 bg-success">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-7 col-lg-7 col-md-12">
+                <div>
+                    <h4 class="text-white display-5 fw-semi-bold">
+                        Quze Creation Tree
+                    </h4>
+                    <p class="text-white mb-6 ">
+                        this is a creation tree
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="pb-10">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-12 mt-n8 mb-10 mb-lg-0">
+                <!-- Card -->
+                <div class="card rounded-3">
+                    <!-- Card header -->
+                    <div class="card-header border-bottom-0 p-0">
+                        <div>
+                            <!-- Nav -->
+                            <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active"  href="?filter=last_day">Tody</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="?filter=last_week">Last Weak</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  href="?filter=last_month">Last Month</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"   href="?filter=last_year">Last year</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div data-spy="scroll"  class="scrollspy-example h-auto w-100">
+                            <ul class="navbar-nav vh-100 flex-column " id="sideNavbar">
+                                {% for quiz in quizzes %}
+                                    <li id="hx_quiz_id_{{forloop.counter}}" class="nav-item my-1 card-hover border smooth-shadow-md">
+                                        <div class="d-lg-flex p-2 bg-light-success">
+                                            <div class="ms-lg-3 mt-2 py-2 mt-lg-0">
+                                                <h4 class="mb-1 h4">
+                                                    <a href="" class="text-inherit">
+                                                        Quiz Name: {{quiz.name}}
+                                                    </a>
+                                                </h4>
+                                                <h5 class="mb-1 h6">
+                                                        Quiz Topic: {{quiz.topic}}
+                                                </h5>
+                                                <div class="mt-1">
+                                                    <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                        <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                        <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                                    </svg>
+                                                    <span class="ms-1">difficulty</span>
+                                                    <span class="ms-1">: {{quiz.difficulty|title}}</span>
+                
+                                                </div>
+                                                
+                                                <ul class="list-inline fs-6 mb-0">
+                                                    <li class="list-inline-item">
+                                                        {{quiz.created|timesince}} ago
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="ms-lg-3 mt-2 py-2 mt-lg-0">
+                                                <div class="mt-1"> 
+                                                    <i class="fa fa-map-pin text-muted"></i><span class="ms-1">Number of Questions: {{quiz.get_num_questions}}</span>
+                                                </div>
+                                                
+                                                <div class="mt-1">
+                                                    <i class="fa fa-map-pin text-muted"></i><span class="ms-1">required score to pass: {{quiz.required_score_to_pass}}%</span>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <i class="fa fa-map-pin text-muted"></i><span class="ms-1 ">time to finish: {{quiz.time_to_finish}} min</span>
+                                                </div>
+                                                <div class="mt-1">
+                                                    <i class="fa fa-clock text-muted"></i><span class="ms-1 ">expire date to award: {{quiz.expire_date}} min</span>
+                                                </div>
+                                            </div>
+                                            <div class="ms-lg-3  btn-group ms-auto my-2 mb-lg-auto me-lg-2">
+                                                <button class="btn btn-secondary btn-xs" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#quiz_collape_{{forloop.counter}}" aria-expanded="false" aria-controls="quiz_collape_{{forloop.counter}}">
+                                                    Quetions
+                                                </button>
+                                                <button type="button" class="btn btn-xs btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" role="button" 
+                                                        hx-get="{% url 'htmx_quiz_update' quiz.id %}" 
+                                                        hx-target="#hx_quiz_creation_form_id" 
+                                                        hx-swap="innerHTML">
+                                                        Edit Quiz
+                                                    </a>
+                                                    <a  id="hx_delete_quiz_id_{{forloop.counter}}"
+                                                        class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                                        hx-delete="{% url 'htmx_quiz_delete' quiz.id %}" 
+                                                        hx-target="#hx_quiz_id_{{forloop.counter}}" 
+                                                        hx-trigger='confirmed'
+                                                        hx-swap="outerHTML">
+                                                        Delete Quiz
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" role="button" 
+                                                        hx-get="{% url 'htmx_question_create' quiz.id %}" 
+                                                        hx-target="#hx_quiz_creation_form_id" 
+                                                        hx-swap="innerHTML">
+                                                        Add Questions
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="quiz_collape_{{forloop.counter}}" class="collapse " data-bs-parent="#hx_quiz_id_{{forloop.counter}}">
+                                            <ul class="nav flex-column ms-2">
+                                                {% for question in quiz.question_set.all %}
+                                                    <li id="hx_question_id_{{quiz.id}}_{{forloop.counter}}" class="nav-item my-1  ms-4 card-hover border  ">
+                                                        <div class="d-flex  bg-light-primary">
+                                                           
+                                                            <div class="ms-lg-3 mt-2 py-2 py-2 mt-lg-0">
+                                                                <h4 class="mb-1 h5">
+                                                                    <a href="" class="text-inherit">
+                                                                        Question Text: {{question.text}}
+                                                                    </a>
+                                                                </h4>
+                                                                <div>
+                                                                    Number of choise: <span class="badge bg-primary">{{question.answer_set.count}}</span> 
+                                                                </div>
+                                                                <ul class="list-inline fs-6 mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        {{question.created|timesince}} ago
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="btn-group ms-auto mb-auto mt-2 me-2">
+                                                                <button class="btn btn-secondary btn-xs" type="button"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#question_answers_collapse_{{quiz.id}}_{{forloop.counter}}" aria-expanded="false" aria-controls="question_collapse_{{quiz.id}}_{{forloop.counter}}">
+                                                                    answers
+                                                                </button>
+                                                                <button type="button" class="btn btn-xs btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                                                </button>
+                                                                <div class="dropdown-menu">
+                                                                    <a  class="dropdown-item " role="button" 
+                                                                        hx-get="{% url 'htmx_question_update' question.id %}" 
+                                                                        hx-target="#hx_quiz_creation_form_id" 
+                                                                        hx-swap="innerHTML">
+                                                                        Edit Question
+                                                                    </a>
+                                                                    <a   id="hx_delete_question_id_{{quiz.id}}_{{forloop.counter}}"
+                                                                        class="dropdown-item hx-delete-alert-confirm"  role="button" 
+                                                                        hx-delete="{% url 'htmx_question_delete' question.id %}" 
+                                                                        hx-target="#hx_question_id_{{quiz.id}}_{{forloop.counter}}" 
+                                                                        hx-trigger='confirmed'
+                                                                        hx-swap="outerHTML">
+                                                                        Delete Question
+                                                                    </a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item" role="button" 
+                                                                        hx-get="{% url 'htmx_answer_create' question.id %}"
+                                                                        hx-target="#hx_quiz_creation_form_id" 
+                                                                        hx-swap="innerHTML">
+                                                                        Add Answer
+                                                                    </a>                                                                         
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div id="question_answers_collapse_{{quiz.id}}_{{forloop.counter}}" class="collapse " data-bs-parent="#hx_question_id_{{quiz.id}}_{{forloop.counter}}">
+                                                            <ul class="nav flex-column">
+                                                                {% for answer in question.answer_set.all %}
+                                                                    <li id="hx_answer_id_{{question.id}}_{{forloop.counter}}" 
+                                                                    class="nav-item my-1  ms-4  card-hover border ">
+                                                                        <div class="d-flex bg-light-dark">
+                                                                            <div class="ms-lg-3 mt-2 py-2 py-2 mt-lg-0">
+                                                                                <h4 class="mb-1 h5">
+                                                                                    <a href="" class="text-inherit">
+                                                                                        Answer text: {{answer.text}}
+                                                                                    </a>
+                                                                                </h4>
+                                                                                <div>
+                                                                                   Is correct: <span class="badge bg-primary">{{answer.correct}}</span>
+                                                                                </div>
+                                                                                <ul class="list-inline fs-6 mb-0">
+                                                                                    <li class="list-inline-item">
+                                                                                        {{answer.created|timesince}} ago
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div class="btn-group ms-auto my-auto me-2">
+                                                                                <button type="button" class="btn btn-xs btn-secondary">
+                                                                                    options
+                                                                                </button>
+                                                                                <button type="button" class="btn btn-xs btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <span class="visually-hidden">Toggle Dropdown</span>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item" role="button" 
+                                                                                        hx-get="{% url 'htmx_answer_update' answer.id %}" 
+                                                                                        hx-target="#hx_quiz_creation_form_id" 
+                                                                                        hx-swap="innerHTML">Edit Answer</a>
+                                                                                    <a  id="#hx_delete_answer_id_{{question.id}}_{{forloop.counter}}"
+                                                                                        class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                                                                        hx-delete="{% url 'htmx_answer_delete' answer.id %}" 
+                                                                                        hx-target="#hx_answer_id_{{question.id}}_{{forloop.counter}}" 
+                                                                                        hx-trigger='confirmed'
+                                                                                        hx-swap="outerHTML">Delete Answer</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-12 mt-n8 mb-10 mb-lg-0">
+                <!-- Card -->
+                <div class="card rounded-3">
+                    <!-- Card header -->
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div id="hx_quiz_creation_form_id" class=" border-bottom-0 p-0">
+                            {% include 'components/forms.html' with form=quiz_form title="Create Quiz" action="/quizzes/htmx/create/" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card -->
+        </div>
+    </div>
+</div>
+
+ <!--End Dashboard Content-->
+ {% endblock public_content %}
+ {% block public_script %}  
+
+ <!-- Plugins and scripts required by This views -->
+ <!--=========================================================================================-->
+ <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+ <script src="{% static 'assets/js/popper.min.js' %}"></script>
+ <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+ <!--Select Plugins Js-->
+ <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+
+ <!--Bootstrap Datepicker Js-->
+ <script src="{% static 'assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+
+ <!--Multi Select Js-->
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+ <!--material date picker js-->
+ <script src="{% static 'assets/plugins/material-datepicker/js/moment.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/bootstrap-material-datetimepicker.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/material-datepicker/js/ja.js' %}"></script>
+ 
+
+ <script>
+    $(function() {
+
+ 
+        $(".hx-delete-alert-confirm").click(function(e){
+             
+             var alert_text = $(e.currentTarget.id).attr("alert-text");
+ 
+             swal({
+                 title: "Are you sure?",
+                 text: alert_text || "Once deleted, you will not be able to recover data!",
+                 icon: "warning",
+                 buttons: true,
+                 dangerMode: true,
+             })
+             .then((willDelete) => {
+                 if (willDelete) {
+ 
+                     swal("Information!", "Poof! Your data has been deleted!,", "info", {
+                         icon: "success",
+                     });
+                     
+                     htmx.trigger("#" + e.currentTarget.id, "confirmed")
+ 
+                 } else {
+                     swal("Information!", "Your data file is safe!,", "info");
+                 }
+             });
+         });
+     });
+ 
+   </script>
+ <!--=========================================================================================-->
+ 
+{% endblock public_script %}

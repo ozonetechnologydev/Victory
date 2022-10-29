@@ -1,0 +1,299 @@
+{% extends 'base/admin/base.html' %}
+{% load static %}
+
+{% block admin_style %}
+<!-- Plugins and style required by this views -->
+<!--=========================================================================================-->
+<!--dropzone  -->
+<link href="{% static 'assets/libs/dropzone/dist/dropzone.css' %}" rel="stylesheet" /> 
+<!--summernote  -->
+<link href="{% static 'assets/plugins/summernote/dist/summernote-bs4.css' %}" rel="stylesheet" />
+
+<!--Select Plugins-->
+<link href="{% static 'assets/plugins/select2/css/select2.min.css' %}" rel="stylesheet"/>
+<!--inputtags-->
+<link href="{% static 'assets/plugins/inputtags/css/bootstrap-tagsinput.css' %}" rel="stylesheet" />
+<!--multi select-->
+<link href="{% static 'assets/plugins/jquery-multi-select/multi-select.css' %}" rel="stylesheet" type="text/css">
+<!--Bootstrap Datepicker-->
+<link href="{% static 'assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css' %}" rel="stylesheet" type="text/css">
+<!--Touchspin-->
+<link href="{% static 'assets/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet"> 
+<!--=========================================================================================-->
+{% endblock admin_style %}
+
+{% block admin_content %}
+    <!--Start Dashboard Content-->
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-12">
+        <!-- Breadcrumb-->
+          <div class="row pt-2 pb-2">
+              <div class="col-sm-9">
+                  <h5 class="page-title  pt-4 pb-3">Branch List Data Tables</h5>
+                  <ol class="breadcrumb  bg-wight p-2">
+                      <li class="breadcrumb-item"><a href="javaScript:void();">Victory</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Branch list</li>
+                  </ol>
+              </div>
+              <div class="col-sm-3">
+                  <div class="btn-group float-sm-right">
+                      <button type="button" class="btn btn-outline-primary waves-effect waves-light"><i class="fa fa-cog mr-1"></i> Setting</button>
+                      <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split waves-effect waves-light" data-toggle="dropdown">
+                      <span class="caret"></span>
+                      </button>
+                      <div class="dropdown-menu">
+                        {% comment %} <a class="dropdown-item" href="{% url 'admin_update_blog' blog.id %}" ><i  class="fa fa-edit dropdown-item-icon" ></i >Edit</a> {% endcomment %}
+                        <a class="dropdown-item" href="{% url 'admin_duplicate_blog' blog.id %}" ><i class="fa fa-copy dropdown-item-icon"  ></i  >Copy</a>
+                        <a class="dropdown-item" href="{% url 'admin_publish_blog' blog.id %}" ><i class="fa fa-toggle-right dropdown-item-icon"  ></i >Publish</a>
+                        <a class="dropdown-item" href="{% url 'admin_unpublish_blog' blog.id %}"><i  class="fa fa-toggle-left dropdown-item-icon"></i  >Unpublish</a>
+                        <a class="dropdown-item" href="{% url 'admin_delete_blog' blog.id %}"><i  class="fa fa-trash dropdown-item-icon"></i>Delete</a>
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <!-- End Breadcrumb-->
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+          <!-- Card -->
+          <div class="card border-0 mb-4">
+            <!-- Card header -->
+            <div class="card-header">
+              <h5 class="mb-0">Create Blog</h5>
+            </div>
+            <!-- Card body -->
+            <div class="card-body">
+              {% if messages %} {% include 'components/messages.html' %} {% endif %}
+                {% if blog %}
+
+                <button type="button" class="btn btn-outline-white mb-1 mb-md-0">
+                  <i class="fa fa-image me-1"></i>
+                  Photo
+                </button>
+                <button type="button" class="btn btn-outline-white mb-1 mb-md-0">
+                  <i class="fa fa-video me-1"></i>
+                  Video
+                </button>
+                <button type="button" class="btn btn-outline-white">
+                  Quote
+                </button>
+                <button type="button" class="btn btn-outline-white">
+                  <i class="fa fa-link me-1"></i>
+                  Link
+                </button>
+                <div 
+                  id="blog-file-dropzone" 
+                  dz-title="Drop any file here to upload"
+                  dz-post="{% url 'ajax_upload_blog_file' blog.id %}" 
+                  dz-trigger="#dropzone-submitter" 
+                  class="dropzone mt-4 border-dashed rounded-2 min-h-0 mb-1 ">
+                  <div class="fallback">
+                    <input name="image"  type="image" />
+                  </div>
+                </div>
+              {% endif %}
+              <button type="button" id="dropzone-submitter" class="btn btn-outline-white btn-block w-100 btn-small">Upload File</button>
+              {% if blog %}
+                  <div class="row my-4">
+                    {% comment %} <div class="gallery "> {% endcomment %}
+                    {% for image in blog.blogimage_set.all %}
+                      <div id="blog_image_{{forloop.counter}}" class="col-lg-4 col-md-6 col-sm-12 px-1">
+                        <div class="card m-1 card-hover">
+                          <div class="bg-cover rounded-3 mb-2 h-20rem"
+                          style="max-height:160px; background-image:url({{image.image.url}});"></div>
+                          <div class="card-body">
+                            <p class="m-0">{{image}}</p>
+                            <p class="m-0"><small class="text-muted">{{image.created|timesince}} ago</small></p>
+                            <span class="btn btn-sm mt-1 btn-danger "  role="button" 
+                                    hx-confirm="Are you sure?"	
+                                    hx-get="{% url 'htmx_delete_blog_image' image.id %}"
+                                    hx-target="#blog_image_{{forloop.counter}}"
+                                    >remove 
+                              </span>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="row my-4">
+                    <ul class="list-group">
+                      {% for file in blog.blogfile_set.all %}
+                        <li id="blog_file_{{forloop.counter}}" class="list-group-item  d-flex justify-content-between align-items-center card-hover">
+                          <span class="badge ms-1 bg-light text-dark ">
+                            <a href="{{file.file.url}}">
+                              <i class="fas fa-file-download    "></i> {{file.file}}
+                            </a>
+                          </span>
+                          <span class="btn btn-sm ms-1 btn-danger " role="button"
+                            hx-confirm="Are you sure?"
+                            hx-get="{% url 'htmx_delete_blog_file' file.id %}"
+                            hx-target="#blog_file_{{forloop.counter}}"
+                            > remove </span>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+
+              {% endif %}
+              <form method="POST" action="{% if blog %}{% url 'admin_update_blog' blog.id %}{% else %}.{% endif %}" method="Blog"  enctype="multipart/form-data">
+                <input type='hidden' id="blog_id" name='blog_id' value="{{blog.id}}"/>
+                {% include 'components/forms.html' %}
+                </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+          <!-- Card -->
+          <div class="card mt-4 mt-lg-0 mb-4">
+            <!-- Card Header -->
+            <div class="card-header d-lg-flex">
+              <h4 class="mb-0">Blog Info</h4>
+            </div>
+            <!-- List Group -->
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <span class="text-body">Blog ID</span>
+                <h>{{blog.id}}</h>
+              </li>
+              <li class="list-group-item">
+                <span class="text-body">Status</span>
+                <h6>
+                  <span class="badge-dot bg-success d-inline-block me-1"></span>{{blog.status}} (unsaved changes)
+                </h6>
+              </li>
+              <li class="list-group-item">
+                <span class="text-body">Created by</span>
+                <div class="d-flex mt-2">
+                  <img src="{{blog_last.author.profile_image.last.image.url}}" alt="" class="avatar-sm rounded-circle" />
+                  <div class="ms-2">
+                    <h6 class="mb-n1">{% if blog.author.get_full_name %}{{blog.author.get_full_name}}{% else %}{{blog.author.email}}{% endif %}</h6>
+                    <small>
+                      {% if request.user.is_superuser %}Admin
+                      {% elif request.user.teacher %}Teacher
+                      {% elif request.user.student %}Student
+                      {% else %}Local User
+                      {% endif %}
+                    </small>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <span class="text-body">Created at</span>
+                <h6>{{blog.created}}</h6>
+              </li>
+              <li class="list-group-item">
+                <span class="text-body">published at</span>
+                <h6>{{blog.published}}</h5>
+              </li>
+
+            </ul>
+            <!-- Card -->
+          </div>
+          <div class="card mb-4">
+            <!-- Card Header -->
+            <div class="card-header d-lg-flex">
+              <h5 class="mb-0">Actions</h5>
+            </div>
+            <!-- List group -->
+            <ul class="list-group list-group-flush">
+              {% if blog.status == 'published' %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="text-body">Unpublish</span>
+                <a href="{% url 'admin_publish_blog' blog.id %}" class="text-inherit"><i class="fa fa-toggle-left fs-4"></i></a>
+            </li>
+            {% else %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span class="text-body">Publish</span>
+              <a href="{% url 'admin_duplicate_blog' blog.id %}" class="text-inherit"><i class="fa fa-toggle-right text-success fs-4"></i></a>
+              {% endif %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="text-body">Duplicate</span>
+                <a href="{% url 'admin_duplicate_blog' blog.id %}" class="text-inherit"><i class="fa fa-copy fs-4"></i></a>
+              </li>
+              {% if blog.status != 'deleted' %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="text-body">Delete</span>
+                <a href="{% url 'admin_delete_blog' blog.id %}"><i class="fa fa-trash text-danger fs-4"></i></a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+          <!-- Card  -->
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header d-lg-flex">
+              <h5 class="mb-0">Revision History</h5>
+            </div>
+            <!-- List group -->
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="mb-0">{{blog.published}}</h6>
+                </div>
+                <div>
+                  <span class="badge bg-success badge-pill">Published</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  <!--End Dashboard Content-->
+  {% endblock admin_content %}
+
+  {% block admin_script %}  
+  
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+ <!--Sweet Alerts -->
+ <script src="{% static 'assets/plugins/alerts-boxes/js/sweetalert.min.js' %}"></script>
+ <script src="{% static 'assets/plugins/alerts-boxes/js/sweet-alert-script.js' %}"></script>
+
+
+ <!-- Plugins and scripts required by This views -->
+ <!--=========================================================================================-->
+ <!--summernote Js-->
+ <script src="{% static 'assets/plugins/summernote/dist/summernote-bs4.min.js' %}"></script>
+ <!--dropzone Js-->
+ <script src="{% static 'assets/libs/dropzone/dist/min/dropzone.min.js' %}"></script>
+ <script src="{% static 'assets/libs/dropzone/dist/dropzone-script.js' %}"></script>
+ <!--=========================================================================================-->
+ <!--Bootstrap Touchspin Js-->
+ <script src="{% static 'assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.js' %}"></script>
+ <script src="{% static 'assets/plugins/bootstrap-touchspin/js/bootstrap-touchspin-script.js' %}"></script>
+ 
+ <!--Select Plugins Js-->
+ <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
+ <!--Inputtags Js-->
+ <script src="{% static 'assets/plugins/inputtags/js/bootstrap-tagsinput.js' %}"></script>
+ <!--Multi Select Js-->
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.multi-select.js' %}"></script>
+ <script src="{% static 'assets/plugins/jquery-multi-select/jquery.quicksearch.js' %}"></script>
+ <script src="{% static 'main/js/select-custom.js' %}"></script>
+ 
+ <!--Inline script-->
+ <script>
+   $(function(){
+	 $('.single-select')?.select2();
+
+
+	 if ($('.summernoteEditor')?.length){
+	   $('.summernoteEditor')?.summernote({
+		 height: 400,
+		 tabsize: 2
+	   });
+	 }
+	 
+	 $("input[type='password']")?.addClass("form-control");
+	});
+</script>
+
+    <!--=========================================================================================-->
+
+  {% endblock admin_script %}
+
+

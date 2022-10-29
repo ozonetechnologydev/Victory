@@ -1,0 +1,246 @@
+<div data-spy="scroll"  class="scrollspy-example h-auto w-100">
+    <ul class="navbar-nav vh-100 flex-column w-100" id="sideNavbar">
+        {% for branch in branches %}
+            <li id="hx_branch_id_{{forloop.counter}}" class="nav-item my-1  border-start rounded-2">
+                <div class="d-flex  bg-light-success card-hover smooth-shadow-md w-100 rounded-2">
+                    <div class="me-1">
+                        <img src="{{branch.cover_image.url}}" alt="" height="100%" class="rounded img-4by3-lg" />
+                    </div>
+                    <div class="ms-lg-3 p-2 my-auto py-auto mt-lg-0">
+                        <p class="mb-1 h5">
+                            <a href="" class="text-inherit">
+                                Branch: {{branch.name}}
+                            </a>
+                        </p>
+                        <small class="d-flex mb-1">
+                            Location: &nbsp; <strong>{{branch.location}}</strong>
+                        </small>
+                        <button role="button" class="btn btn-success btn-xs" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#branch_collape_{{forloop.counter}}" aria-expanded="false" aria-controls="branch_collape_{{forloop.counter}}">
+                            departments: <strong>{{branch.department_set.count}}</strong>
+                        </button>
+                        
+                        <small class="list-inline-item d-flex ">
+                            {{branch.created|timesince}} ago
+                        </small>
+                    </div>
+                    <div class="ms-auto p-2 mx-2 my-1">
+                        <span role="button" class="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-options"></i>
+                        </span>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" role="button" 
+                                hx-get="{% url 'htmx_branch_update' branch.id %}" 
+                                hx-target="#hx_academy_creation_form_id" 
+                                hx-swap="innerHTML">
+                                Edit Brach
+                            </a>
+                            <a  id="hx_delete_branch_id_{{forloop.counter}}"
+                                class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                hx-delete="{% url 'htmx_branch_delete' branch.id %}" 
+                                hx-target="#hx_branch_id_{{forloop.counter}}" 
+                                hx-trigger='confirmed'
+                                hx-swap="outerHTML">
+                                Delete Branch
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" role="button" 
+                                hx-get="{% url 'htmx_branch_department_create' branch.id %}" 
+                                hx-target="#hx_academy_creation_form_id" 
+                                hx-swap="innerHTML">
+                                Add department
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div id="branch_collape_{{forloop.counter}}" class="collapse " data-bs-parent="#hx_branch_id_{{forloop.counter}}">
+                    <ul class="nav flex-column ms-2 w-100">
+                        {% for department in branch.department_set.all %}
+                            <li id="hx_department_id_{{branch.id}}_{{forloop.counter}}" class="nav-item my-1  mx-lg-4 mx-2 border-start rounded-2">
+                                <div class="d-flex  bg-light-success w-100 rounded-2 card-hover  smooth-shadow-md">
+                                    <div>
+                                        <img  height="100%"  src="{{department.cover_image.url}}" alt=""
+                                            class="rounded img-4by3-lg" />
+                                    </div>
+                                    <div class="ms-lg-3 p-2 my-auto py-auto mt-lg-0">
+                                        <hp class="mb-1 h5">
+                                            <a href="" class="text-inherit d-flex ">
+                                                Department: &nbsp; <strong>{{department.name}}</strong>
+                                            </a>
+                                        </hp>
+                                        <div class="btn-group m-1 btn-group-sm m-1" role="tablist">
+                                            <button class="btn btn-success btn-xs waves-effect waves-light " type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#department_subjects_collapse_{{branch.id}}_{{forloop.counter}}" aria-expanded="false" aria-controls="department_collapse_{{branch.id}}_{{forloop.counter}}">
+                                                subjects:&nbsp;  <strong>{{department.subject_set.count}}</strong>
+                                            </button>
+                                            <button class="btn btn-success btn-xs waves-effect waves-light " type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#department_sections_collapse_{{branch.id}}_{{forloop.counter}}" aria-expanded="false" aria-controls="department_collapse_{{branch.id}}_{{forloop.counter}}">
+                                                sections:&nbsp;  <strong>{{department.section_set.count}}</strong>
+                                            </button>
+                                        </div>
+                                        <small class="list-inline-item d-flex ">
+                                            {{department.created|timesince}} ago
+                                        </small>
+                                    </div>
+                                    <div class="ms-auto p-2 mx-2 my-1">
+                                        <span role="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-options"></i>
+                                        </span>
+                                        <div class="dropdown-menu">
+                                            <a  class="dropdown-item " role="button" 
+                                                hx-get="{% url 'htmx_department_update' department.id %}" 
+                                                hx-target="#hx_academy_creation_form_id" 
+                                                hx-swap="innerHTML">
+                                                Edit Department
+                                            </a>
+                                            <a   id="hx_delete_department_id_{{branch.id}}_{{forloop.counter}}"
+                                                class="dropdown-item hx-delete-alert-confirm"  role="button" 
+                                                hx-delete="{% url 'htmx_department_delete' department.id %}" 
+                                                hx-target="#hx_department_id_{{branch.id}}_{{forloop.counter}}" 
+                                                hx-trigger='confirmed'
+                                                hx-swap="outerHTML">
+                                                Delete department
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" role="button" 
+                                                hx-get="{% url 'htmx_department_subject_create' department.id %}"
+                                                hx-target="#hx_academy_creation_form_id" 
+                                                hx-swap="innerHTML">
+                                                Add subject
+                                            </a>
+                                            <a class="dropdown-item " role="button" 
+                                                hx-get="{% url 'htmx_department_section_creation' department.id %}" 
+                                                hx-target="#hx_academy_creation_form_id" 
+                                                hx-swap="innerHTML">
+                                                Add section
+                                            </a>                                                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div id="department_subjects_collapse_{{branch.id}}_{{forloop.counter}}" class="collapse " data-bs-parent="#hx_department_id_{{branch.id}}_{{forloop.counter}}">
+                                    <ul class="nav flex-column">
+                                        {% for subject in department.subject_set.all %}
+                                            <li id="hx_subject_id_{{department.id}}_{{forloop.counter}}" 
+                                            class="nav-item my-1  mx-lg-4 mx-2 border-start rounded-2   ">
+                                                <div class="d-flex bg-light-dark w-100 rounded-2 card-hover">
+                                                    <div>
+                                                        <img height="100%"  src="{{subject.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                                    </div>
+                                                    <div class="ms-lg-3 p-2 my-auto py-auto mt-lg-0">
+                                                        <h5 class="mb-1 h5">
+                                                            <a href="" class="text-inherit d-flex ">
+                                                                Title:&nbsp;  {{subject.name}}
+                                                            </a>
+                                                        </h5>
+                                                        
+                                                        <small class="d-flex mb-1">
+                                                            Teacher: &nbsp; <strong>{{subject.teacher}}</strong>
+                                                        </small>
+                                                        <small class="list-inline-item d-flex ">
+                                                            {{subject.created|timesince}} ago
+                                                        </small>
+                                                       
+                                                    </div>
+                                                    <div class="ms-auto p-2 mx-2 my-1">
+                                                        <span role="button" 
+                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="icon-options"></i>
+                                                        </span>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" role="button" 
+                                                                hx-get="{% url 'htmx_subject_update' subject.id %}" 
+                                                                hx-target="#hx_academy_creation_form_id" 
+                                                                hx-swap="innerHTML">Edit Subject</a>
+                                                            <a  id="hx_delete_subject_id_{{department.id}}_{{forloop.counter}}"
+                                                                class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                                                hx-delete="{% url 'htmx_subject_delete' subject.id %}" 
+                                                                hx-target="#hx_subject_id_{{department.id}}_{{forloop.counter}}" 
+                                                                hx-trigger='confirmed'
+                                                                hx-swap="outerHTML">Delete Subject</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div id="department_sections_collapse_{{branch.id}}_{{forloop.counter}}" 
+                                class="collapse " data-bs-parent="#hx_department_id_{{branch.id}}_{{forloop.counter}}">
+                                    <ul class="nav flex-column">
+                                        {% for section in department.section_set.all %}
+                                            <li id="hx_section_id_{{department.id}}_{{forloop.counter}}" class="nav-item my-1  mx-lg-4 mx-2 border-start rounded-2 ">
+                                                <div class="d-flex   bg-light-dark w-100 rounded-2 card-hover">
+                                                    <div>
+                                                        <img height="100%" src="{{section.cover_image.url}}" alt="" class="rounded img-4by3-lg" />
+                                                    </div>
+                                                    <div class="ms-lg-3 p-2 my-auto py-auto mt-lg-0">
+                                                        <p class="mb-1 h5">
+                                                            <a href="" class="text-inherit">
+                                                                Name: {{section.name}}
+                                                            </a>
+                                                        </p>
+                                                        <div class="d-flex">
+                                                            <small class="d-flex mb-1 me-1">
+                                                                Level:&nbsp;  <strong>{{section.level}}</strong>
+                                                             </small>
+                                                             <small class="d-flex mb-1 me-1">
+                                                                Shift: &nbsp; <strong>{{section.shift_time}}</strong>
+                                                             </small>
+                                                        </div>
+                                                        <small class="d-flex mb-1 me-1">
+                                                            Subjects:&nbsp;<strong>{{section.subjects.count}}</strong>
+                                                        </small>
+                                                        <small class="d-flex mb-1 me-1 w-100">
+                                                           Students:&nbsp; 
+                                                           <span class="progress w-100">
+                                                                 <span class="progress-bar" 
+                                                                    role="progressbar" 
+                                                                    style="width: 25%;" 
+                                                                    aria-valuenow="{{section.student_set.count}}" 
+                                                                    aria-valuemin="0" 
+                                                                    aria-valuemax="{{section.maximum_number_of_students}}"
+                                                                >{{section.student_set.count}}
+                                                                </span>
+                                                            </span>
+                                                        </small>
+                                                        <small class="list-inline-item d-flex ">
+                                                            {{section.created|timesince}} ago
+                                                        </small>
+                                                    </div>
+                                                    <div class="ms-auto p-2 mx-2 my-1">
+                                                        <span role="button" 
+                                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="icon-options"></i>
+                                                        </span>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" role="button" 
+                                                                hx-delete="{% url 'htmx_section_update' section.id %}" 
+                                                                hx-target="#hx_academy_creation_form_id" 
+                                                                hx-swap="innerHTML">Edit Section</a>
+                                                            <a  id="hx_delete_section_id_{{department.id}}_{{forloop.counter}}"
+                                                                class="dropdown-item hx-delete-alert-confirm" role="button" 
+                                                                hx-get="{% url 'htmx_section_delete' section.id %}" 
+                                                                hx-target="#hx_section_id_{{department.id}}_{{forloop.counter}}" 
+                                                                hx-trigger='confirmed'
+                                                                hx-swap="outerHTML"
+                                                                >Delete Section</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

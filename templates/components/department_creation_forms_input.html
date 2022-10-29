@@ -1,0 +1,20 @@
+
+<div id="department_form_id_{{form_id}}" class="card border p-2 my-1">
+    <div class="card-header text-uppercase">
+       department creation form
+        <div class="card-action">
+            <button 
+                type="submit" 
+                class="btn btn-danger btn-round bloack waves-effect btn-sm waves-light m-1"
+                hx-post="{% url 'htmx_clear' %}"
+                hx-target="#department_form_id_{{form_id}}"
+                hx-swap="outerHTML"
+                >
+                Remove form
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+            {% include 'components/forms_input.html' with form_title='Department Form' %}
+    </div>
+</div>

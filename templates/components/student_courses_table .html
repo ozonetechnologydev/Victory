@@ -1,0 +1,64 @@
+	<!-- Card -->
+    <div class="card mb-4">
+        <!-- Card header -->
+        <div class="card-header">
+            <h3 class="mb-0">Courses</h3>
+            <span>Manage your courses and its update like live, draft and
+                insight.</span>
+        </div>
+        <!-- Card body -->
+        <div class="card-body">
+            <!-- Form -->
+
+        <!-- Table -->
+            <div class="table-responsive border-0 overflow-y-hidden">
+                <table class="table mb-0 text-nowrap">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" class="border-0">Courses</th>
+                            <th scope="col" class="border-0">Students</th>
+                            <th scope="col" class="border-0">Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject_obj in student_subjects %}
+                        <tr>
+                            <td class="border-top-0 py-auto">
+                                <div class="d-lg-flex">
+                                    <div>
+                                        <a href="{% url 'subject_details' subject_obj.subject.id %}">
+                                            <img src="{{subject_obj.subject.cover_image.url}}" alt="" class="rounded img-4by3-lg" /></a>
+                                    </div>
+                                    <div class="ms-lg-3 mt-2 my-auto">
+                                        <h4 class="mb-1 h5">
+                                            <a href="{% url 'subject_details' subject_obj.subject.id %}" class="text-inherit">
+                                                {{subject_obj.subject.name}}
+                                            </a>
+                                        </h4>
+                                        <ul class="list-inline fs-6 mb-0">
+                                            <li class="list-inline-item">
+                                                {{subject_obj.subject.department}}
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <svg class="me-1 mt-n1" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="3" y="8" width="2" height="6" rx="1" fill="#754FFE"></rect>
+                                                    <rect x="7" y="5" width="2" height="9" rx="1" fill="#DBD8E9"></rect>
+                                                    <rect x="11" y="2" width="2" height="12" rx="1" fill="#DBD8E9"></rect>
+                                                </svg> {{subject_obj.subject.level}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="border-top-0 py-auto">{{subject_obj.students_num}}</td>
+                            <td class="border-top-0 py-auto">
+                                <span class="text-warning">4.5<i class="zmdi zmdi-star"></i></span>(3,250)
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

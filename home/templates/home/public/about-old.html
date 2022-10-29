@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <title>victory wisdom</title>
+    <link rel="stylesheet" href="{% static 'main/css/about.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <nav>
+            <a href="#" class="logo"><img src="{% static 'main/images/asset/logo.png' %} " width="130" /></a>
+            <div class="nav-links">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'blog' %}">Blogs</a></li>
+                    <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- left-sidebar section here -->
+
+        
+        <div class="left-sidebar"></div>
+
+        <div class="row">
+            <div class="left-col">
+                <img src="{% static 'main/images/asset/SEFEDIN.jpg' %} " alt="">
+            </div>
+
+            <div class="right-col">
+                <h1>I'm <span>Seyfedin Tahir</span> <br>owner & ceo of victory wisdom school</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis obcaecati repellendus modi iusto id recusandae ex nobis aperiam.</p>
+
+                <!-- social media icon goes here  -->
+
+        <div class="social-media">
+            <div class="icon">
+                <img src="{% static 'main/images/asset/facebook.png' %} ">
+                <a href="https://www.facebook.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static 'main/images/asset/twitter.png' %}">
+                <a href="https://www.twitter.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static 'main/images/asset/instagram.png' %}">
+                <a href="https://www.instagram.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static '' %} main/images/asset/youtube.png">
+                <a href="https://www.youtube.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+                       
+        </div>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+            <div class="left-col">
+                <img src="{% static 'main/images/asset/jemal.jpg' %} " alt="jemal kedir">
+            </div>
+
+            <div class="right-col">
+                <h1>I'm <span>Jemal kedir</span> <br>Director of victory wisdom school</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis obcaecati repellendus modi iusto id recusandae ex nobis aperiam.</p>
+
+                <!-- social media icon goes here  -->
+
+        <div class="social-media">
+            <div class="icon">
+                <img src="{% static 'main/images/asset/facebook.png' %}">
+                <a href="https://www.facebook.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static 'main/images/asset/twitter.png' %}">
+                <a href="https://www.twitter.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static 'main/images/asset/instagram.png' %}">
+                <a href="https://www.instagram.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+            <div class="icon">
+                <img src="{% static '' %} main/images/asset/youtube.png">
+                <a href="https://www.youtube.com">
+                    <img src="{% static 'main/images/asset/link.png' %} ">
+                </a>
+            </div>
+
+                       
+        </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Copyright (C) - 2022 | Developed By <a href="http://www.mikigode.me">Ozone Technology </a> </p>
+    </footer>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        </script>
+</body>
+</html>

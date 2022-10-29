@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+ <!-- section -->
+ {% block style %}
+ {% include "base/admin/header.html" %}
+{% block admin_style %}{% endblock admin_style %}
+<link href="{% static 'assets/css/form-control.css' %}" rel="stylesheet">
+ {% endblock style %}
+
+ {% block content %}
+ <div id="db-wrapper">
+  {% include 'base/admin/sidebar2.html' %}
+  <div id="page-content">
+  {% include 'base/admin/navbar2.html' %}
+
+    <div class="container-fluid p-4">
+      <section id="dashboard_body">
+        <!--Start Dashboard Content-->
+        {% block admin_content %}{% endblock admin_content %}
+        <!--End Dashboard Content-->
+      </section>
+      {% include 'base/footer.html' %}
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block script %}
+{% include "base/admin/js.html" %}
+
+{% block admin_script %}{% endblock admin_script %}
+{% endblock script %}

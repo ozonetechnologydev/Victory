@@ -1,0 +1,34 @@
+<ul class="nav nav-lb-tab mb-6 bg-light px-5 rounded-3 border-light " id="pills-tab" role="tablist">
+    <!-- nav item -->
+    {% for department in departments %}
+      {% if department.subject_set.exists %}
+        <li class="nav-item ms-0" role="presentation">
+          <a class="nav-link {% if forloop.first %}active{% endif %} " 
+            id="departments_{{department.id}}-tab" data-bs-toggle="pill" 
+            href="#departments_{{department.id}}"
+            role="tab" aria-controls="departments_{{department.id}}" 
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+            {{department.name}} 
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+</ul>
+<!-- Tab content -->
+<div class="tab-content" id="pills-tabContent">
+    <!-- tab content -->
+    {% for department in departments %}
+    {% if department.subject_set.exists %}
+      <div class="tab-pane fade {% if forloop.first %}show active{% endif %} "
+        id="departments_{{department.id}}" role="tabpanel"
+        aria-labelledby="departments_{{department.id}}-tab">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+          {% for subject in department.subject_set.all %}
+            {% include 'components/course_card.html' with subject=subject %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
